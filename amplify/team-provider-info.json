@@ -1,23 +1,41 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-mlmmocom-dev-13250-authRole",
-            "UnauthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-            "UnauthRoleName": "amplify-mlmmocom-dev-13250-unauthRole",
-            "StackName": "amplify-mlmmocom-dev-13250",
-            "StackId": "arn:aws:cloudformation:us-east-1:018872277288:stack/amplify-mlmmocom-dev-13250/ebe126e0-5863-11eb-a1ba-0a6a26cca077",
-            "AmplifyAppId": "d3cj9kgbhv6dh8"
-        },
-        "categories": {
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d3cj9kgbhv6dh8",
-                    "type": "cicd"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mlmmocom-dev-13250-authRole",
+      "UnauthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+      "UnauthRoleName": "amplify-mlmmocom-dev-13250-unauthRole",
+      "StackName": "amplify-mlmmocom-dev-13250",
+      "StackId": "arn:aws:cloudformation:us-east-1:018872277288:stack/amplify-mlmmocom-dev-13250/ebe126e0-5863-11eb-a1ba-0a6a26cca077",
+      "AmplifyAppId": "d3cj9kgbhv6dh8"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3cj9kgbhv6dh8",
+          "type": "cicd"
         }
+      },
+      "function": {
+        "mlmmocom9276b128DefineAuthChallenge": {},
+        "mlmmocom9276b128CreateAuthChallenge": {},
+        "mlmmocom9276b128VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6LcjwjEaAAAAAOrQKWimgYAGYOvoAQq0F_iQPlRf"
+        },
+        "mlmmocom9276b128CustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "Confirm your email address",
+          "EMAILMESSAGE": "Please confirm this email address by clicking on the link below:"
+        },
+        "mlmmocom9276b128PostConfirmation": {
+          "GROUP": "player"
+        }
+      },
+      "auth": {
+        "mlmmocom9276b128": {}
+      }
     }
+  }
 }
