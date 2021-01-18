@@ -1,15 +1,23 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-mlmmocom-dev-13250-authRole",
-      "UnauthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-      "UnauthRoleName": "amplify-mlmmocom-dev-13250-unauthRole",
-      "StackName": "amplify-mlmmocom-dev-13250",
-      "StackId": "arn:aws:cloudformation:us-east-1:018872277288:stack/amplify-mlmmocom-dev-13250/ebe126e0-5863-11eb-a1ba-0a6a26cca077",
-      "AmplifyAppId": "d3cj9kgbhv6dh8"
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-mlmmocom-dev-13250-authRole",
+            "UnauthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::018872277288:role/amplify-mlmmocom-dev-13250-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+            "UnauthRoleName": "amplify-mlmmocom-dev-13250-unauthRole",
+            "StackName": "amplify-mlmmocom-dev-13250",
+            "StackId": "arn:aws:cloudformation:us-east-1:018872277288:stack/amplify-mlmmocom-dev-13250/ebe126e0-5863-11eb-a1ba-0a6a26cca077",
+            "AmplifyAppId": "d3cj9kgbhv6dh8"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3cj9kgbhv6dh8",
+                    "type": "cicd"
+                }
+            }
+        }
     }
-  }
 }
