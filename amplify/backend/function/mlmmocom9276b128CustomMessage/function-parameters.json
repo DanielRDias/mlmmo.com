@@ -1,8 +1,6 @@
 {
   "trigger": true,
-  "modules": [
-    "verification-link"
-  ],
+  "modules": ["verification-link"],
   "parentResource": "mlmmocom9276b128",
   "functionName": "mlmmocom9276b128CustomMessage",
   "resourceName": "mlmmocom9276b128CustomMessage",
@@ -17,7 +15,7 @@
   "triggerTemplate": "CustomMessage.json.ejs",
   "roleName": "mlmmocom9276b128CustomMessage",
   "skipEdit": true,
-  "REDIRECTURL": "",
+  "REDIRECTURL": "https://mlmmo.com",
   "EMAILSUBJECT": "Confirm your email address",
   "EMAILMESSAGE": "Please confirm this email address by clicking on the link below:",
   "RESOURCENAME": "resourceName",

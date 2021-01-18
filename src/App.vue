@@ -73,8 +73,9 @@
           </v-list-item>
           <v-switch
             v-model="$vuetify.theme.dark"
-            label="Dark Mode"
+            label="Theme"
             v-on:change="themeToggleEvent"
+            prepend-icon="mdi-theme-light-dark"
           >
           </v-switch>
         </v-list>
@@ -86,9 +87,20 @@
       class="overflow-y-auto"
       max-height="800"
     >
-      <v-main>
-        <router-view></router-view>
-      </v-main>
+      <amplify-authenticator>
+        <amplify-sign-up
+          slot="sign-up"
+          :form-fields.prop="formFields"
+        ></amplify-sign-up>
+
+        <div>
+          My App
+          <v-main>
+            <router-view></router-view>
+          </v-main>
+          <amplify-sign-out></amplify-sign-out>
+        </div>
+      </amplify-authenticator>
     </v-sheet>
   </v-app>
 </template>
@@ -109,6 +121,21 @@ export default {
       { title: "Login", icon: "mdi-login", to: "/login" },
       { title: "Register", icon: "mdi-account-plus", to: "/register" },
       { title: "Logout", icon: "mdi-logout", to: "/logout" },
+    ],
+
+    formFields: [
+      {
+        type: "username",
+        required: true,
+      },
+      {
+        type: "email",
+        required: true,
+      },
+      {
+        type: "password",
+        required: true,
+      },
     ],
   }),
   methods: {
