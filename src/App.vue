@@ -87,20 +87,9 @@
       class="overflow-y-auto"
       max-height="800"
     >
-      <amplify-authenticator>
-        <amplify-sign-up
-          slot="sign-up"
-          :form-fields.prop="formFields"
-        ></amplify-sign-up>
-
-        <div>
-          My App
-          <v-main>
-            <router-view></router-view>
-          </v-main>
-          <amplify-sign-out></amplify-sign-out>
-        </div>
-      </amplify-authenticator>
+      <v-main>
+        <router-view></router-view>
+      </v-main>
     </v-sheet>
   </v-app>
 </template>
