@@ -24,9 +24,7 @@
     </v-navigation-drawer>
     <v-app-bar
       app
-      shrink-on-scroll
       src="./assets/book-1769625_640.png"
-      scroll-target="#scrolling-techniques-2"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -80,16 +78,9 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-
-    <v-sheet
-      id="scrolling-techniques-2"
-      class="overflow-y-auto"
-      max-height="800"
-    >
       <v-main>
         <router-view></router-view>
       </v-main>
-    </v-sheet>
   </v-app>
 </template>
 
