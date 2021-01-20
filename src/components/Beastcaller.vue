@@ -4,7 +4,7 @@
     max-width="344"
   >
     <v-img
-      src="..\assets\classes\beastcaller-class-magic-legends-wiki-guide-300px.jpg"
+      src="../assets/classes/beastcaller-class-magic-legends-wiki-guide-300px.jpg"
       height="200px"
     ></v-img>
 
