@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="344">
     <v-img
-      src="..\assets\classes\magic_legends_sanctifier_class_crop.jpg"
+      src="../assets/classes/magic_legends_sanctifier_class_crop.jpg"
       height="200px"
     ></v-img>
 
