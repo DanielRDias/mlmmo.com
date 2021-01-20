@@ -19,22 +19,14 @@
         }
       },
       "function": {
-        "mlmmocom9276b128DefineAuthChallenge": {},
-        "mlmmocom9276b128CreateAuthChallenge": {},
-        "mlmmocom9276b128VerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": "6LcjwjEaAAAAAOrQKWimgYAGYOvoAQq0F_iQPlRf"
-        },
-        "mlmmocom9276b128CustomMessage": {
-          "REDIRECTURL": "",
-          "EMAILSUBJECT": "Confirm your email address",
-          "EMAILMESSAGE": "Please confirm this email address by clicking on the link below:"
-        },
-        "mlmmocom9276b128PostConfirmation": {
-          "GROUP": "player"
+        "mlmmocom9f949725DefineAuthChallenge": {},
+        "mlmmocom9f949725CreateAuthChallenge": {},
+        "mlmmocom9f949725VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6LffQTIaAAAAAOGPwX9YjWJoHmlSgZIn1hECGAoc"
         }
       },
       "auth": {
-        "mlmmocom9276b128": {}
+        "mlmmocom9f949725": {}
       }
     }
   }

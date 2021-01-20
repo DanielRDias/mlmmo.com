@@ -7,40 +7,30 @@
     }
   },
   "function": {
-    "mlmmocom9276b128DefineAuthChallenge": {
+    "mlmmocom9f949725DefineAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "mlmmocom9276b128CreateAuthChallenge": {
+    "mlmmocom9f949725CreateAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "mlmmocom9276b128VerifyAuthChallengeResponse": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "mlmmocom9276b128CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "mlmmocom9276b128PostConfirmation": {
+    "mlmmocom9f949725VerifyAuthChallengeResponse": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "auth": {
-    "mlmmocom9276b128": {
+    "mlmmocom9f949725": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "mlmmocom9276b128DefineAuthChallenge",
+          "resourceName": "mlmmocom9f949725DefineAuthChallenge",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -49,7 +39,7 @@
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom9276b128CreateAuthChallenge",
+          "resourceName": "mlmmocom9f949725CreateAuthChallenge",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -58,25 +48,7 @@
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom9276b128VerifyAuthChallengeResponse",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "mlmmocom9276b128CustomMessage",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "mlmmocom9276b128PostConfirmation",
+          "resourceName": "mlmmocom9f949725VerifyAuthChallengeResponse",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
