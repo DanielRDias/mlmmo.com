@@ -30,6 +30,7 @@
                 type="password"
                 v-model="password"
               ></v-text-field>
+              <v-btn type="submit" style="display: none"></v-btn>
             </v-form>
           </v-card-text>
           <v-divider></v-divider>
