@@ -1,0 +1,23 @@
+{
+  "trigger": true,
+  "modules": ["verification-link"],
+  "parentResource": "mlmmocom9276b128",
+  "functionName": "mlmmocom9276b128CustomMessage",
+  "resourceName": "mlmmocom9276b128CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "roleName": "mlmmocom9276b128CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://mlmmo.com",
+  "EMAILSUBJECT": "Confirm your email address",
+  "EMAILMESSAGE": "Please confirm this email address by clicking on the link below:",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}
