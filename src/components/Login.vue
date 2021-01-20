@@ -51,7 +51,11 @@
           <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
             <v-btn color="info" text> Forgot password? </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="info" :large="$vuetify.breakpoint.smAndUp">
+            <v-btn
+              color="info"
+              :large="$vuetify.breakpoint.smAndUp"
+              to="/register"
+            >
               <v-icon left>mdi-account-plus</v-icon>
               Register
             </v-btn>
