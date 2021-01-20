@@ -72,7 +72,7 @@
               <v-list-item-title>Register</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item v-if="user" key="Logout" to="/logout" link>
+          <v-list-item v-if="user" key="Logout" @click="logout" link>
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
