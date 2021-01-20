@@ -53,26 +53,36 @@
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
-
         <v-list>
-          <v-list-item
-            v-for="optionitem in optionsitem"
-            :key="optionitem.title"
-            :to="optionitem.to"
-            link
-          >
+          <v-list-item v-if="!user" key="Login" to="/login" link>
             <v-list-item-icon>
-              <v-icon>{{ optionitem.icon }}</v-icon>
+              <v-icon>mdi-login</v-icon>
             </v-list-item-icon>
-
             <v-list-item-content>
-              <v-list-item-title>{{ optionitem.title }}</v-list-item-title>
+              <v-list-item-title>Login</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="!user" key="Register" to="/register" link>
+            <v-list-item-icon>
+              <v-icon>mdi-account-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Register</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="user" key="Logout" @click="logout" link>
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-switch
             v-model="$vuetify.theme.dark"
-            label="Dark Mode"
+            label="Theme"
             v-on:change="themeToggleEvent"
+            prepend-icon="mdi-theme-light-dark"
           >
           </v-switch>
         </v-list>
@@ -85,6 +95,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     drawer: null,
@@ -96,16 +108,24 @@ export default {
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
-    optionsitem: [
-      { title: "Login", icon: "mdi-login", to: "/login" },
-      { title: "Register", icon: "mdi-account-plus", to: "/register" },
-      { title: "Logout", icon: "mdi-logout", to: "/logout" },
-    ],
   }),
+  mounted() {
+    this.authAction();
+  },
   methods: {
+    ...mapActions("auth", ["authAction"]),
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
+  },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
   },
 };
 </script>
