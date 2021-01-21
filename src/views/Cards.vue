@@ -73,9 +73,15 @@
             lg="3"
           >
             <v-card>
-              <v-card-title class="subheading font-weight-bold">
-                {{ item.name }}
-              </v-card-title>
+              <v-img
+                class="white--text align-end"
+                height="200px"
+                :src="item.img"
+              >
+                <v-card-title class="subheading font-weight-bold">
+                  {{ item.name }}
+                </v-card-title>
+              </v-img>
 
               <v-divider></v-divider>
 
@@ -182,6 +188,8 @@ export default {
       items: [
         {
           name: "Sporecap Spider",
+          img:
+            "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/a/b/abb1d18f-7a94-4a2f-a60c-0af852d44501.jpg",
           cost: "2G",
           cmc: 3,
           color: "Green",
@@ -201,6 +209,8 @@ export default {
         },
         {
           name: "Academy Wizard",
+          img:
+            "https://media.magic.wizards.com/images/hero/aFTYou5enU_icon.jpg",
           cost: "3U",
           cmc: 4,
           color: "Blue",
