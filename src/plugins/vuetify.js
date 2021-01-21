@@ -4,5 +4,5 @@ import Vuetify from "vuetify/lib/framework";
 Vue.use(Vuetify);
 
 export default new Vuetify({
-  theme: { dark: localStorage.getItem("darktheme") == "true" },
+  theme: { dark: localStorage.getItem("darktheme") != "false" },
 });
