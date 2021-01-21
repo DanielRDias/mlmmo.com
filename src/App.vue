@@ -22,10 +22,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      app
-      src="./assets/book-1769625_640.png"
-    >
+    <v-app-bar app src="./assets/other/book-1769625_640-min.png">
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
