@@ -54,7 +54,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-if="!user" key="Login" to="/login" link>
+          <!-- <v-list-item v-if="!user" key="Login" to="/login" link>
             <v-list-item-icon>
               <v-icon>mdi-login</v-icon>
             </v-list-item-icon>
@@ -77,7 +77,7 @@
             <v-list-item-content>
               <v-list-item-title>Logout</v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
           <v-switch
             v-model="$vuetify.theme.dark"
             label="Theme"
@@ -88,9 +88,9 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-      <v-main>
-        <router-view></router-view>
-      </v-main>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
@@ -109,23 +109,23 @@ export default {
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
   }),
-  mounted() {
-    this.authAction();
-  },
+  // mounted() {
+  //   this.authAction();
+  // },
   methods: {
-    ...mapActions("auth", ["authAction"]),
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
-    async logout() {
-      await this.$store.dispatch("auth/logout");
-      this.$router.push("/");
-    },
+    // ...mapActions("auth", ["authAction"]),
+    // async logout() {
+    //   await this.$store.dispatch("auth/logout");
+    //   this.$router.push("/");
+    // },
   },
-  computed: {
-    ...mapGetters({
-      user: "auth/user",
-    }),
-  },
+  // computed: {
+  //   ...mapGetters({
+  //     user: "auth/user",
+  //   }),
+  // },
 };
 </script>
