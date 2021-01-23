@@ -22,10 +22,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      app
-      src="./assets/book-1769625_640.png"
-    >
+    <v-app-bar app src="./assets/other/book-1769625_640-min.png">
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
@@ -39,58 +36,20 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-switch
+        color="blue darken-3"
+        v-model="$vuetify.theme.dark"
+        label="Theme"
+        v-on:change="themeToggleEvent"
+        prepend-icon="mdi-theme-light-dark"
+      >
+      </v-switch>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-menu bottom left>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item v-if="!user" key="Login" to="/login" link>
-            <v-list-item-icon>
-              <v-icon>mdi-login</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Login</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item v-if="!user" key="Register" to="/register" link>
-            <v-list-item-icon>
-              <v-icon>mdi-account-plus</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Register</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item v-if="user" key="Logout" @click="logout" link>
-            <v-list-item-icon>
-              <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Logout</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-switch
-            v-model="$vuetify.theme.dark"
-            label="Theme"
-            v-on:change="themeToggleEvent"
-            prepend-icon="mdi-theme-light-dark"
-          >
-          </v-switch>
-        </v-list>
-      </v-menu>
+      <v-menu bottom left> </v-menu>
     </v-app-bar>
-      <v-main>
-        <router-view></router-view>
-      </v-main>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
@@ -109,23 +68,23 @@ export default {
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
   }),
-  mounted() {
-    this.authAction();
-  },
+  // mounted() {
+  //   this.authAction();
+  // },
   methods: {
-    ...mapActions("auth", ["authAction"]),
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
-    async logout() {
-      await this.$store.dispatch("auth/logout");
-      this.$router.push("/");
-    },
+    // ...mapActions("auth", ["authAction"]),
+    // async logout() {
+    //   await this.$store.dispatch("auth/logout");
+    //   this.$router.push("/");
+    // },
   },
-  computed: {
-    ...mapGetters({
-      user: "auth/user",
-    }),
-  },
+  // computed: {
+  //   ...mapGetters({
+  //     user: "auth/user",
+  //   }),
+  // },
 };
 </script>
