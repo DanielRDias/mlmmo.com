@@ -58,5 +58,12 @@
       ],
       "customAuth": true
     }
+  },
+  "api": {},
+  "storage": {
+    "cardss3": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
