@@ -1,13 +1,14 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="items"
+      :items="cards ? cards : nocards"
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
       :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
       hide-default-footer
+      loading
     >
       <template v-slot:header>
         <v-toolbar class="mb-1">
@@ -68,54 +69,68 @@
             v-for="item in props.items"
             :key="item.name"
             cols="12"
-            sm="6"
+            sm=""
             md="4"
-            lg="3"
+            lg="2"
           >
             <v-card>
+              <div class="font-weight-bold text-no-wrap secondary">
+                {{ item.name }}
+              </div>
               <v-img
-                class="white--text align-end"
+                class="white--text align-top"
                 height="200px"
-                :src="item.img"
+                :src="item.imgUrl ? item.imgUrl : `logo.png`"
               >
-                <v-card-title class="subheading font-weight-bold">
-                  {{ item.name }}
-                </v-card-title>
+                <div
+                  class="font-weight-bold v-card--reveal"
+                  v-html="convertManaString(item.cost)"
+                ></div>
+                <v-list dense class="v-card--over">
+                  <v-list-item
+                    v-for="(key, index) in filteredKeys"
+                    :key="index"
+                  >
+                    <v-list-item-content
+                      :class="{ 'blue--text': sortBy === key }"
+                    >
+                      {{ key }}:
+                    </v-list-item-content>
+                    <v-list-item-content
+                      class="align-end"
+                      :class="{ 'blue--text': sortBy === key }"
+                    >
+                      {{ item[key.toLowerCase()] }}
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
               </v-img>
 
-              <v-divider></v-divider>
+              <v-card-actions>
+                <v-btn text color="teal accent-4" @click="reveal = true">
+                  Show Description
+                </v-btn>
+              </v-card-actions>
 
-              <v-list dense>
-                <v-list-item
-                  v-for="(property, index) in item.properties[
-                    parseInt(cardRank) - 1
-                  ]"
-                  :key="index"
+              <v-expand-transition>
+                <v-card
+                  v-if="reveal"
+                  class="transition-fast-in-fast-out v-card--reveal"
+                  style="height: 100%"
                 >
-                  <v-list-item-content> {{ index }}: </v-list-item-content>
-                  <v-list-item-content class="align-end">
-                    {{ property }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-
-              <v-divider></v-divider>
-
-              <v-list dense>
-                <v-list-item v-for="(key, index) in filteredKeys" :key="index">
-                  <v-list-item-content
-                    :class="{ 'blue--text': sortBy === key }"
-                  >
-                    {{ key }}:
-                  </v-list-item-content>
-                  <v-list-item-content
-                    class="align-end"
-                    :class="{ 'blue--text': sortBy === key }"
-                  >
-                    {{ item[key.toLowerCase()] }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
+                  <div class="font-weight-bold text-no-wrap secondary">
+                    Description:
+                  </div>
+                  <div>
+                    {{ item["description"] }}
+                  </div>
+                  <v-card-actions class="pt-0">
+                    <v-btn text color="teal accent-4" @click="reveal = false">
+                      Close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-expand-transition>
             </v-card>
           </v-col>
         </v-row>
@@ -123,7 +138,7 @@
 
       <template v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
-          <span class="grey--text">Items per page</span>
+          <span class="grey--text">Items</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -150,16 +165,6 @@
           </v-menu>
 
           <v-spacer></v-spacer>
-
-          <span class="mr-4 grey--text">
-            Page {{ page }} of {{ numberOfPages }}
-          </span>
-          <v-btn fab class="mr-1" @click="formerPage">
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn fab class="ml-1" @click="nextPage">
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
         </v-row>
       </template>
     </v-data-iterator>
@@ -167,76 +172,46 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
+  async mounted() {
+    this.$store.dispatch("cardInfo/getCardsData");
+  },
   data() {
     return {
-      itemsPerPageArray: [4, 8, 12],
+      reveal: false,
+      nocards: [],
+      itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
       search: "",
       filter: {},
       sortDesc: false,
       page: 1,
-      itemsPerPage: 4,
+      itemsPerPage: 12,
       sortBy: "name",
       cardRank: "1",
       keys: ["Name", "Cost", "CMC", "Color", "Type", "Points", "Description"],
-      ranks: [1, 2, 3],
-      properties: {
-        Creature: ["Damage", "HP", "Speed", "Role"],
-        Sorcery: ["Damage", "Duration", "Range", "Area"],
-        Enchantment: ["Effect", "Duration"],
-      },
-      items: [
-        {
-          name: "Sporecap Spider",
-          img:
-            "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/a/b/abb1d18f-7a94-4a2f-a60c-0af852d44501.jpg",
-          cost: "2G",
-          cmc: 3,
-          color: "Green",
-          type: "Creature",
-          points: 2,
-          properties: [
-            { Damage: 66, HP: 1100, Speed: "Medium", Role: "Melee" },
-            { Damage: 99, HP: 1400, Speed: "Medium", Role: "Melee" },
-            { Damage: 132, HP: 1600, Speed: "Medium", Role: "Melee" },
-          ],
-          description:
-            "Special Ability: Fires a projectile that deals 200% of its damage over 3 seconds to the target and applying Stun to the duration",
-          other: {
-            creatureType: "Spider",
-            stun: "3s",
-          },
-        },
-        {
-          name: "Academy Wizard",
-          img:
-            "https://media.magic.wizards.com/images/hero/aFTYou5enU_icon.jpg",
-          cost: "3U",
-          cmc: 4,
-          color: "Blue",
-          type: "Creature",
-          points: 3,
-          properties: [
-            { Damage: 99, HP: 550, Speed: "Medium", Role: "Ranged" },
-            { Damage: 132, HP: 700, Speed: "Medium", Role: "Ranged" },
-            { Damage: 163, HP: 850, Speed: "Medium", Role: "Ranged" },
-          ],
-          description:
-            "Whenever you draw one or more spells, Academy Wizard summons a 1/1 ranged Illusion (up to a maximum of 3)",
-          other: {
-            creatureType: "Illusion",
-          },
-        },
+      ranks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      properties: [
+        "Rank",
+        "Damage",
+        "Health",
+        "DPS",
+        "Role",
+        "Duration",
+        "Range",
+        "Area",
       ],
     };
   },
   computed: {
-    numberOfPages() {
-      return Math.ceil(this.items.length / this.itemsPerPage);
-    },
     filteredKeys() {
-      return this.keys.filter((key) => key !== "Name");
+      return this.keys.filter((key) => key !== "Description");
     },
+    ...mapGetters({
+      user: "auth/user",
+      cards: "cardInfo/cards",
+    }),
   },
   methods: {
     nextPage() {
@@ -248,6 +223,33 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
+    convertManaString(manaStr) {
+      var manaConvert = {
+        R: "<img src='img/mana/R.svg' width='14' height='14' />",
+        W: "<img src='img/mana/W.svg' width='14' height='14' />",
+        B: "<img src='img/mana/B.svg' width='14' height='14' />",
+        U: "<img src='img/mana/U.svg' width='14' height='14' />",
+        G: "<img src='img/mana/G.svg' width='14' height='14' />",
+      };
+      return manaStr.replace(/R|W|B|U|G/gi, function (matched) {
+        return manaConvert[matched];
+      });
+    },
   },
 };
 </script>
+
+<style>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 0.9 !important;
+  position: absolute;
+  width: 100%;
+}
+.v-card--over {
+  bottom: 0;
+  opacity: 0.5 !important;
+  position: absolute;
+  width: 100%;
+}
+</style>
