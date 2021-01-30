@@ -58,5 +58,39 @@
       ],
       "customAuth": true
     }
+  },
+  "api": {
+    "CardsApi": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmlmmocom9f949725"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "description": "Cards API Key"
+              }
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "storage": {
+    "cardss3": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
