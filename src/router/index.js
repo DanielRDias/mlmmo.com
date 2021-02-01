@@ -39,6 +39,12 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/adddeck",
+    name: "AddDeck",
+    component: () => import("../views/AddDeck.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
