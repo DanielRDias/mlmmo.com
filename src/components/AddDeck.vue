@@ -1,10 +1,27 @@
 <template>
   <v-card class="mx-auto" max-width="500">
-    <v-btn v-if="allowEdit" fab x-small color="green" @click="addDeck(deck)">
-      <v-icon> mdi-plus </v-icon>
-    </v-btn>
-    <v-toolbar color="teal" dark>
-      <v-toolbar-title>{{ deck.name }}</v-toolbar-title>
+    <v-toolbar color="blue-grey lighten-1">
+      <v-toolbar-title>
+        <v-text-field v-model="deck.name" label="Deck Name" />
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-tooltip bottom>
+        <span>Save Deck</span>
+      </v-tooltip>
+
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            v-if="allowEdit"
+            v-bind="attrs"
+            v-on="on"
+            @click="addDeck(deck)"
+          >
+            mdi-content-save
+          </v-icon>
+        </template>
+        <span>Save Deck</span>
+      </v-tooltip>
     </v-toolbar>
 
     <v-list>
@@ -33,15 +50,20 @@
                     </v-card>
                   </v-col>
                   <v-col cols="2" md="2" class="text-end">
-                    <v-btn
-                      v-if="allowEdit"
-                      fab
-                      x-small
-                      color="red"
-                      @click="deleteCard(deck, card)"
-                    >
-                      <v-icon> mdi-minus </v-icon>
-                    </v-btn>
+                    <v-tooltip right>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                          v-if="allowEdit"
+                          color="red"
+                          v-bind="attrs"
+                          v-on="on"
+                          @click="deleteCard(deck, card)"
+                        >
+                          mdi-minus-circle
+                        </v-icon>
+                      </template>
+                      <span>Remove Card</span>
+                    </v-tooltip>
                   </v-col>
                 </v-row>
               </v-container>

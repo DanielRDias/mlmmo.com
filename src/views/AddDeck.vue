@@ -1,7 +1,8 @@
 <template>
   <div class="home">
+    <br />
     <AddDeck ref="addDeck" />
-    <Cards />
+    <Cards ref="cards" />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ export default {
   },
   mounted() {
     this.$refs.addDeck.setAllowEdit(true);
+    this.$refs.cards.setAllowEdit(true);
   },
 };
 </script>

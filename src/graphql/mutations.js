@@ -13,7 +13,20 @@ export const createDeck = /* GraphQL */ `
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;
@@ -29,7 +42,20 @@ export const updateDeck = /* GraphQL */ `
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;
@@ -45,7 +71,20 @@ export const deleteDeck = /* GraphQL */ `
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;

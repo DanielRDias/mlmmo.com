@@ -75,6 +75,20 @@
           >
             <v-card>
               <div class="font-weight-bold text-no-wrap secondary">
+                <v-tooltip right>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      v-if="allowEdit"
+                      color="green"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="deleteCard(deck, card)"
+                    >
+                      mdi-plus-box
+                    </v-icon>
+                  </template>
+                  <span>Add Card</span>
+                </v-tooltip>
                 {{ item.name }}
               </div>
               <v-img
@@ -118,6 +132,20 @@
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%"
                 >
+                  <v-tooltip right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon
+                        v-if="allowEdit"
+                        color="green"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="deleteCard(deck, card)"
+                      >
+                        mdi-plus-box
+                      </v-icon>
+                    </template>
+                    <span>Add Card</span>
+                  </v-tooltip>
                   <div class="font-weight-bold text-no-wrap secondary">
                     Description:
                   </div>
@@ -180,6 +208,7 @@ export default {
   },
   data() {
     return {
+      allowEdit: false,
       reveal: false,
       nocards: [],
       itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
@@ -214,6 +243,9 @@ export default {
     }),
   },
   methods: {
+    setAllowEdit(value) {
+      this.allowEdit = value;
+    },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
     },
