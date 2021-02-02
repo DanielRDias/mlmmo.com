@@ -10,7 +10,20 @@ export const getDeck = /* GraphQL */ `
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;
@@ -28,7 +41,6 @@ export const listDecks = /* GraphQL */ `
         name
         createdAt
         updatedAt
-        cards
       }
       nextToken
     }

@@ -1,11 +1,23 @@
-type Deck @model @auth(rules: [{ allow: owner }]) {
+type Deck
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Admins"]
+        queries: [get, list]
+        mutations: [create, update, delete]
+      }
+      { allow: public, operations: [read] }
+    ]
+  ) {
   id: ID!
   owner: ID!
   ownerId: String!
   name: String!
   createdAt: String
   updatedAt: String
-  cards: [String]
+  cards: [Card!]
 }
 
 type Card

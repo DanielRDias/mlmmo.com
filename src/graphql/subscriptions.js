@@ -2,41 +2,80 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateDeck = /* GraphQL */ `
-  subscription OnCreateDeck($owner: String) {
-    onCreateDeck(owner: $owner) {
+  subscription OnCreateDeck {
+    onCreateDeck {
       id
       owner
       ownerId
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;
 export const onUpdateDeck = /* GraphQL */ `
-  subscription OnUpdateDeck($owner: String) {
-    onUpdateDeck(owner: $owner) {
+  subscription OnUpdateDeck {
+    onUpdateDeck {
       id
       owner
       ownerId
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;
 export const onDeleteDeck = /* GraphQL */ `
-  subscription OnDeleteDeck($owner: String) {
-    onDeleteDeck(owner: $owner) {
+  subscription OnDeleteDeck {
+    onDeleteDeck {
       id
       owner
       ownerId
       name
       createdAt
       updatedAt
-      cards
+      cards {
+        id
+        name
+        createdAt
+        updatedAt
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        description
+        version
+      }
     }
   }
 `;

@@ -55,6 +55,10 @@
                     ></v-select>
                   </v-col>
 
+                  <v-col cols="12" md="12">
+                    <v-text-field v-model="card.imgUrl" label="Image URL" />
+                  </v-col>
+
                   <v-col cols="12">
                     <v-textarea
                       v-model="card.description"
