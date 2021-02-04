@@ -97,7 +97,7 @@
 
     <v-overlay :value="overlay">
       <v-btn @click="overlay = false"> Close </v-btn>
-      <v-card v-scroll.self="onScroll" class="overflow-y-auto" max-height="600">
+      <v-card class="overflow-y-auto" max-height="600">
         <v-progress-circular
           indeterminate
           size="64"
