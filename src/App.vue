@@ -54,14 +54,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {
   data: () => ({
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Builds", icon: "mdi-view-dashboard", to: "/builds" },
+      { title: "Decks", icon: "mdi-view-dashboard", to: "/decks" },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
