@@ -8,22 +8,18 @@ export const onCreateDeck = /* GraphQL */ `
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards {
-        id
-        name
-        createdAt
-        updatedAt
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        description
-        version
-      }
+      version
     }
   }
 `;
@@ -34,22 +30,18 @@ export const onUpdateDeck = /* GraphQL */ `
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards {
-        id
-        name
-        createdAt
-        updatedAt
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        description
-        version
-      }
+      version
     }
   }
 `;
@@ -60,22 +52,18 @@ export const onDeleteDeck = /* GraphQL */ `
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards {
-        id
-        name
-        createdAt
-        updatedAt
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        description
-        version
-      }
+      version
     }
   }
 `;
@@ -84,8 +72,6 @@ export const onCreateCard = /* GraphQL */ `
     onCreateCard {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -113,6 +99,24 @@ export const onCreateCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }
@@ -122,8 +126,6 @@ export const onUpdateCard = /* GraphQL */ `
     onUpdateCard {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -151,6 +153,24 @@ export const onUpdateCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }
@@ -160,8 +180,6 @@ export const onDeleteCard = /* GraphQL */ `
     onDeleteCard {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -189,6 +207,24 @@ export const onDeleteCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }

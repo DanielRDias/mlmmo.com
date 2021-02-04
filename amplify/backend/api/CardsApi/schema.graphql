@@ -12,12 +12,16 @@ type Deck
     ]
   ) {
   id: ID!
-  owner: ID!
-  ownerId: String!
+  owner: String
+  ownerId: String
   name: String!
+  colors: String
+  type: String
+  cards: [String]
+  vote: Vote
   createdAt: String
   updatedAt: String
-  cards: [Card!]
+  version: String
 }
 
 type Card
@@ -26,7 +30,7 @@ type Card
     rules: [
       {
         allow: groups
-        groups: ["Admins"]
+        groups: ["Admins", "Moderators"]
         queries: [get, list]
         mutations: [create, update, delete]
       }
@@ -35,8 +39,6 @@ type Card
   ) {
   id: ID!
   name: String!
-  createdAt: String
-  updatedAt: String
   imgUrl: String
   imgFullSize: S3Object
   imgThumbnail: S3Object
@@ -47,6 +49,19 @@ type Card
   points: Int!
   properties: [CardProperties]
   description: String!
+  r10damage: Int
+  r10health: Int
+  r10dps: String
+  r10role: String
+  r10duration: String
+  r10range: Int
+  r10area: String
+  decks: [String]
+  vote: Vote
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
   version: String
 }
 
@@ -65,4 +80,11 @@ type S3Object @aws_iam @aws_cognito_user_pools {
   region: String!
   bucket: String!
   key: String!
+}
+
+type Vote {
+  downVote: Int
+  upVote: Int
+  rating: Float
+  voteCount: Int
 }
