@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-    <br />
+  <div class="home pa-1">
     <AddDeck ref="addDeck" />
     <Cards ref="cards" />
   </div>

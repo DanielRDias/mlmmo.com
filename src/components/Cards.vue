@@ -71,9 +71,9 @@
             v-for="item in props.items"
             :key="item.name"
             cols="12"
-            sm=""
+            sm="6"
             md="4"
-            lg="2"
+            lg="3"
           >
             <v-card>
               <div class="font-weight-bold text-no-wrap secondary">
@@ -84,7 +84,7 @@
                       color="green"
                       v-bind="attrs"
                       v-on="on"
-                      @click="deleteCard(deck, card)"
+                      @click="addCardToDeck(item.id)"
                     >
                       mdi-plus-box
                     </v-icon>
@@ -141,7 +141,7 @@
                         color="green"
                         v-bind="attrs"
                         v-on="on"
-                        @click="deleteCard(deck, card)"
+                        @click="addCardToDeck(item.id)"
                       >
                         mdi-plus-box
                       </v-icon>
@@ -245,6 +245,12 @@ export default {
     }),
   },
   methods: {
+    addCardToDeck(cardId) {
+      this.$store.commit({
+        type: "cardInfo/addCardToDeck",
+        cardId: cardId,
+      });
+    },
     setAllowEdit(value) {
       this.allowEdit = value;
     },
