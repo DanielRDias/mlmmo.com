@@ -2,7 +2,15 @@
   <v-card class="mx-auto" max-width="500">
     <v-toolbar color="blue-grey lighten-1">
       <v-toolbar-title>
-        <v-text-field v-model="deck.name" label="Deck Name" />
+        <v-text-field
+          class="mt-6"
+          v-model="deck.name"
+          label="Deck Name"
+          placeholder="Deck Name"
+          filled
+          rounded
+          dense
+        ></v-text-field>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip bottom>
@@ -11,22 +19,16 @@
 
       <v-tooltip left>
         <template v-slot:activator="{ on, attrs }">
-          <v-icon
-            v-if="allowEdit"
-            v-bind="attrs"
-            v-on="on"
-            @click="addDeck(deck)"
-          >
+          <v-icon v-if="allowEdit" v-bind="attrs" v-on="on" @click="addDeck()">
             mdi-content-save
           </v-icon>
         </template>
         <span>Save Deck</span>
       </v-tooltip>
     </v-toolbar>
-
     <v-list>
       <v-list-group
-        v-for="card in deck.cards"
+        v-for="card in myNewDeckCards"
         :key="card.id"
         v-model="card.active"
         no-action
@@ -57,7 +59,7 @@
                           color="red"
                           v-bind="attrs"
                           v-on="on"
-                          @click="deleteCard(deck, card)"
+                          @click="deleteCard(card.id)"
                         >
                           mdi-minus-circle
                         </v-icon>
@@ -99,160 +101,14 @@ export default {
   },
   data() {
     return {
-      allowEdit: false,
+      allowEdit: true,
+      myNewDeckCards: [],
+      allCards: [],
       deck: {
-        cards: [
-          {
-            id: "e84e1153-0c84-4c3a-89b1-a1eb2520a5c1",
-            name: "7",
-            createdAt: "2021-01-29T16:09:11.900Z",
-            updatedAt: "2021-01-29T16:09:11.900Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/024.jpg",
-            cost: "3W",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "c4a89c9e-6f04-4759-a311-f4c9cb1c66a6",
-            name: "test1",
-            createdAt: "2021-01-27T20:45:29.351Z",
-            updatedAt: "2021-01-27T20:45:29.351Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/021.jpg",
-            cost: "2U",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "aac31b2e-7adc-401e-b3b9-11a8be05bdf1",
-            name: "12",
-            createdAt: "2021-01-29T16:09:28.770Z",
-            updatedAt: "2021-01-29T16:09:28.770Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/031.jpg",
-            cost: "GG",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "14301a7e-6c5b-4ef8-9e5a-07d5c628889f",
-            name: "10",
-            createdAt: "2021-01-29T16:09:21.772Z",
-            updatedAt: "2021-01-29T16:09:21.772Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/015.jpg",
-            cost: "1WW",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "999be9e7-639a-4f8f-86aa-249f030950a6",
-            name: "8",
-            createdAt: "2021-01-29T16:09:15.190Z",
-            updatedAt: "2021-01-29T16:09:15.190Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/019.jpg",
-            cost: "1G",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "eeced20f-eccb-4a56-b942-b1696a64902a",
-            name: "test2",
-            createdAt: "2021-01-27T21:06:09.032Z",
-            updatedAt: "2021-01-27T21:06:09.032Z",
-            imgUrl:
-              "https://cdn1.dotesports.com/wp-content/uploads/2019/11/26170548/embercleave-1024x545.jpg",
-            cost: "1U",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "ed6c5189-20ec-42fc-bc46-d3e0ec5ab5f4",
-            name: "6",
-            createdAt: "2021-01-29T16:09:07.823Z",
-            updatedAt: "2021-01-29T16:09:07.823Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/027.jpg",
-            cost: "RR",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "875142a7-4756-41ac-a184-e676b85d3cee",
-            name: "Enbercleave",
-            createdAt: "2021-01-27T19:37:16.345Z",
-            updatedAt: "2021-01-27T19:37:16.345Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/033.jpg",
-            cost: "4RR",
-            cmc: 6,
-            color: "Red",
-            type: "Enchantment",
-            points: 10,
-            description:
-              "Flash This spell costs 1 less to cast for each attacking creature you control. When Embercleave enters the battlefield, attach it to target creature you control. Equipped creature gets +1/+1 and has double strike and trample. Equip ",
-            version: null,
-          },
-          {
-            id: "184c30c7-cd07-4f59-8ed4-096892160534",
-            name: "15",
-            createdAt: "2021-01-29T16:09:38.514Z",
-            updatedAt: "2021-01-29T16:09:38.514Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/016.jpg",
-            cost: "BB",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-          {
-            id: "e0b75eb6-b724-4be5-aa06-d6ae9014e721",
-            name: "test3",
-            createdAt: "2021-01-27T21:06:47.908Z",
-            updatedAt: "2021-01-27T21:06:47.908Z",
-            imgUrl: "https://www.mtgpics.com/pics/art/khm/022.jpg",
-            cost: "5G",
-            cmc: 0,
-            color: "?",
-            type: "?",
-            points: 0,
-            description: "?",
-            version: null,
-          },
-        ],
-        name: "Living Test Deck 1",
-        owner: "living",
-        ownerId: "b3eafe86-c2e7-4db2-aa85-0d5c1907fadc",
-      },
-      deck1: {
-        name: "Living Test Deck 1",
-        owner: "living",
-        ownerId: "b3eafe86-c2e7-4db2-aa85-0d5c1907fadc",
+        name: "",
+        owner: "",
+        ownerId: "",
+        cards: [],
       },
       reveal: false,
       nocards: [],
@@ -283,14 +139,36 @@ export default {
       return this.keys.filter((key) => key);
     },
     ...mapGetters({
-      user: "auth/user",
       cards: "cardInfo/cards",
+      newDeckCards: "cardInfo/newDeckCards",
+      user: "auth/user",
     }),
   },
+  watch: {
+    cards(allCardsStore) {
+      this.allCards = allCardsStore;
+    },
+    newDeckCards(cardIdList) {
+      try {
+        this.myNewDeckCards = [];
+        for (var i = 0; i < this.allCards.length; i++) {
+          var card = this.allCards[i];
+          if (cardIdList.includes(card.id)) {
+            this.myNewDeckCards.push(card);
+          }
+        }
+        this.deck.cards = cardIdList;
+      } catch (error) {
+        console.log("error getting card by ID", error);
+      }
+    },
+  },
   methods: {
-    deleteCard(deck, card) {
-      let index = deck.cards.indexOf(card);
-      deck.cards.splice(index, 1);
+    deleteCard(cardId) {
+      this.$store.commit({
+        type: "cardInfo/removeCardFromDeck",
+        cardId: cardId,
+      });
     },
     setAllowEdit(value) {
       this.allowEdit = value;
@@ -316,9 +194,11 @@ export default {
         return manaConvert[matched];
       });
     },
-    async addDeck(deck) {
+    async addDeck() {
       try {
-        await this.$store.dispatch("cardInfo/createDeck", deck);
+        this.deck.owner = this.user.username;
+        this.deck.ownerId = this.user.id;
+        await this.$store.dispatch("cardInfo/createDeck", this.deck);
       } catch (error) {
         console.log("error adding the deck", error);
       }

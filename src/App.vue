@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
@@ -67,23 +67,23 @@ export default {
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
   }),
-  // mounted() {
-  //   this.authAction();
-  // },
+  mounted() {
+    this.authAction();
+  },
   methods: {
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
-    // ...mapActions("auth", ["authAction"]),
-    // async logout() {
-    //   await this.$store.dispatch("auth/logout");
-    //   this.$router.push("/");
-    // },
+    ...mapActions("auth", ["authAction"]),
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
   },
-  // computed: {
-  //   ...mapGetters({
-  //     user: "auth/user",
-  //   }),
-  // },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
 };
 </script>

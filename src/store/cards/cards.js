@@ -10,8 +10,25 @@ import awsconfig from "@/aws-exports";
 
 export const cardInfo = {
   namespaced: true,
-  state: { decks: null, cards: null },
+  state: {
+    decks: null,
+    cards: null,
+    newDeck: null,
+    newDeckCards: [],
+  },
   mutations: {
+    setNewDeck(state, payload) {
+      state.newDeck = payload;
+    },
+    removeCardFromDeck(state, payload) {
+      var index = state.newDeckCards.indexOf(payload.cardId);
+      if (index !== -1) {
+        state.newDeckCards.splice(index, 1);
+      }
+    },
+    addCardToDeck(state, payload) {
+      state.newDeckCards.push(payload.cardId);
+    },
     setDecks(state, payload) {
       state.decks = payload;
     },
@@ -44,11 +61,11 @@ export const cardInfo = {
       return await API.graphql(graphqlOperation(getCardQuery, { id: cardId }));
     },
     async getCardsData({ commit }) {
-      const decksData = await API.graphql({
+      const cardsData = await API.graphql({
         query: listCardsQuery,
         authMode: "API_KEY",
       });
-      commit("setCards", decksData.data.listCards.items);
+      commit("setCards", cardsData.data.listCards.items);
     },
     async createCard(_, data) {
       const {
@@ -90,5 +107,7 @@ export const cardInfo = {
   getters: {
     cards: (state) => state.cards,
     decks: (state) => state.decks,
+    newDeck: (state) => state.newDeck,
+    newDeckCards: (state) => state.newDeckCards,
   },
 };
