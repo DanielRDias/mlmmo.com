@@ -42,13 +42,13 @@ type Card
   imgUrl: String
   imgFullSize: S3Object
   imgThumbnail: S3Object
-  cost: String!
-  cmc: Int!
-  color: String!
-  type: String!
-  points: Int!
+  cost: String
+  cmc: Int
+  color: String
+  type: String
+  points: Int
   properties: [CardProperties]
-  description: String!
+  description: String
   r10damage: Int
   r10health: Int
   r10dps: String
