@@ -52,7 +52,7 @@
 
                   <v-fade-transition>
                     <v-overlay v-if="hover" absolute color="#036358">
-                      <v-btn @click="overlay = true">See more info</v-btn>
+                      <v-btn @click="getDeck(item)">Open Deck</v-btn>
                     </v-overlay>
                   </v-fade-transition>
                 </v-card>
@@ -95,16 +95,16 @@
       </template>
     </v-data-iterator>
 
-    <v-overlay :value="overlay">
-      <v-btn @click="overlay = false"> Close </v-btn>
+    <v-overlay :value="deckOverlay">
+      <v-btn @click="deckOverlay = false"> Close </v-btn>
       <v-card class="overflow-y-auto" max-height="600">
         <v-progress-circular
           indeterminate
           size="64"
-          v-if="testload"
+          v-if="currentDeck.cards ? false : true"
         ></v-progress-circular>
         <v-list>
-          <v-list-item v-for="card in cards" :key="card.id">
+          <v-list-item v-for="card in currentDeck.cards" :key="card.id">
             <v-list-item-title>{{ card.name }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -132,9 +132,11 @@ export default {
   data() {
     return {
       testload: false,
-      overlay: false,
+      deckOverlay: false,
       allowEdit: false,
+      currentDeck: { cards: [] },
       nodecks: [],
+      allCards: [],
       itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
       search: "",
       sortDesc: false,
@@ -150,9 +152,25 @@ export default {
       cards: "cardInfo/cards",
     }),
   },
+  watch: {
+    cards(allCardsStore) {
+      this.allCards = allCardsStore;
+    },
+  },
   methods: {
     setAllowEdit(value) {
       this.allowEdit = value;
+    },
+    getDeck(deck) {
+      this.deckOverlay = true;
+      this.currentDeck.cards = [];
+
+      for (var i = 0; i < this.allCards.length; i++) {
+        var card = this.allCards[i];
+        if (deck.cards.includes(card.id)) {
+          this.currentDeck.cards.push(card);
+        }
+      }
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
