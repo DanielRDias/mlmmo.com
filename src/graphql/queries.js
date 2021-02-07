@@ -8,9 +8,18 @@ export const getDeck = /* GraphQL */ `
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards
+      version
     }
   }
 `;
@@ -26,9 +35,18 @@ export const listDecks = /* GraphQL */ `
         owner
         ownerId
         name
+        colors
+        type
+        cards
+        vote {
+          downVote
+          upVote
+          rating
+          voteCount
+        }
         createdAt
         updatedAt
-        cards
+        version
       }
       nextToken
     }
@@ -39,8 +57,6 @@ export const getCard = /* GraphQL */ `
     getCard(id: $id) {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -68,6 +84,24 @@ export const getCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }
@@ -82,15 +116,51 @@ export const listCards = /* GraphQL */ `
       items {
         id
         name
-        createdAt
-        updatedAt
         imgUrl
+        imgFullSize {
+          region
+          bucket
+          key
+        }
+        imgThumbnail {
+          region
+          bucket
+          key
+        }
         cost
         cmc
         color
         type
         points
+        properties {
+          rank
+          damage
+          health
+          dps
+          role
+          duration
+          range
+          area
+        }
         description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        vote {
+          downVote
+          upVote
+          rating
+          voteCount
+        }
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
         version
       }
       nextToken

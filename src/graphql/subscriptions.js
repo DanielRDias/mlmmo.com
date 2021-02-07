@@ -2,41 +2,68 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateDeck = /* GraphQL */ `
-  subscription OnCreateDeck($owner: String) {
-    onCreateDeck(owner: $owner) {
+  subscription OnCreateDeck {
+    onCreateDeck {
       id
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards
+      version
     }
   }
 `;
 export const onUpdateDeck = /* GraphQL */ `
-  subscription OnUpdateDeck($owner: String) {
-    onUpdateDeck(owner: $owner) {
+  subscription OnUpdateDeck {
+    onUpdateDeck {
       id
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards
+      version
     }
   }
 `;
 export const onDeleteDeck = /* GraphQL */ `
-  subscription OnDeleteDeck($owner: String) {
-    onDeleteDeck(owner: $owner) {
+  subscription OnDeleteDeck {
+    onDeleteDeck {
       id
       owner
       ownerId
       name
+      colors
+      type
+      cards
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
       createdAt
       updatedAt
-      cards
+      version
     }
   }
 `;
@@ -45,8 +72,6 @@ export const onCreateCard = /* GraphQL */ `
     onCreateCard {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -74,6 +99,24 @@ export const onCreateCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }
@@ -83,8 +126,6 @@ export const onUpdateCard = /* GraphQL */ `
     onUpdateCard {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -112,6 +153,24 @@ export const onUpdateCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }
@@ -121,8 +180,6 @@ export const onDeleteCard = /* GraphQL */ `
     onDeleteCard {
       id
       name
-      createdAt
-      updatedAt
       imgUrl
       imgFullSize {
         region
@@ -150,6 +207,24 @@ export const onDeleteCard = /* GraphQL */ `
         area
       }
       description
+      r10damage
+      r10health
+      r10dps
+      r10role
+      r10duration
+      r10range
+      r10area
+      decks
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
       version
     }
   }
