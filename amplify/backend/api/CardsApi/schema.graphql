@@ -8,7 +8,7 @@ type Deck
         queries: [get, list]
         mutations: [create, update, delete]
       }
-      { allow: public, operations: [read] }
+      { allow: public, queries: [get, list], mutations: [create] }
     ]
   ) {
   id: ID!
