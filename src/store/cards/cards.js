@@ -28,6 +28,7 @@ export const cardInfo = {
     },
     addCardToDeck(state, payload) {
       state.newDeckCards.push(payload.cardId);
+      state.newDeckCards = [...new Set(state.newDeckCards)];
     },
     setDecks(state, payload) {
       state.decks = payload;

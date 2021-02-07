@@ -80,7 +80,7 @@
                 <v-tooltip right>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
-                      v-if="allowEdit"
+                      v-if="deckEdit"
                       color="green"
                       v-bind="attrs"
                       v-on="on"
@@ -137,7 +137,7 @@
                   <v-tooltip right>
                     <template v-slot:activator="{ on, attrs }">
                       <v-icon
-                        v-if="allowEdit"
+                        v-if="deckEdit"
                         color="green"
                         v-bind="attrs"
                         v-on="on"
@@ -205,12 +205,14 @@
 import { mapGetters } from "vuex";
 
 export default {
+  props: {
+    deckEdit: { type: Boolean, required: false, default: false },
+  },
   async mounted() {
     this.$store.dispatch("cardInfo/getCardsData");
   },
   data() {
     return {
-      allowEdit: false,
       reveal: false,
       nocards: [],
       itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
@@ -250,9 +252,6 @@ export default {
         type: "cardInfo/addCardToDeck",
         cardId: cardId,
       });
-    },
-    setAllowEdit(value) {
-      this.allowEdit = value;
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
