@@ -112,8 +112,8 @@ export default {
       allCards: [],
       deck: {
         name: "",
-        owner: "",
-        ownerId: "",
+        owner: "anonymous",
+        ownerId: "anonymous",
         cards: [],
       },
       reveal: false,
@@ -208,9 +208,14 @@ export default {
           this.errorMsg = "A Deck must contain 12 cards";
           return -1;
         }
-        this.deck.owner = this.user.username;
-        this.deck.ownerId = this.user.id;
-        await this.$store.dispatch("cardInfo/createDeck", this.deck);
+        if (this.user) {
+          this.deck.owner = this.user.username;
+          this.deck.ownerId = this.user.id;
+          await this.$store.dispatch("cardInfo/createDeck", this.deck);
+        } else {
+          console.log("create anonymous user deck");
+          await this.$store.dispatch("cardInfo/createAnonymousDeck", this.deck);
+        }
         this.errorMsg = "";
         this.successMsg = "Deck created!";
       } catch (error) {
