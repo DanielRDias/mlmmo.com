@@ -48,6 +48,18 @@ export const cardInfo = {
         console.error("createdeck", error);
       }
     },
+    async createAnonymousDeck(_, data) {
+      try {
+        console.log("data: ", data);
+        await API.graphql({
+          query: createDeckMutation,
+          variables: { input: data },
+          authMode: "API_KEY",
+        });
+      } catch (error) {
+        console.error("createdeck", error);
+      }
+    },
     async getDeck(_, deckId) {
       return await API.graphql(graphqlOperation(getDeckQuery, { id: deckId }));
     },

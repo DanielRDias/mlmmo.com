@@ -60,7 +60,8 @@ export default {
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Decks", icon: "mdi-view-dashboard", to: "/decks" },
+      { title: "Create New Deck", icon: "mdi-newspaper-plus", to: "/adddeck" },
+      { title: "Decks", icon: "mdi-newspaper", to: "/decks" },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
