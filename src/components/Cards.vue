@@ -220,7 +220,7 @@ export default {
       filter: {},
       sortDesc: false,
       page: 1,
-      itemsPerPage: 12,
+      itemsPerPage: 30,
       sortBy: "name",
       cardRank: "1",
       keys: ["Name", "Cost", "CMC", "Color", "Type", "Points", "Description"],

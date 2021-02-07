@@ -166,7 +166,7 @@ export default {
         // add unique cards only
         this.deck.cards = [...new Set(cardIdList)];
       } catch (error) {
-        console.log("error getting card by ID", error);
+        console.log("error getting card list", error);
       }
     },
   },
