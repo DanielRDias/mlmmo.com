@@ -1,10 +1,14 @@
 <template>
   <div class="home">
-    <div class="flex flex-wrap w-full m-auto justify-center">
+    <v-btn text color="teal accent-4" @click="cardsDebug = !cardsDebug">
+      Debugging
+    </v-btn>
+    <v-card class="overflow-y-auto" max-height="500" v-if="cardsDebug">
       <div v-for="(card, idx) in cards" :key="idx">
         <div class="text-2xl">{{ card }}</div>
       </div>
-    </div>
+    </v-card>
+
     <v-container id="user-profile-view" fluid tag="section">
       <v-row justify="center">
         <v-col cols="12" md="8">
@@ -55,6 +59,10 @@
                     ></v-select>
                   </v-col>
 
+                  <v-col cols="12" md="12">
+                    <v-text-field v-model="card.imgUrl" label="Image URL" />
+                  </v-col>
+
                   <v-col cols="12">
                     <v-textarea
                       v-model="card.description"
@@ -85,6 +93,7 @@ export default {
     this.$store.dispatch("cardInfo/getCardsData");
   },
   data: () => ({
+    cardsDebug: false,
     card: {
       name: "?",
       imgUrl: "logo.png",
@@ -209,7 +218,6 @@ export default {
           file: "",
           cardData: this.card,
         });
-        this.getCards();
       } catch (error) {
         console.log("error adding the card", error);
       }

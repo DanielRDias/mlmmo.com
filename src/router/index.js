@@ -39,6 +39,21 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/decks",
+    name: "Decks",
+    component: () => import("../views/Decks.vue"),
+  },
+  {
+    path: "/adddeck",
+    name: "AddDeck",
+    component: () => import("../views/AddDeck.vue"),
+  },
+  {
+    path: "/artifacts",
+    name: "Artifacts",
+    component: () => import("../views/Artifacts.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting

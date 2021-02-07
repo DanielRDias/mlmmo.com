@@ -3,8 +3,8 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title"> MLMMO.com</v-list-item-title>
-          <v-list-item-subtitle>Magic Legends MMO</v-list-item-subtitle>
+          <v-list-item-title class="title"> MLaRPG.com</v-list-item-title>
+          <v-list-item-subtitle>Magic Legends ARPG</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -54,37 +54,37 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Builds", icon: "mdi-view-dashboard", to: "/builds" },
+      { title: "Create New Deck", icon: "mdi-newspaper-plus", to: "/adddeck" },
+      { title: "Decks", icon: "mdi-newspaper", to: "/decks" },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
   }),
-  // mounted() {
-  //   this.authAction();
-  // },
+  mounted() {
+    this.authAction();
+  },
   methods: {
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
-    // ...mapActions("auth", ["authAction"]),
-    // async logout() {
-    //   await this.$store.dispatch("auth/logout");
-    //   this.$router.push("/");
-    // },
+    ...mapActions("auth", ["authAction"]),
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
   },
-  // computed: {
-  //   ...mapGetters({
-  //     user: "auth/user",
-  //   }),
-  // },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
 };
 </script>

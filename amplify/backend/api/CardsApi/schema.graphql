@@ -1,14 +1,4 @@
-type Deck @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  owner: ID!
-  ownerId: String!
-  name: String!
-  createdAt: String
-  updatedAt: String
-  cards: [String]
-}
-
-type Card
+type Deck
   @model
   @auth(
     rules: [
@@ -18,23 +8,60 @@ type Card
         queries: [get, list]
         mutations: [create, update, delete]
       }
+      { allow: public, queries: [get, list], mutations: [create] }
+    ]
+  ) {
+  id: ID!
+  owner: String
+  ownerId: String
+  name: String!
+  colors: String
+  type: String
+  cards: [String]
+  vote: Vote
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type Card
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Admins", "Moderators"]
+        queries: [get, list]
+        mutations: [create, update, delete]
+      }
       { allow: public, operations: [read] }
     ]
   ) {
   id: ID!
   name: String!
-  createdAt: String
-  updatedAt: String
   imgUrl: String
   imgFullSize: S3Object
   imgThumbnail: S3Object
-  cost: String!
-  cmc: Int!
-  color: String!
-  type: String!
-  points: Int!
+  cost: String
+  cmc: Int
+  color: String
+  type: String
+  points: Int
   properties: [CardProperties]
-  description: String!
+  description: String
+  r10damage: Int
+  r10health: Int
+  r10dps: String
+  r10role: String
+  r10duration: String
+  r10range: Int
+  r10area: String
+  decks: [String]
+  vote: Vote
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
   version: String
 }
 
@@ -53,4 +80,11 @@ type S3Object @aws_iam @aws_cognito_user_pools {
   region: String!
   bucket: String!
   key: String!
+}
+
+type Vote {
+  downVote: Int
+  upVote: Int
+  rating: Float
+  voteCount: Int
 }

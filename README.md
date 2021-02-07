@@ -1,4 +1,4 @@
-# mlmmo.com
+# mlarpg.com
 
 ## Project setup
 
