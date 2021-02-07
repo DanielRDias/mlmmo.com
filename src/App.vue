@@ -3,8 +3,8 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title"> MLMMO.com</v-list-item-title>
-          <v-list-item-subtitle>Magic Legends MMO</v-list-item-subtitle>
+          <v-list-item-title class="title"> MLaRPG.com</v-list-item-title>
+          <v-list-item-subtitle>Magic Legends ARPG</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
