@@ -8,7 +8,9 @@
       :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
       hide-default-footer
+      class="elevation-1"
       loading
+      loading-text="Loading... Please wait"
     >
       <template v-slot:header>
         <v-toolbar class="mb-1">
@@ -69,12 +71,26 @@
             v-for="item in props.items"
             :key="item.name"
             cols="12"
-            sm=""
+            sm="6"
             md="4"
-            lg="2"
+            lg="3"
           >
             <v-card>
               <div class="font-weight-bold text-no-wrap secondary">
+                <v-tooltip right>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      v-if="deckEdit"
+                      color="green"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="addCardToDeck(item.id)"
+                    >
+                      mdi-plus-box
+                    </v-icon>
+                  </template>
+                  <span>Add Card</span>
+                </v-tooltip>
                 {{ item.name }}
               </div>
               <v-img
@@ -118,6 +134,20 @@
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%"
                 >
+                  <v-tooltip right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon
+                        v-if="deckEdit"
+                        color="green"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="addCardToDeck(item.id)"
+                      >
+                        mdi-plus-box
+                      </v-icon>
+                    </template>
+                    <span>Add Card</span>
+                  </v-tooltip>
                   <div class="font-weight-bold text-no-wrap secondary">
                     Description:
                   </div>
@@ -175,6 +205,9 @@
 import { mapGetters } from "vuex";
 
 export default {
+  props: {
+    deckEdit: { type: Boolean, required: false, default: false },
+  },
   async mounted() {
     this.$store.dispatch("cardInfo/getCardsData");
   },
@@ -187,7 +220,7 @@ export default {
       filter: {},
       sortDesc: false,
       page: 1,
-      itemsPerPage: 12,
+      itemsPerPage: 30,
       sortBy: "name",
       cardRank: "1",
       keys: ["Name", "Cost", "CMC", "Color", "Type", "Points", "Description"],
@@ -214,6 +247,12 @@ export default {
     }),
   },
   methods: {
+    addCardToDeck(cardId) {
+      this.$store.commit({
+        type: "cardInfo/addCardToDeck",
+        cardId: cardId,
+      });
+    },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
     },

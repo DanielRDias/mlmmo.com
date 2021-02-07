@@ -54,37 +54,36 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Builds", icon: "mdi-view-dashboard", to: "/builds" },
+      { title: "Decks", icon: "mdi-view-dashboard", to: "/decks" },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
   }),
-  // mounted() {
-  //   this.authAction();
-  // },
+  mounted() {
+    this.authAction();
+  },
   methods: {
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
-    // ...mapActions("auth", ["authAction"]),
-    // async logout() {
-    //   await this.$store.dispatch("auth/logout");
-    //   this.$router.push("/");
-    // },
+    ...mapActions("auth", ["authAction"]),
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
   },
-  // computed: {
-  //   ...mapGetters({
-  //     user: "auth/user",
-  //   }),
-  // },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
 };
 </script>
