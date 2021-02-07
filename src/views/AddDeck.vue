@@ -1,7 +1,7 @@
 <template>
   <div class="home pa-1">
-    <AddDeck ref="addDeck" />
-    <Cards ref="cards" />
+    <AddDeck :deck-edit="allowDeckEdit" />
+    <Cards :deck-edit="allowDeckEdit" />
   </div>
 </template>
 
@@ -16,9 +16,10 @@ export default {
     AddDeck,
     Cards,
   },
-  mounted() {
-    this.$refs.addDeck.setAllowEdit(true);
-    this.$refs.cards.setAllowEdit(true);
+  data() {
+    return {
+      allowDeckEdit: true,
+    };
   },
 };
 </script>

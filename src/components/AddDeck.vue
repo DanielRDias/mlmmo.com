@@ -19,13 +19,15 @@
 
       <v-tooltip left>
         <template v-slot:activator="{ on, attrs }">
-          <v-icon v-if="allowEdit" v-bind="attrs" v-on="on" @click="addDeck()">
+          <v-icon v-if="deckEdit" v-bind="attrs" v-on="on" @click="addDeck()">
             mdi-content-save
           </v-icon>
         </template>
         <span>Save Deck</span>
       </v-tooltip>
     </v-toolbar>
+    <v-alert v-if="errorMsg" type="error"> {{ errorMsg }} </v-alert>
+    <v-alert v-if="successMsg" type="success"> {{ successMsg }} </v-alert>
     <v-list>
       <v-list-group
         v-for="card in myNewDeckCards"
@@ -55,7 +57,7 @@
                     <v-tooltip right>
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon
-                          v-if="allowEdit"
+                          v-if="deckEdit"
                           color="red"
                           v-bind="attrs"
                           v-on="on"
@@ -96,12 +98,16 @@
 import { mapGetters } from "vuex";
 
 export default {
+  props: {
+    deckEdit: { type: Boolean, required: false, default: false },
+  },
   async mounted() {
     this.$store.dispatch("cardInfo/getCardsData");
   },
   data() {
     return {
-      allowEdit: true,
+      errorMsg: "",
+      successMsg: "",
       myNewDeckCards: [],
       allCards: [],
       deck: {
@@ -157,7 +163,8 @@ export default {
             this.myNewDeckCards.push(card);
           }
         }
-        this.deck.cards = cardIdList;
+        // add unique cards only
+        this.deck.cards = [...new Set(cardIdList)];
       } catch (error) {
         console.log("error getting card by ID", error);
       }
@@ -169,9 +176,6 @@ export default {
         type: "cardInfo/removeCardFromDeck",
         cardId: cardId,
       });
-    },
-    setAllowEdit(value) {
-      this.allowEdit = value;
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
@@ -196,11 +200,22 @@ export default {
     },
     async addDeck() {
       try {
+        if (!/\S/.test(this.deck.name)) {
+          this.errorMsg = "Deck Name can't be empty";
+          return -1;
+        }
+        if (this.deck.cards.length != 12) {
+          this.errorMsg = "A Deck must contain 12 cards";
+          return -1;
+        }
         this.deck.owner = this.user.username;
         this.deck.ownerId = this.user.id;
         await this.$store.dispatch("cardInfo/createDeck", this.deck);
+        this.errorMsg = "";
+        this.successMsg = "Deck created!";
       } catch (error) {
         console.log("error adding the deck", error);
+        this.errorMsg = error;
       }
     },
   },
