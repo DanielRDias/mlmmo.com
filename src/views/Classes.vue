@@ -1,28 +1,26 @@
 <template>
   <div class="home">
-    
-      <v-container>
-        <v-row>
-          <v-col>
-                <Mindmage />
-          </v-col>
-          <v-col>
-                <Geomancer />
-          </v-col>
-          <v-col>
-                <Beastcaller />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-                <Sanctifier />
-          </v-col>
-          <v-col>
-                <Necromancer />
-          </v-col>
-        </v-row>
-      </v-container>
-
+    <v-container>
+      <v-row>
+        <v-col>
+          <Sanctifier />
+        </v-col>
+        <v-col>
+          <Mindmage />
+        </v-col>
+        <v-col>
+          <Necromancer />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <Geomancer />
+        </v-col>
+        <v-col>
+          <Beastcaller />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
