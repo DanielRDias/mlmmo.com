@@ -54,6 +54,11 @@ const routes = [
     component: () => import("../views/Artifacts.vue"),
   },
   {
+    path: "/contentcreators",
+    name: "ContentCreators",
+    component: () => import("../views/ContentCreators.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
