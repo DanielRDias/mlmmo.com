@@ -3,7 +3,7 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title"> MLaRPG.com</v-list-item-title>
+          <v-list-item-title class="title">MLaRPG.com</v-list-item-title>
           <v-list-item-subtitle>Magic Legends ARPG</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -32,11 +32,21 @@
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title>Magic Legends</v-app-bar-title>
+      <v-app-bar-title>MLaRPG.com</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
+      <v-btn icon href="https://discord.gg/Ubaepf4pUJ" target="_blank">
+        <v-icon>mdi-discord</v-icon>
+      </v-btn>
+      <v-btn icon href="https://www.facebook.com/MLaRPG" target="_blank">
+        <v-icon>mdi-facebook</v-icon>
+      </v-btn>
+      <v-btn icon href="https://twitter.com/mlarpg" target="_blank">
+        <v-icon>mdi-twitter</v-icon>
+      </v-btn>
       <v-switch
+        class="pt-5"
         color="blue darken-3"
         v-model="$vuetify.theme.dark"
         label="Theme"
@@ -65,6 +75,11 @@ export default {
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
+      {
+        title: "Content Creators",
+        icon: "mdi-video-vintage",
+        to: "/contentcreators",
+      },
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
   }),
