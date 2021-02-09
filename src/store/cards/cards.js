@@ -40,7 +40,6 @@ export const cardInfo = {
   actions: {
     async createDeck(_, data) {
       try {
-        console.log(data);
         await API.graphql(
           graphqlOperation(createDeckMutation, { input: data })
         );
@@ -50,7 +49,6 @@ export const cardInfo = {
     },
     async createAnonymousDeck(_, data) {
       try {
-        console.log("data: ", data);
         await API.graphql({
           query: createDeckMutation,
           variables: { input: data },
