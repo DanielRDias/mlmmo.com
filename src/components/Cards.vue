@@ -99,13 +99,31 @@
                   <v-card class="mx-auto">
                     <v-img
                       class="white--text align-top"
-                      height="100px"
+                      height="200px"
                       :src="item.imgUrl ? item.imgUrl : `logo.png`"
                     >
                       <div
-                        class="font-weight-bold"
+                        class="font-weight-bold v-card--reveal"
                         v-html="convertManaString(item.cost)"
                       ></div>
+                      <v-list dense class="v-card--over">
+                        <v-list-item
+                          v-for="(key, index) in filteredKeys"
+                          :key="index"
+                        >
+                          <v-list-item-content
+                            :class="{ 'blue--text': sortBy === key }"
+                          >
+                            {{ key }}:
+                          </v-list-item-content>
+                          <v-list-item-content
+                            class="align-end"
+                            :class="{ 'blue--text': sortBy === key }"
+                          >
+                            {{ item[key.toLowerCase()] }}
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
                     </v-img>
 
                     <v-fade-transition>
@@ -116,6 +134,46 @@
                   </v-card>
                 </template>
               </v-hover>
+
+              <v-card-actions>
+                <v-btn text color="teal accent-4" @click="reveal = true">
+                  Show Description
+                </v-btn>
+              </v-card-actions>
+
+              <v-expand-transition>
+                <v-card
+                  v-if="reveal"
+                  class="transition-fast-in-fast-out v-card--reveal"
+                  style="height: 100%"
+                >
+                  <v-tooltip right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon
+                        v-if="deckEdit"
+                        color="green"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="addCardToDeck(item.id)"
+                      >
+                        mdi-plus-box
+                      </v-icon>
+                    </template>
+                    <span>Add Card</span>
+                  </v-tooltip>
+                  <div class="font-weight-bold text-no-wrap secondary">
+                    Description:
+                  </div>
+                  <div>
+                    {{ item["description"] }}
+                  </div>
+                  <v-card-actions class="pt-0">
+                    <v-btn text color="teal accent-4" @click="reveal = false">
+                      Close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-expand-transition>
             </v-card>
           </v-col>
         </v-row>
@@ -179,6 +237,7 @@ export default {
   },
   data() {
     return {
+      reveal: false,
       cardOverlay: false,
       currentCardId: "",
       nocards: [],
@@ -190,7 +249,7 @@ export default {
       itemsPerPage: 30,
       sortBy: "name",
       cardRank: "1",
-      keys: ["Name", "Cost", "CMC", "Color", "Type", "Points", "Description"],
+      keys: ["Name", "CMC", "Color", "Type", "Points", "Description"],
       ranks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       properties: [
         "Rank",
@@ -248,3 +307,18 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 0.9 !important;
+  position: absolute;
+  width: 100%;
+}
+.v-card--over {
+  bottom: 0;
+  opacity: 0.5 !important;
+  position: absolute;
+  width: 100%;
+}
+</style>
