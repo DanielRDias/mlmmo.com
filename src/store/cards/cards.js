@@ -69,7 +69,11 @@ export const cardInfo = {
       commit("setDecks", decksData.data.listDecks.items);
     },
     async getCard(_, cardId) {
-      return await API.graphql(graphqlOperation(getCardQuery, { id: cardId }));
+      return await API.graphql({
+        query: getCardQuery,
+        variables: { id: cardId },
+        authMode: "API_KEY",
+      });
     },
     async getCardsData({ commit }) {
       const cardsData = await API.graphql({
