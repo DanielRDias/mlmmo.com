@@ -19,10 +19,18 @@
         }
       },
       "function": {
-        "mlmmocom9f949725DefineAuthChallenge": {},
-        "mlmmocom9f949725CreateAuthChallenge": {},
+        "mlmmocom9f949725DefineAuthChallenge": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom9f949725DefineAuthChallenge-4c744e734d6d6b522b4a-build.zip"
+        },
+        "mlmmocom9f949725CreateAuthChallenge": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom9f949725CreateAuthChallenge-46474143475051356278-build.zip"
+        },
         "mlmmocom9f949725VerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": "6LffQTIaAAAAAOGPwX9YjWJoHmlSgZIn1hECGAoc"
+          "RECAPTCHASECRET": "6LffQTIaAAAAAOGPwX9YjWJoHmlSgZIn1hECGAoc",
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom9f949725VerifyAuthChallengeResponse-593041414353706c5965-build.zip"
         }
       },
       "auth": {
