@@ -96,7 +96,7 @@
     </v-data-iterator>
 
     <v-overlay :value="deckOverlay">
-      <v-btn @click="deckOverlay = false"> Close </v-btn>
+      <v-icon large @click="deckOverlay = false"> mdi-close-box </v-icon>
       <v-card class="overflow-y-auto" max-height="600">
         <v-progress-circular
           indeterminate
