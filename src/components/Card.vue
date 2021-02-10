@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="400">
+  <v-card class="mx-auto pa-1" max-width="400">
     <v-row class="pa-1">
       <v-col cols="9">
         <h2>{{ this.currentCard.name }}</h2>
