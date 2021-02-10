@@ -93,34 +93,63 @@
                 </v-tooltip>
                 {{ item.name }}
               </div>
-              <v-img
-                class="white--text align-top"
-                height="200px"
-                :src="item.imgUrl ? item.imgUrl : `logo.png`"
-              >
-                <div
-                  class="font-weight-bold v-card--reveal"
-                  v-html="convertManaString(item.cost)"
-                ></div>
-                <v-list dense class="v-card--over">
-                  <v-list-item
-                    v-for="(key, index) in filteredKeys"
-                    :key="index"
-                  >
-                    <v-list-item-content
-                      :class="{ 'blue--text': sortBy === key }"
+
+              <v-hover>
+                <template v-slot:default="{ hover }">
+                  <v-card class="mx-auto">
+                    <v-img
+                      class="white--text align-top"
+                      height="200px"
+                      :src="item.imgUrl ? item.imgUrl : `logo.png`"
                     >
-                      {{ key }}:
-                    </v-list-item-content>
-                    <v-list-item-content
-                      class="align-end"
-                      :class="{ 'blue--text': sortBy === key }"
-                    >
-                      {{ item[key.toLowerCase()] }}
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-img>
+                      <div
+                        class="font-weight-bold v-card--reveal"
+                        v-html="convertManaString(item.cost)"
+                      ></div>
+                      <v-list dense class="v-card--over">
+                        <v-list-item
+                          v-for="(key, index) in filteredKeys"
+                          :key="index"
+                        >
+                          <v-list-item-content
+                            :class="{ 'blue--text': sortBy === key }"
+                          >
+                            {{ key }}:
+                          </v-list-item-content>
+                          <v-list-item-content
+                            class="align-end"
+                            :class="{ 'blue--text': sortBy === key }"
+                          >
+                            {{ item[key.toLowerCase()] }}
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                    </v-img>
+
+                    <v-fade-transition>
+                      <v-overlay v-if="hover" absolute color="#036358">
+                        <v-row>
+                          <v-col>
+                            <v-btn @click="getCardOverlay(item)">Preview</v-btn>
+                          </v-col>
+                          <v-spacer></v-spacer>
+                          <v-col>
+                            <v-btn
+                              :to="{
+                                name: 'Card',
+                                query: { cardId: item.id },
+                              }"
+                              target="_blank"
+                            >
+                              Open Card
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-overlay>
+                    </v-fade-transition>
+                  </v-card>
+                </template>
+              </v-hover>
 
               <v-card-actions>
                 <v-btn text color="teal accent-4" @click="reveal = true">
@@ -198,15 +227,26 @@
         </v-row>
       </template>
     </v-data-iterator>
+
+    <v-overlay :value="cardOverlay">
+      <v-btn @click="cardOverlay = false"> Close </v-btn>
+      <v-card class="overflow-y-auto" max-height="600">
+        <Card :current-card-id="currentCardId" />
+      </v-card>
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Card from "@/components/Card.vue";
 
 export default {
   props: {
     deckEdit: { type: Boolean, required: false, default: false },
+  },
+  components: {
+    Card,
   },
   async mounted() {
     this.$store.dispatch("cardInfo/getCardsData");
@@ -214,6 +254,8 @@ export default {
   data() {
     return {
       reveal: false,
+      cardOverlay: false,
+      currentCardId: "",
       nocards: [],
       itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
       search: "",
@@ -223,7 +265,7 @@ export default {
       itemsPerPage: 30,
       sortBy: "name",
       cardRank: "1",
-      keys: ["Name", "Cost", "CMC", "Color", "Type", "Points", "Description"],
+      keys: ["Name", "CMC", "Color", "Type", "Points", "Description"],
       ranks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       properties: [
         "Rank",
@@ -247,6 +289,10 @@ export default {
     }),
   },
   methods: {
+    getCardOverlay(card) {
+      this.cardOverlay = true;
+      this.currentCardId = card.id;
+    },
     addCardToDeck(cardId) {
       this.$store.commit({
         type: "cardInfo/addCardToDeck",

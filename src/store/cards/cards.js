@@ -40,7 +40,6 @@ export const cardInfo = {
   actions: {
     async createDeck(_, data) {
       try {
-        console.log(data);
         await API.graphql(
           graphqlOperation(createDeckMutation, { input: data })
         );
@@ -50,7 +49,6 @@ export const cardInfo = {
     },
     async createAnonymousDeck(_, data) {
       try {
-        console.log("data: ", data);
         await API.graphql({
           query: createDeckMutation,
           variables: { input: data },
@@ -71,7 +69,11 @@ export const cardInfo = {
       commit("setDecks", decksData.data.listDecks.items);
     },
     async getCard(_, cardId) {
-      return await API.graphql(graphqlOperation(getCardQuery, { id: cardId }));
+      return await API.graphql({
+        query: getCardQuery,
+        variables: { id: cardId },
+        authMode: "API_KEY",
+      });
     },
     async getCardsData({ commit }) {
       const cardsData = await API.graphql({
