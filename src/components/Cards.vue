@@ -128,7 +128,23 @@
 
                     <v-fade-transition>
                       <v-overlay v-if="hover" absolute color="#036358">
-                        <v-btn @click="getCardOverlay(item)">Open Card</v-btn>
+                        <v-row>
+                          <v-col>
+                            <v-btn @click="getCardOverlay(item)">Preview</v-btn>
+                          </v-col>
+                          <v-spacer></v-spacer>
+                          <v-col>
+                            <v-btn
+                              :to="{
+                                name: 'Card',
+                                query: { cardId: item.id },
+                              }"
+                              target="_blank"
+                            >
+                              Open Card
+                            </v-btn>
+                          </v-col>
+                        </v-row>
                       </v-overlay>
                     </v-fade-transition>
                   </v-card>
