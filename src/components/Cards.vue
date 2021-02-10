@@ -93,74 +93,29 @@
                 </v-tooltip>
                 {{ item.name }}
               </div>
-              <v-img
-                class="white--text align-top"
-                height="200px"
-                :src="item.imgUrl ? item.imgUrl : `logo.png`"
-              >
-                <div
-                  class="font-weight-bold v-card--reveal"
-                  v-html="convertManaString(item.cost)"
-                ></div>
-                <v-list dense class="v-card--over">
-                  <v-list-item
-                    v-for="(key, index) in filteredKeys"
-                    :key="index"
-                  >
-                    <v-list-item-content
-                      :class="{ 'blue--text': sortBy === key }"
-                    >
-                      {{ key }}:
-                    </v-list-item-content>
-                    <v-list-item-content
-                      class="align-end"
-                      :class="{ 'blue--text': sortBy === key }"
-                    >
-                      {{ item[key.toLowerCase()] }}
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-img>
 
-              <v-card-actions>
-                <v-btn text color="teal accent-4" @click="reveal = true">
-                  Show Description
-                </v-btn>
-              </v-card-actions>
+              <v-hover>
+                <template v-slot:default="{ hover }">
+                  <v-card class="mx-auto">
+                    <v-img
+                      class="white--text align-top"
+                      height="100px"
+                      :src="item.imgUrl ? item.imgUrl : `logo.png`"
+                    >
+                      <div
+                        class="font-weight-bold"
+                        v-html="convertManaString(item.cost)"
+                      ></div>
+                    </v-img>
 
-              <v-expand-transition>
-                <v-card
-                  v-if="reveal"
-                  class="transition-fast-in-fast-out v-card--reveal"
-                  style="height: 100%"
-                >
-                  <v-tooltip right>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon
-                        v-if="deckEdit"
-                        color="green"
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="addCardToDeck(item.id)"
-                      >
-                        mdi-plus-box
-                      </v-icon>
-                    </template>
-                    <span>Add Card</span>
-                  </v-tooltip>
-                  <div class="font-weight-bold text-no-wrap secondary">
-                    Description:
-                  </div>
-                  <div>
-                    {{ item["description"] }}
-                  </div>
-                  <v-card-actions class="pt-0">
-                    <v-btn text color="teal accent-4" @click="reveal = false">
-                      Close
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-expand-transition>
+                    <v-fade-transition>
+                      <v-overlay v-if="hover" absolute color="#036358">
+                        <v-btn @click="getCardOverlay(item)">Open Card</v-btn>
+                      </v-overlay>
+                    </v-fade-transition>
+                  </v-card>
+                </template>
+              </v-hover>
             </v-card>
           </v-col>
         </v-row>
@@ -198,22 +153,34 @@
         </v-row>
       </template>
     </v-data-iterator>
+
+    <v-overlay :value="cardOverlay">
+      <v-btn @click="cardOverlay = false"> Close </v-btn>
+      <v-card class="overflow-y-auto" max-height="600">
+        <Card :current-card-id="currentCardId" />
+      </v-card>
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Card from "@/components/Card.vue";
 
 export default {
   props: {
     deckEdit: { type: Boolean, required: false, default: false },
+  },
+  components: {
+    Card,
   },
   async mounted() {
     this.$store.dispatch("cardInfo/getCardsData");
   },
   data() {
     return {
-      reveal: false,
+      cardOverlay: false,
+      currentCardId: "",
       nocards: [],
       itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
       search: "",
@@ -247,6 +214,10 @@ export default {
     }),
   },
   methods: {
+    getCardOverlay(card) {
+      this.cardOverlay = true;
+      this.currentCardId = card.id;
+    },
     addCardToDeck(cardId) {
       this.$store.commit({
         type: "cardInfo/addCardToDeck",
@@ -277,18 +248,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 0.9 !important;
-  position: absolute;
-  width: 100%;
-}
-.v-card--over {
-  bottom: 0;
-  opacity: 0.5 !important;
-  position: absolute;
-  width: 100%;
-}
-</style>
