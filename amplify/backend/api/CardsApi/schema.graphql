@@ -68,6 +68,7 @@ type Card
 type CardProperties {
   rank: Int
   damage: Int
+  healing: Int
   health: Int
   dps: String
   role: String
