@@ -59,7 +59,11 @@ export const cardInfo = {
       }
     },
     async getDeck(_, deckId) {
-      return await API.graphql(graphqlOperation(getDeckQuery, { id: deckId }));
+      return await API.graphql({
+        query: getDeckQuery,
+        variables: { id: deckId },
+        authMode: "API_KEY",
+      });
     },
     async getDecksData({ commit }) {
       const decksData = await API.graphql({
@@ -72,6 +76,17 @@ export const cardInfo = {
       return await API.graphql({
         query: getCardQuery,
         variables: { id: cardId },
+        authMode: "API_KEY",
+      });
+    },
+    async getCardList(_, cardIdList) {
+      let filterId = [];
+      for (var i = 0; i < cardIdList.length; i++) {
+        filterId.push({ id: { eq: cardIdList[i] } });
+      }
+      return await API.graphql({
+        query: listCardsQuery,
+        variables: { filter: { or: filterId } },
         authMode: "API_KEY",
       });
     },
