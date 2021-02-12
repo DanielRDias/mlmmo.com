@@ -128,11 +128,10 @@
 
                     <v-fade-transition>
                       <v-overlay v-if="hover" absolute color="#036358">
-                        <v-row>
+                        <v-row align-content="center">
                           <v-col>
                             <v-btn @click="getCardOverlay(item)">Preview</v-btn>
                           </v-col>
-                          <v-spacer></v-spacer>
                           <v-col>
                             <v-btn
                               :to="{
@@ -229,7 +228,7 @@
     </v-data-iterator>
 
     <v-overlay :value="cardOverlay">
-      <v-btn @click="cardOverlay = false"> Close </v-btn>
+      <v-icon large @click="cardOverlay = false">mdi-close-box</v-icon>
       <v-card class="overflow-y-auto" max-height="600">
         <Card :current-card-id="currentCardId" />
       </v-card>

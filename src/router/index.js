@@ -49,6 +49,11 @@ const routes = [
     component: () => import("../views/Decks.vue"),
   },
   {
+    path: "/deck",
+    name: "Deck",
+    component: () => import("../views/Deck.vue"),
+  },
+  {
     path: "/adddeck",
     name: "AddDeck",
     component: () => import("../views/AddDeck.vue"),
@@ -71,6 +76,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  {
+    path: "/privacypolicy",
+    name: "PrivacyPolicy",
+    component: () => import("../views/PrivacyPolicy.vue"),
+  },
+  {
+    path: "/termsconditions",
+    name: "TermsConditions",
+    component: () => import("../views/TermsConditions.vue"),
   },
 ];
 

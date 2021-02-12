@@ -96,18 +96,9 @@
     </v-data-iterator>
 
     <v-overlay :value="deckOverlay">
-      <v-btn @click="deckOverlay = false"> Close </v-btn>
+      <v-icon large @click="deckOverlay = false">mdi-close-box</v-icon>
       <v-card class="overflow-y-auto" max-height="600">
-        <v-progress-circular
-          indeterminate
-          size="64"
-          v-if="currentDeck.cards ? false : true"
-        ></v-progress-circular>
-        <v-list>
-          <v-list-item v-for="card in currentDeck.cards" :key="card.id">
-            <v-list-item-title>{{ card.name }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
+        <Deck :deck-id="currentDeck.id" />
       </v-card>
     </v-overlay>
 
@@ -123,8 +114,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Deck from "@/components/Deck.vue";
 
 export default {
+  components: {
+    Deck,
+  },
   async mounted() {
     this.$store.dispatch("cardInfo/getDecksData");
     this.$store.dispatch("cardInfo/getCardsData");
@@ -163,14 +158,7 @@ export default {
     },
     getDeck(deck) {
       this.deckOverlay = true;
-      this.currentDeck.cards = [];
-
-      for (var i = 0; i < this.allCards.length; i++) {
-        var card = this.allCards[i];
-        if (deck.cards.includes(card.id)) {
-          this.currentDeck.cards.push(card);
-        }
-      }
+      this.currentDeck.id = deck.id;
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
