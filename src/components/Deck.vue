@@ -54,10 +54,9 @@
 <script>
 export default {
   props: {
-    deckEdit: {
+    deckId: {
       type: String,
-      required: false,
-      default: "54768811-f8d3-4a63-b396-9efdc4f10835",
+      required: true,
     },
   },
   data() {
@@ -93,11 +92,11 @@ export default {
     try {
       this.deckData = await this.$store.dispatch(
         "cardInfo/getDeck",
-        this.$props.deckEdit
+        this.$props.deckId
       );
       this.deck = this.deckData.data.getDeck;
     } catch (error) {
-      console.error("Error getting the deck id:", this.$props.deckEdit);
+      console.error("Error getting the deck id:", this.$props.deckId);
       console.error("Error: ", error);
     }
   },

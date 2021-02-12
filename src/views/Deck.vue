@@ -1,6 +1,6 @@
 <template>
   <div class="deck">
-    <Deck :current-deck-id="currentDeckId" />
+    <Deck :deck-id="deckId" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      currentDeckId: this.$route.query.deckId,
+      deckId: this.$route.query.deckId,
     };
   },
 };
