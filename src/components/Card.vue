@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto pa-1" max-width="400">
+  <v-card class="mx-auto pa-1" max-width="350">
     <v-row class="pa-1">
       <v-col cols="9">
         <h2>{{ this.currentCard.name }}</h2>
@@ -14,7 +14,9 @@
       height="300"
     ></v-img>
     <v-row>
-      <v-col align-self="center" class="text-right" cols="2"> Rank: </v-col>
+      <v-col align-self="center" class="text-right text-caption" cols="2">
+        Rank:
+      </v-col>
       <v-col>
         <v-slider
           v-model="cardRank"
