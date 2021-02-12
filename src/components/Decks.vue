@@ -52,7 +52,21 @@
 
                   <v-fade-transition>
                     <v-overlay v-if="hover" absolute color="#036358">
-                      <v-btn @click="getDeck(item)">Open Deck</v-btn>
+                      <v-row align-content="center">
+                        <v-col>
+                          <v-btn @click="getDeck(item)">Preview Deck</v-btn>
+                        </v-col>
+                        <v-col>
+                          <v-btn
+                            :to="{
+                              name: 'Deck',
+                              query: { deckId: item.id },
+                            }"
+                            target="_blank"
+                            >Open Deck</v-btn
+                          >
+                        </v-col>
+                      </v-row>
                     </v-overlay>
                   </v-fade-transition>
                 </v-card>
