@@ -14,7 +14,9 @@
       height="300"
     ></v-img>
     <v-row>
-      <v-col align-self="center" class="text-right" cols="2"> Rank: </v-col>
+      <v-col align-self="center" class="text-right text-caption" cols="2">
+        Rank:
+      </v-col>
       <v-col>
         <v-slider
           v-model="cardRank"
