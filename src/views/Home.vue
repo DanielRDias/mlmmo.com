@@ -127,7 +127,7 @@ export default {
   data() {
     return {
       startTime: "February 12, 2021 12:03:00",
-      endTime: "March 23, 2021 18:00:00",
+      endTime: "2021-03-23T18:00:00.000+00:00",
       times: [
         { id: 0, text: "Days", time: 1 },
         { id: 1, text: "Hours", time: 1 },
