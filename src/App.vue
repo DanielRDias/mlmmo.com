@@ -76,6 +76,11 @@ export default {
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
       {
+        title: "Collection Checklist",
+        icon: "mdi-format-list-checks",
+        to: "/collectionchecklist",
+      },
+      {
         title: "Content Creators",
         icon: "mdi-video-vintage",
         to: "/contentcreators",
