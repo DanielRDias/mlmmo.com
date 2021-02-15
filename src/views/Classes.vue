@@ -26,20 +26,20 @@
 
 <script>
 // @ is an alias to /src
+import Sanctifier from "@/components/Sanctifier.vue";
 import Mindmage from "@/components/Mindmage.vue";
+import Necromancer from "@/components/Necromancer.vue";
 import Geomancer from "@/components/Geomancer.vue";
 import Beastcaller from "@/components/Beastcaller.vue";
-import Sanctifier from "@/components/Sanctifier.vue";
-import Necromancer from "@/components/Necromancer.vue";
 
 export default {
   name: "Home",
   components: {
+    Sanctifier,
     Mindmage,
+    Necromancer,
     Geomancer,
     Beastcaller,
-    Sanctifier,
-    Necromancer,
   },
 };
 </script>
