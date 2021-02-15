@@ -31,8 +31,11 @@
                 <strong>February 11 to 22th, 2021</strong>.
                 <br />
                 If you weren't one of the lucky ones who got access to the
-                Closed Alpha, don't worry, the highly-anticipated Magic: Legends
-                PC Open Beta launches on <strong>March 23, 2021</strong>.
+                Closed Alpha, don't worry, the highly-anticipated
+                <a href="/beta"
+                  >Magic: Legends PC Open Beta launches on
+                  <strong>March 23, 2021</strong></a
+                >.
               </v-col>
               <v-col class="hidden-sm-and-down text-right" md="2">
                 <v-icon size="64"> mdi-calendar-text </v-icon>
