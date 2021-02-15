@@ -31,7 +31,7 @@
                 <strong>February 11 to 22th, 2021</strong>.
                 <br />
                 If you weren't one of the lucky ones who got access to the
-                Closed Alpha, don't worry, the highly-anticipated Magic Legends
+                Closed Alpha, don't worry, the highly-anticipated Magic: Legends
                 PC Open Beta launches on <strong>March 23, 2021</strong>.
               </v-col>
               <v-col class="hidden-sm-and-down text-right" md="2">
@@ -47,7 +47,7 @@
           <v-card-title class="red lighten-1">
             <v-icon class="mr-4" dark size="42"> mdi-seal-variant </v-icon>
             <h2 class="display-1 white--text font-weight-light">
-              Join us and win!
+              Join us and be an Alpha!
             </h2>
           </v-card-title>
           <v-container>
@@ -63,6 +63,9 @@
                 Members with this role will have unique access to private
                 channels where you can vote to decide what we should implement
                 or improve next.
+                <br />
+                We will support Magic: Legends content creators by sharing their
+                content.
               </v-col>
               <v-col class="hidden-sm-and-down text-right" md="2">
                 <a
@@ -89,7 +92,7 @@
           <v-container>
             <v-row>
               <v-col cols="12" md="10">
-                Due to Magic Legends non-discloser agreement, we still don't
+                Due to Magic: Legends non-discloser agreement, we still don't
                 have all the data needed to make this website usable.
                 Nevertheless, we made it available with the official leaked
                 information to get your feedback and focus on improving what, in
