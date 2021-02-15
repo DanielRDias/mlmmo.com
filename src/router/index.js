@@ -105,6 +105,16 @@ const routes = [
     },
   },
   {
+    path: "/collectionchecklist",
+    name: "CollectionChecklist",
+    component: () => import("../views/CollectionChecklist.vue"),
+    meta: {
+      requiresAuth: false,
+      title:
+        "Collection Checklist - Classes, Spells, Artifacts && Customization | Magic: Legends ARPG",
+    },
+  },
+  {
     path: "/contentcreators",
     name: "ContentCreators",
     component: () => import("../views/ContentCreators.vue"),
