@@ -36,6 +36,9 @@ export const cardInfo = {
     setCards(state, payload) {
       state.cards = payload;
     },
+    appendCards(state, payload) {
+      state.cards = state.cards.concat(payload);
+    },
   },
   actions: {
     async createDeck(_, data) {
@@ -91,11 +94,19 @@ export const cardInfo = {
       });
     },
     async getCardsData({ commit }) {
-      const cardsData = await API.graphql({
+      var cardsData = await API.graphql({
         query: listCardsQuery,
         authMode: "API_KEY",
       });
       commit("setCards", cardsData.data.listCards.items);
+      while (cardsData.data.listCards.nextToken) {
+        cardsData = await API.graphql({
+          query: listCardsQuery,
+          variables: { nextToken: cardsData.data.listCards.nextToken },
+          authMode: "API_KEY",
+        });
+        commit("appendCards", cardsData.data.listCards.items);
+      }
     },
     async createCard(_, data) {
       const {
