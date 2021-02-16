@@ -1,10 +1,9 @@
 <template>
-  <div class="contentcreators">
+  <div class="geomancerlore">
     <GeomancerLore />
   </div>
 </template>
 <script>
-// @ is an alias to /src
 import GeomancerLore from "@/components/GeomancerLore.vue";
 
 export default {
