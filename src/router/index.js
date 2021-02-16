@@ -128,6 +128,15 @@ const routes = [
       title: "Geomancer Lore - The Planeswalker Koth | Magic: Legends ARPG",
       metaTags: [
         {
+          name: "og:title",
+          content:
+            "Geomancer Lore - The Planeswalker Koth | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "logo.png",
+        },
+        {
           name: "description",
           content:
             "Today we're going to learn a little more about the Planeswalker that the Geomancer class is based on. This is meant to be a quick overview to give you an idea of what the character is like. Many of the stories, especially for the more established Planeswalkers, take place over years, MANY years, and often multiple books or short stories. To be clear, this is about the character that the class is based on. This character may or may not appear in the game, and either way, it is a separate entity from the class you'll be playing.",
@@ -165,8 +174,26 @@ const routes = [
     component: () => import("../views/Beta.vue"),
     meta: {
       requiresAuth: false,
-      title: "Magic: Legends Open Beta release date",
+      title: "Magic: Legends Open Beta release date | Magic: Legends ARPG",
     },
+    metaTags: [
+      {
+        name: "og:title",
+        content: "Magic: Legends Open Beta release date | Magic: Legends ARPG",
+      },
+      {
+        name: "og:image",
+        content: "logo.png",
+      },
+      {
+        name: "description",
+        content: "Magic: Legends Open Beta release date count down.",
+      },
+      {
+        property: "og:description",
+        content: "Magic: Legends Open Beta release date count down.",
+      },
+    ],
   },
 ];
 
