@@ -23,50 +23,41 @@
         target="_blank"
         rel="noopener noreferrer"
       ></a>
-      Geomancer class is based on.
+      Geomancer class is based on. This is meant to be a quick overview to give
+      you an idea of what the character is like. Many of the stories, especially
+      for the more established Planeswalkers, take place over years, MANY years,
+      and often multiple books or short stories. To be clear, this is about the
+      character that the class is based on. This character may or may not appear
+      in the game, and either way, it is a separate entity from the class you'll
+      be playing.
       <br />
-      This is meant to be a quick overview to give you an idea of what the
-      character is like.
-      <br />
-      Many of the stories, especially for the more established Planeswalkers,
-      take place over years, MANY years, and often multiple books or short
-      stories.
-      <br />
-      To be clear, this is about the character that the class is based on.
-      <br />
-      This character may or may not appear in the game, and either way, it is a
-      separate entity from the class you'll be playing.
       <br />
       <a
         href="https://mtg.fandom.com/wiki/Koth_of_the_Hammer"
         target="_blank"
         rel="noopener noreferrer"
       ></a>
-      Koth is a red-aligned Planeswalker that comes from
+      Koth is a red-aligned Planeswalker that comes from the plane of
       <a
         href="https://mtg.fandom.com/wiki/New_Phyrexia_(plane)"
         target="_blank"
         rel="noopener noreferrer"
-        >the plane of Mirrodin</a
-      >.
-      <br />
-      Mirrodin is an artificial world created by the
+        >Mirrodin</a
+      >. Mirrodin is an artificial world created by the golem
       <a
         href="https://mtg.fandom.com/wiki/Karn"
         target="_blank"
         rel="noopener noreferrer"
       >
-        golem Karn</a
-      >.
+        Karn</a
+      >. Everything on Mirrodin is a mix of organic material and metal.
       <br />
-      Everything on Mirrodin is a mix of organic material and metal.
       <br />
-      Koth's spark ignited when his tribe went to war.
+      Koth's spark ignited when his tribe went to war. The ore they had
+      traditionally mined had been corrupted, and each tribe blamed the other
+      for the corruption. Koth thought he could restore the ore, and in fact,
+      purified it.
       <br />
-      The ore they had traditionally mined had been corrupted, and each tribe
-      blamed the other for the corruption.
-      <br />
-      Koth thought he could restore the ore, and in fact, purified it.
       <br />
       To understand Koth's story and his world's corruption, you need to
       understand the
@@ -76,24 +67,21 @@
         rel="noopener noreferrer"
       >
         Phyrexians</a
-      >.
-      <br />
-      The Phyrexians come from the artificial plane of
+      >. The Phyrexians come from the artificial plane of
       <a
         href="https://mtg.fandom.com/wiki/Phyrexia"
         target="_blank"
         rel="noopener noreferrer"
         >Phyrexia</a
       >
-      , which is full of mechanical and biomechanical life.
-      <br />
-      The first Phyrexians were created by the
+      , which is full of mechanical and biomechanical life. The first Phyrexians
+      were created by the Planeswalker
       <a
         href="https://mtg.fandom.com/wiki/Yawgmoth"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Planeswalker Yawgmoth</a
+        Yawgmoth</a
       >, and they spread their corruption through means of
       <a
         href="https://mtg.fandom.com/wiki/Glistening_oil"
@@ -111,22 +99,13 @@
       >
       creatures.
       <br />
-      To avoid any confusion, they're using a very archaic word,
-      <a
-        href="https://mtg.fandom.com/wiki/Compleation"
-        target="_blank"
-        rel="noopener noreferrer"
-        >"compleat"</a
-      >
-      here. C-O-M-P-L-E-A-T.
       <br />
-      It's an archaic English word that means "having all necessary or desired
-      elements or skills."
-      <br />
-      In this case, Phyrexian compleation means that all of their organic parts
-      have been completely replaced and nothing but the artificial remains.
-      <br />
-      They would use this oil to literally change people into artificial beings.
+      To avoid any confusion, they're using a very archaic word, here. C-O-M-
+      P-L-E-A-T. It's an archaic English word that means "having all necessary
+      or desired elements or skills." In this case, Phyrexian compleation means
+      that all of their organic parts have been completely replaced and nothing
+      but the artificial remains. They would use this oil to literally change
+      people into artificial beings.
       <br />
       Koth vowed to save his people from the Phyrexians and went to the
       <a
@@ -149,9 +128,7 @@
         rel="noopener noreferrer"
         >Dominaria</a
       >, which had been created in memory of those that died in the Phyrexian
-      invasion of Dominaria.
-      <br />
-      While there he met two other Planeswalkers,
+      invasion of Dominaria. While there he met two other Planeswalkers,
       <a
         href="https://mtg.fandom.com/wiki/Elspeth_Tirel"
         target="_blank"
@@ -166,23 +143,20 @@
         >Ajani Goldmane</a
       >, and told them of the Phyrexian invasion of Mirrodin.
       <br />
+      <br />
       At the Heroes' Memorial, he learned that he needed to find a man named
       <a
         href="https://mtg.fandom.com/wiki/Venser"
         target="_blank"
         rel="noopener noreferrer"
         >Venser</a
-      >.
+      >. Koth and Elspeth managed to track him down and found Venser rebuilding
+      a Phyrexian vessel, and making improvements to it, to get it to act as a
+      planeshifting ship. That is a ship that could travel from one plane to
+      another. This angered Koth because he believed Venser didn't know what he
+      was dealing with, so he attacked the Planeswalker and convinced him to go
+      toMirrodin to see what threat it posed.
       <br />
-      Koth and Elspeth managed to track him down and found Venser rebuilding a
-      Phyrexian vessel, and making improvements to it, to get it to act as a
-      planeshifting ship.
-      <br />
-      That is a ship that could travel from one plane to another.
-      <br />
-      This angered Koth because he believed Venser didn't know what he was
-      dealing with, so he attacked the Planeswalker and convinced him to go to
-      Mirrodin to see what threat it posed.
       <br />
       On Mirrodin, Koth, Elspeth, and Venser traveled to the
       <a
@@ -191,11 +165,10 @@
         rel="noopener noreferrer"
       >
         Vault of Whispers</a
-      >, where they saw a Phyrexian army invading.
+      >, where they saw a Phyrexian army invading. After a failed attempt to
+      explore the vaults, they ran into a band of Mirrodin rebels, as there were
+      still people trying to fight off the Phyrexian invasion.
       <br />
-      After a failed attempt to explore the vaults, they ran into a band of
-      Mirrodin rebels, as there were still people trying to fight off the
-      Phyrexian invasion.
       <br />
       The Planeswalkers then met
       <a
@@ -205,58 +178,43 @@
       >
         Tezzeret</a
       >, who lead them to a room where Phyrexians were experimenting on living
-      creatures.
-      <br />
-      After defeating the Phyrexian torturers, they freed
+      creatures. After defeating the Phyrexian torturers, they freed
       <a
         href="https://mtg.fandom.com/wiki/Melira"
         target="_blank"
         rel="noopener noreferrer"
       >
         Melira</a
-      >, a Mirran born without any metal.
-      <br />
-      Tezzeret claimed she was a gift from him, as she was completely immune to
+      >, a Mirran born without any metal. Tezzeret claimed she was a gift from
+      him, as she was completely immune to
       <a
         href="https://mtg.fandom.com/wiki/Phyresis"
         target="_blank"
         rel="noopener noreferrer"
         >Phyresis</a
       >, that is, the process of being turned into a Phyrexian, or "compleated."
-      <br />
       She could also heal Phyresis, and healed an entire rebel camp before it
       was attacked by more Phyrexians.
       <br />
+      <br />
       Koth and company left for Mirrodin's core, still trying to find the golem,
-      Karn.
+      Karn. They did eventually find him, but they discovered the Phyrexian oil
+      had corrupted him. According to Melira, it was specifically his heart that
+      had been corrupted. Venser sacrificed his life, giving his spark to Karn,
+      which cured the golem. Unfortunately, Karn knew he could not defeat all
+      the Phyrexians himself, so he had Koth and Elspeth organize and lead the
+      resistance with Melira to try and cleanse Mirrodin.
       <br />
-      They did eventually find him, but they discovered the Phyrexian oil had
-      corrupted him.
-      <br />
-      According to Melira, it was specifically his heart that had been
-      corrupted.
-      <br />
-      Venser sacrificed his life, giving his spark to Karn, which cured the
-      golem.
-      <br />
-      Unfortunately, Karn knew he could not defeat all the Phyrexians himself,
-      so he had Koth and Elspeth organize and lead the resistance with Melira to
-      try and cleanse Mirrodin.
       <br />
       Much of the Phyrexian resistance's survival was thanks to the infighting
-      among the Phyrexians.
-      <br />
-      Each faction was competing to become the leader of the entire group.
-      <br />
-      One, in particular,
+      among the Phyrexians. Each faction was competing to become the leader of
+      the entire group. One, in particular,
       <a
         href="https://mtg.fandom.com/wiki/Elesh_Norn"
         target="_blank"
         rel="noopener noreferrer"
         >Elesh Norn</a
-      >, was gaining influence over the others' domains.
-      <br />
-      The leaders, the
+      >, was gaining influence over the others' domains. The leaders, the
       <a
         href="https://mtg.fandom.com/wiki/Praetor"
         target="_blank"
@@ -265,15 +223,14 @@
       >, of the Phyrexians were going to gather and select a new leader, a
       Mother or Father of Machines.
       <br />
+      <br />
       Koth and Elspeth lead an attack against the Praetors, but it was doomed to
-      fail.
-      <br />
-      When it was just the two of them left, Koth attempted to set off a
+      fail. When it was just the two of them left, Koth attempted to set off a
       powerful spell bomb and was willing to sacrifice himself in the process.
-      <br />
       Elspeth planeswalked away before it detonated, and Koth managed to escape,
       alive, and is currently working with Melira to protect the remaining
       Mirrans and defeat the Phyrexians.
+      <br />
       <br />
       I realize that was rather short, but Koth's story takes place mostly
       during one
@@ -283,9 +240,7 @@
         rel="noopener noreferrer"
         >block</a
       >
-      of Magic: the Gathering.
-      <br />
-      Specifically the sets of
+      of Magic: the Gathering. Specifically the sets of
       <a
         href="https://mtg.fandom.com/wiki/Scars_of_Mirrodin"
         target="_blank"
