@@ -16,7 +16,7 @@
       ></iframe>
     </p>
 
-    <p>
+    <v-card-text>
       Today we're going to learn a little more about the Planeswalker that the
       <a
         href="https://www.playmagiclegends.com/en/news-article/11357823"
@@ -312,7 +312,7 @@
         target="_blank"
         >The Right Side of Gaming</a
       >
-    </p>
+    </v-card-text>
 
     <v-btn color="orange" text> Share </v-btn>
     <br />
