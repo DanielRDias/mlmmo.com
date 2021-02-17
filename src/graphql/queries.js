@@ -135,6 +135,7 @@ export const listCards = /* GraphQL */ `
         properties {
           rank
           damage
+          healing
           health
           dps
           role
