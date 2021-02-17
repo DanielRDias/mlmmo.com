@@ -64,6 +64,16 @@
 </template>
 
 <script>
+(function () {
+  var s = document.createElement("script");
+  s.type = "text/javascript";
+  s.async = true;
+  s.src = "https://app.termly.io/embed.min.js";
+  s.id = "e41784a9-11cf-4285-a677-d3d3771765e0";
+  s.setAttribute("data-name", "termly-embed-banner");
+  var x = document.getElementsByTagName("script")[0];
+  x.parentNode.insertBefore(s, x);
+})();
 import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
@@ -85,7 +95,7 @@ export default {
         icon: "mdi-video-vintage",
         to: "/contentcreators",
       },
-      { title: "About", icon: "mdi-help-box", to: "/about" },
+      { title: "Contact", icon: "mdi-help-box", to: "/contact" },
     ],
   }),
   mounted() {

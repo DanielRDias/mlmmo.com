@@ -123,6 +123,29 @@
         </v-card>
       </v-timeline-item>
     </v-timeline>
+    <p align="right">
+      <button
+        class="termly-cookie-preference-button"
+        type="button"
+        style="
+          width: 165px;
+          height: 30px;
+          border-radius: 3px;
+          border: 1px solid #5f7d9c;
+          font-family: Roboto, Arial;
+          font-size: 10px;
+          color: #5f7d9c;
+          font-weight: 600;
+          box-sizing: border-box;
+          cursor: pointer;
+          padding: 0;
+          outline: none;
+        "
+        onclick="displayPreferenceModal()"
+      >
+        Manage Cookie Preferences
+      </button>
+    </p>
   </div>
 </template>
 
