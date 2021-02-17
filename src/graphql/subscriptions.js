@@ -91,6 +91,7 @@ export const onCreateCard = /* GraphQL */ `
       properties {
         rank
         damage
+        healing
         health
         dps
         role
@@ -145,6 +146,7 @@ export const onUpdateCard = /* GraphQL */ `
       properties {
         rank
         damage
+        healing
         health
         dps
         role
@@ -199,6 +201,7 @@ export const onDeleteCard = /* GraphQL */ `
       properties {
         rank
         damage
+        healing
         health
         dps
         role
