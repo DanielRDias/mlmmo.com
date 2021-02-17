@@ -14,6 +14,27 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Magic: Legends ARPG - Best deck, class, cards and artifacts",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Magic: Legends ARPG - Best deck, class, cards and artifacts | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -42,6 +63,27 @@ const routes = [
       requiresAuth: false,
       title:
         "Classes - Sanctifier, Mindmage, Necromancer, Geomancer && Beastcaller | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Classes - Sanctifier, Mindmage, Necromancer, Geomancer && Beastcaller | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -51,6 +93,27 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Cards - White, Blue, Black, Red && Green | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Cards - White, Blue, Black, Red && Green | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -59,7 +122,29 @@ const routes = [
     component: () => import("../views/Card.vue"),
     meta: {
       requiresAuth: false,
-      title: "Magic: Legends Card | Magic: Legends ARPG",
+      title:
+        "Card - Plains, Island, Swamp, Mountain && Forest | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Card - Plains, Island, Swamp, Mountain && Forest | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -75,6 +160,26 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Decks - Best Magic Legends Decks | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content: "Decks - Best Magic Legends Decks | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -84,6 +189,26 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Magic: Legends Deck | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content: "Magic: Legends Deck | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -92,7 +217,27 @@ const routes = [
     component: () => import("../views/AddDeck.vue"),
     meta: {
       requiresAuth: false,
-      title: "Create Deck - Create your own Deck | Magic: Legends ARPG",
+      title: "Create Deck - Deck building tool | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content: "Create Deck - Deck building tool | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -102,6 +247,27 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Artifacts - Lesser, Greater && Legendary | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Artifacts - Lesser, Greater && Legendary | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
@@ -112,12 +278,59 @@ const routes = [
       requiresAuth: false,
       title:
         "Collection Checklist - Classes, Spells, Artifacts && Customization | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Collection Checklist - Classes, Spells, Artifacts && Customization | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
     },
   },
   {
     path: "/contentcreators",
     name: "ContentCreators",
     component: () => import("../views/ContentCreators.vue"),
+    meta: {
+      requiresAuth: false,
+      title:
+        "Content Creators - Join us and share your content | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Content Creators - Join us and share your content | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, cards and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
+    },
   },
   {
     path: "/geomancerlore",
@@ -134,7 +347,7 @@ const routes = [
         },
         {
           name: "og:image",
-          content: "logo.png",
+          content: "/logo.png",
         },
         {
           name: "description",
@@ -183,7 +396,7 @@ const routes = [
       },
       {
         name: "og:image",
-        content: "logo.png",
+        content: "/logo.png",
       },
       {
         name: "description",
@@ -254,7 +467,6 @@ router.beforeEach(async (to, from, next) => {
 
       // We use this to track which meta tags we create so we don't interfere with other ones.
       tag.setAttribute("data-vue-router-controlled", "");
-
       return tag;
     })
     // Add the meta tags to the document head.
