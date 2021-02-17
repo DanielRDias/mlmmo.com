@@ -101,9 +101,6 @@ export default {
   props: {
     deckEdit: { type: Boolean, required: false, default: false },
   },
-  async mounted() {
-    this.$store.dispatch("cardInfo/getCardsData");
-  },
   data() {
     return {
       errorMsg: "",
