@@ -84,8 +84,7 @@ export default {
         "cardInfo/getCardList",
         this.deck.cards
       );
-      console.log(getCardData);
-      this.deckCards = getCardData.data.listCards.items;
+      this.deckCards = getCardData;
     },
   },
   async mounted() {
