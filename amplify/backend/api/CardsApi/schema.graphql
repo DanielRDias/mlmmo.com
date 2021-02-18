@@ -2,12 +2,7 @@ type Deck
   @model
   @auth(
     rules: [
-      {
-        allow: groups
-        groups: ["Admins"]
-        queries: [get, list]
-        mutations: [create, update, delete]
-      }
+      { allow: owner }
       { allow: public, queries: [get, list], mutations: [create] }
     ]
   ) {

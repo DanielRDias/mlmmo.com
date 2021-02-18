@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateDeck = /* GraphQL */ `
-  subscription OnCreateDeck {
-    onCreateDeck {
+  subscription OnCreateDeck($owner: String) {
+    onCreateDeck(owner: $owner) {
       id
       owner
       ownerId
@@ -24,8 +24,8 @@ export const onCreateDeck = /* GraphQL */ `
   }
 `;
 export const onUpdateDeck = /* GraphQL */ `
-  subscription OnUpdateDeck {
-    onUpdateDeck {
+  subscription OnUpdateDeck($owner: String) {
+    onUpdateDeck(owner: $owner) {
       id
       owner
       ownerId
@@ -46,8 +46,8 @@ export const onUpdateDeck = /* GraphQL */ `
   }
 `;
 export const onDeleteDeck = /* GraphQL */ `
-  subscription OnDeleteDeck {
-    onDeleteDeck {
+  subscription OnDeleteDeck($owner: String) {
+    onDeleteDeck(owner: $owner) {
       id
       owner
       ownerId
