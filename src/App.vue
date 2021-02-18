@@ -20,7 +20,42 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item v-if="!user" key="Login" to="/login" link>
+          <v-list-item-icon>
+            <v-icon>mdi-login</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Login</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="!user" key="Register" to="/register" link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-plus</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Register</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="user" key="Logout" @click="logout" link>
+          <v-list-item-icon>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
+      <v-divider></v-divider>
+      <v-switch
+        class="pl-5"
+        color="blue darken-3"
+        v-model="$vuetify.theme.dark"
+        label="Theme"
+        v-on:change="themeToggleEvent"
+        prepend-icon="mdi-theme-light-dark"
+      >
+      </v-switch>
     </v-navigation-drawer>
     <v-app-bar app src="./assets/other/book-1769625_640-min.png">
       <template v-slot:img="{ props }">
@@ -45,17 +80,6 @@
       <v-btn icon href="https://twitter.com/mlarpg" target="_blank">
         <v-icon>mdi-twitter</v-icon>
       </v-btn>
-      <v-switch
-        class="pt-5"
-        color="blue darken-3"
-        v-model="$vuetify.theme.dark"
-        label="Theme"
-        v-on:change="themeToggleEvent"
-        prepend-icon="mdi-theme-light-dark"
-      >
-      </v-switch>
-
-      <v-menu bottom left> </v-menu>
     </v-app-bar>
     <v-main>
       <router-view></router-view>

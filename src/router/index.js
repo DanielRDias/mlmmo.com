@@ -56,6 +56,15 @@ const routes = [
     },
   },
   {
+    path: "/registercode",
+    name: "RegisterCode",
+    component: () => import("../views/RegisterCode.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Register Code - Activate your account | Magic: Legends ARPG",
+    },
+  },
+  {
     path: "/classes",
     name: "Classes",
     component: () => import("../views/Classes.vue"),
