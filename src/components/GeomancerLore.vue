@@ -9,13 +9,12 @@
       <iframe
         width="100%"
         height="315"
-        src="https://www.youtube-nocookie.com/embed/C6pxTVCX8Kg"
+        src="https://www.youtube.com/embed/C6pxTVCX8Kg"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
         allowfullscreen
       ></iframe>
     </p>
-
     <v-card-text>
       Today we're going to learn a little more about the Planeswalker that the
       <a
