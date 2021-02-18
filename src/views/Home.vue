@@ -123,6 +123,9 @@
         </v-card>
       </v-timeline-item>
     </v-timeline>
+    <div id="CookieDeclarationUserStatusPanel">
+      <a href="/cookiedeclaration">Cookie Declaration User Status Panel</a>
+    </div>
   </div>
 </template>
 

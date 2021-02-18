@@ -56,6 +56,15 @@ const routes = [
     },
   },
   {
+    path: "/registercode",
+    name: "RegisterCode",
+    component: () => import("../views/RegisterCode.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Register Code - Activate your account | Magic: Legends ARPG",
+    },
+  },
+  {
     path: "/classes",
     name: "Classes",
     component: () => import("../views/Classes.vue"),
@@ -363,13 +372,13 @@ const routes = [
     },
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/contact",
+    name: "Contact",
     // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
+    // this generates a separate chunk (contact.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import(/* webpackChunkName: "contact" */ "../views/Contact.vue"),
   },
   {
     path: "/privacypolicy",
@@ -380,6 +389,11 @@ const routes = [
     path: "/termsconditions",
     name: "TermsConditions",
     component: () => import("../views/TermsConditions.vue"),
+  },
+  {
+    path: "/cookiedeclaration",
+    name: "CookieDeclaration",
+    component: () => import("../views/CookieDeclaration.vue"),
   },
   {
     path: "/beta",

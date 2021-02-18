@@ -1,9 +1,0 @@
-{
-  "name": "Academy Wizard",
-  "cost": "3U",
-  "cmc": 4,
-  "color": "Blue",
-  "type": "Creature",
-  "points": 10,
-  "description": "Whenever you draw one or more spells, Academy Wizard summons a 1/1 ranged Illusion (up to a maximum of 3)"
-}
