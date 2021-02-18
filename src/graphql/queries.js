@@ -76,6 +76,7 @@ export const getCard = /* GraphQL */ `
       properties {
         rank
         damage
+        healing
         health
         dps
         role
