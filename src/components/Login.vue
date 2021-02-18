@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout wrap>
+    <v-layout wrap v-if="!user">
       <v-flex sm12 md6 offset-md3>
         <v-card elevation="4" light tag="section">
           <v-card-title>
@@ -49,7 +49,7 @@
             </v-btn>
           </v-card-actions>
           <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
-            <v-btn color="info" text> Forgot password? </v-btn>
+            <v-btn color="info" text href="/contact"> Forgot password? </v-btn>
             <v-spacer></v-spacer>
             <v-btn
               color="info"
@@ -65,18 +65,25 @@
       <v-flex sm12 md6 offset-md3>
         <v-layout align-center justify-space-between>
           <p class="caption my-3">
-            <a href="#">Privacy Policy</a>
+            <a href="/privacypolicy">Privacy Policy</a>
             |
-            <a href="#">Terms of Service</a>
+            <a href="/termsconditions">Terms of Service</a>
           </p>
         </v-layout>
       </v-flex>
     </v-layout>
+
+    <v-card v-if="user">
+      <v-card-title>You are already logged in.</v-card-title>
+      <v-card-text @click="logout" link>
+        <v-btn> <v-icon>mdi-logout</v-icon> Click here to Logout </v-btn>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import VueRecaptcha from "vue-recaptcha";
 export default {
   data: () => ({
@@ -89,6 +96,10 @@ export default {
     VueRecaptcha,
   },
   methods: {
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      //this.$router.push("/login");
+    },
     onVerify: function (data) {
       this.$Amplify.Auth.sendCustomChallengeAnswer(this.user, data)
         .then((user) => {
@@ -113,6 +124,11 @@ export default {
         this.error = error;
       }
     },
+  },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
   },
 };
 </script>
