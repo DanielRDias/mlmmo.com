@@ -84,14 +84,27 @@ export const cardInfo = {
     },
     async getCardList(_, cardIdList) {
       let filterId = [];
+      let cardList = [];
+      var cardListQuery;
+      var nextToken;
       for (var i = 0; i < cardIdList.length; i++) {
         filterId.push({ id: { eq: cardIdList[i] } });
       }
-      return await API.graphql({
-        query: listCardsQuery,
-        variables: { filter: { or: filterId } },
-        authMode: "API_KEY",
-      });
+      do {
+        cardListQuery = await API.graphql({
+          query: listCardsQuery,
+          variables: {
+            filter: { or: filterId },
+            nextToken: nextToken,
+          },
+          authMode: "API_KEY",
+        });
+        cardList = cardList.concat(cardListQuery.data.listCards.items);
+        nextToken = cardListQuery.data.listCards.nextToken;
+        console.log(cardListQuery);
+      } while (cardListQuery.data.listCards.nextToken);
+
+      return cardList;
     },
     async getCardsData({ commit }) {
       var cardsData = await API.graphql({

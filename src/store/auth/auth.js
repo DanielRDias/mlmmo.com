@@ -49,7 +49,7 @@ export const auth = {
         return Promise.resolve();
       } catch (error) {
         console.log(error);
-        return Promise.reject();
+        return Promise.reject(error);
       }
     },
     async authAction({ commit }) {
