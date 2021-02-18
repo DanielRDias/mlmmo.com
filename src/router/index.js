@@ -391,6 +391,11 @@ const routes = [
     component: () => import("../views/TermsConditions.vue"),
   },
   {
+    path: "/cookiedeclaration",
+    name: "CookieDeclaration",
+    component: () => import("../views/CookieDeclaration.vue"),
+  },
+  {
     path: "/beta",
     name: "Beta",
     component: () => import("../views/Beta.vue"),
