@@ -1,5 +1,6 @@
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { createDeck as createDeckMutation } from "@/graphql/mutations";
+import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 import { createCard as createCardMutation } from "@/graphql/mutations";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { getCard as getCardQuery } from "@/graphql/queries";
@@ -47,9 +48,20 @@ export const cardInfo = {
           graphqlOperation(createDeckMutation, { input: data })
         );
       } catch (error) {
-        console.error("createdeck", error);
+        console.error("create deck", error);
       }
     },
+    async deleteDeck(_, deckId) {
+      try {
+        await API.graphql(
+          graphqlOperation(deleteDeckMutation, { input: { id: deckId } })
+        );
+      } catch (error) {
+        console.error("delete deck", error);
+        return Promise.reject(error);
+      }
+    },
+
     async createAnonymousDeck(_, data) {
       try {
         await API.graphql({
@@ -73,6 +85,10 @@ export const cardInfo = {
         query: listDecksQuery,
         authMode: "API_KEY",
       });
+      commit("setDecks", decksData.data.listDecks.items);
+    },
+    async getUserDecksData({ commit }) {
+      const decksData = await API.graphql(graphqlOperation(listDecksQuery));
       commit("setDecks", decksData.data.listDecks.items);
     },
     async getCard(_, cardId) {
@@ -101,7 +117,6 @@ export const cardInfo = {
         });
         cardList = cardList.concat(cardListQuery.data.listCards.items);
         nextToken = cardListQuery.data.listCards.nextToken;
-        console.log(cardListQuery);
       } while (cardListQuery.data.listCards.nextToken);
 
       return cardList;

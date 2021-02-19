@@ -37,6 +37,18 @@
             <v-list-item-title>Register</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item v-if="user" key="account" to="/account" link>
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>My Account</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="user">
+          <v-list-item-icon> </v-list-item-icon>
+          <v-list-item-content> </v-list-item-content>
+        </v-list-item>
         <v-list-item v-if="user" key="Logout" @click="logout" link>
           <v-list-item-icon>
             <v-icon>mdi-logout</v-icon>
