@@ -52,19 +52,49 @@
 
                   <v-fade-transition>
                     <v-overlay v-if="hover" absolute color="#036358">
-                      <v-row align-content="center">
+                      <v-row
+                        align-content="center"
+                        v-show="!showDeleteCheck(item.id)"
+                      >
                         <v-col>
-                          <v-btn @click="getDeck(item)">Preview Deck</v-btn>
+                          <v-btn small @click="getDeck(item)">
+                            Preview Deck
+                          </v-btn>
                         </v-col>
                         <v-col>
                           <v-btn
+                            small
                             :to="{
                               name: 'Deck',
                               query: { deckId: item.id },
                             }"
                             target="_blank"
-                            >Open Deck</v-btn
                           >
+                            Open Deck
+                          </v-btn>
+                        </v-col>
+                        <v-col v-if="userDecks">
+                          <v-icon
+                            color="red"
+                            @click="confirmDeleteDeck(item.id)"
+                          >
+                            mdi-delete
+                          </v-icon>
+                        </v-col>
+                      </v-row>
+                      <v-row
+                        align-content="center"
+                        v-if="userDecks && showDeleteCheck(item.id)"
+                      >
+                        <v-col>
+                          <v-btn color="red" small @click="deleteDeck(item.id)">
+                            Delete Deck
+                          </v-btn>
+                        </v-col>
+                        <v-col>
+                          <v-btn small @click="confirmDeleteDeck(item.id)">
+                            Cancel
+                          </v-btn>
                         </v-col>
                       </v-row>
                     </v-overlay>
@@ -131,16 +161,26 @@ import { mapGetters } from "vuex";
 import Deck from "@/components/Deck.vue";
 
 export default {
+  props: {
+    userDecks: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
   components: {
     Deck,
   },
   async mounted() {
-    this.$store.dispatch("cardInfo/getDecksData");
+    if (this.$props.userDecks) {
+      this.$store.dispatch("cardInfo/getUserDecksData");
+    } else {
+      this.$store.dispatch("cardInfo/getDecksData");
+    }
     this.$store.dispatch("cardInfo/getCardsData");
   },
   data() {
     return {
-      testload: false,
       deckOverlay: false,
       allowEdit: false,
       currentDeck: { cards: [] },
@@ -152,6 +192,7 @@ export default {
       page: 1,
       itemsPerPage: 12,
       sortBy: "name",
+      deleteCheck: [],
     };
   },
   computed: {
@@ -165,8 +206,49 @@ export default {
     cards(allCardsStore) {
       this.allCards = allCardsStore;
     },
+    decks(allDecksStore) {
+      console.log("allDecksStore");
+      if (!this.$props.userDecks) {
+        // skip if we are not in user account
+        console.log("allDecksStore if");
+        return;
+      }
+      console.log("allDecksStore else");
+      this.deleteCheck = [];
+      allDecksStore.forEach((element) =>
+        this.deleteCheck.push({ id: element.id, show: false })
+      );
+    },
   },
   methods: {
+    showDeleteCheck(id) {
+      console.log("showDeleteCheck");
+      if (this.deleteCheck.length === 0) {
+        // skip if we are not in user account or if the cards aren't loaded yet
+        console.log("showDeleteCheck if");
+        return false;
+      }
+      console.log("showDeleteCheck else");
+      let index = this.deleteCheck.findIndex((element) => element.id === id);
+      return this.deleteCheck[index].show;
+    },
+    confirmDeleteDeck(id) {
+      let index = this.deleteCheck.findIndex((element) => element.id === id);
+      this.deleteCheck[index].show = !this.deleteCheck[index].show;
+    },
+    async deleteDeck(deckId) {
+      try {
+        console.log("delete deck id:", deckId);
+        await this.$store.dispatch("cardInfo/deleteDeck", deckId);
+        console.log("Deck Deleted!");
+        let index = this.decks.findIndex((element) => element.id === deckId);
+        if (index > -1) {
+          this.decks.splice(index, 1);
+        }
+      } catch (error) {
+        console.log("error deleting the deck", error);
+      }
+    },
     setAllowEdit(value) {
       this.allowEdit = value;
     },

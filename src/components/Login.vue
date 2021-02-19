@@ -98,7 +98,6 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch("auth/logout");
-      //this.$router.push("/login");
     },
     onVerify: function (data) {
       this.$Amplify.Auth.sendCustomChallengeAnswer(this.user, data)
@@ -119,7 +118,7 @@ export default {
           username: this.username,
           password: this.password,
         });
-        this.$router.push("/adddeck");
+        this.$router.push("/account");
       } catch (error) {
         this.error = error;
       }
