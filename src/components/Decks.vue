@@ -73,7 +73,7 @@
                             Open Deck
                           </v-btn>
                         </v-col>
-                        <v-col>
+                        <v-col v-if="userDecks">
                           <v-icon
                             color="red"
                             @click="confirmDeleteDeck(item.id)"
@@ -84,7 +84,7 @@
                       </v-row>
                       <v-row
                         align-content="center"
-                        v-if="showDeleteCheck(item.id)"
+                        v-if="userDecks && showDeleteCheck(item.id)"
                       >
                         <v-col>
                           <v-btn color="red" small @click="deleteDeck(item.id)">
@@ -207,6 +207,13 @@ export default {
       this.allCards = allCardsStore;
     },
     decks(allDecksStore) {
+      console.log("allDecksStore");
+      if (!this.$props.userDecks) {
+        // skip if we are not in user account
+        console.log("allDecksStore if");
+        return;
+      }
+      console.log("allDecksStore else");
       this.deleteCheck = [];
       allDecksStore.forEach((element) =>
         this.deleteCheck.push({ id: element.id, show: false })
@@ -215,6 +222,13 @@ export default {
   },
   methods: {
     showDeleteCheck(id) {
+      console.log("showDeleteCheck");
+      if (this.deleteCheck.length === 0) {
+        // skip if we are not in user account or if the cards aren't loaded yet
+        console.log("showDeleteCheck if");
+        return false;
+      }
+      console.log("showDeleteCheck else");
       let index = this.deleteCheck.findIndex((element) => element.id === id);
       return this.deleteCheck[index].show;
     },
