@@ -7,45 +7,67 @@
     }
   },
   "function": {
-    "mlmmocom1ea39499DefineAuthChallenge": {
+    "mlmmocomc77e13caDefineAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "mlmmocom1ea39499CreateAuthChallenge": {
+    "mlmmocomc77e13caCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocomc77e13caVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocomc77e13caCustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "auth": {
-    "mlmmocom1ea39499": {
+    "mlmmocomc77e13ca": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "mlmmocom1ea39499DefineAuthChallenge",
+          "resourceName": "mlmmocomc77e13caDefineAuthChallenge",
           "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom1ea39499CreateAuthChallenge",
+          "resourceName": "mlmmocomc77e13caCreateAuthChallenge",
           "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom1ea39499VerifyAuthChallengeResponse",
+          "resourceName": "mlmmocomc77e13caVerifyAuthChallengeResponse",
           "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom1ea39499CustomMessage",
+          "resourceName": "mlmmocomc77e13caCustomMessage",
           "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         }
       ],
       "customAuth": true
@@ -60,7 +82,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmlmmocom1ea39499"
+              "userPoolId": "authmlmmocomc77e13ca"
             }
           },
           "additionalAuthenticationProviders": [

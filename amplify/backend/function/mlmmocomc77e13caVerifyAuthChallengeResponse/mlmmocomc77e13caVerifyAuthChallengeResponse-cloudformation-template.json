@@ -2,15 +2,7 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Lambda resource stack creation using Amplify CLI",
   "Parameters": {
-    "REDIRECTURL": {
-      "Type": "String",
-      "Default": ""
-    },
-    "EMAILMESSAGE": {
-      "Type": "String",
-      "Default": ""
-    },
-    "EMAILSUBJECT": {
+    "RECAPTCHASECRET": {
       "Type": "String",
       "Default": ""
     },
@@ -75,12 +67,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mlmmocom1ea39499CustomMessage",
+            "mlmmocomc77e13caVerifyAuthChallengeResponse",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mlmmocom1ea39499CustomMessage",
+                  "mlmmocomc77e13caVerifyAuthChallengeResponse",
                   "-",
                   {
                     "Ref": "env"
@@ -101,17 +93,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REDIRECTURL": {
-              "Ref": "REDIRECTURL"
-            },
-            "EMAILSUBJECT": {
-              "Ref": "EMAILSUBJECT"
-            },
-            "EMAILMESSAGE": {
-              "Ref": "EMAILMESSAGE"
-            },
-            "RESOURCENAME": {
-              "Ref": "resourceName"
+            "RECAPTCHASECRET": {
+              "Ref": "RECAPTCHASECRET"
             }
           }
         },
@@ -139,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mlmmocom1ea39499CustomMessage",
+            "mlmmocomc77e13caVerifyAuthChallengeResponse",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mlmmocom1ea39499CustomMessage",
+                  "mlmmocomc77e13caVerifyAuthChallengeResponse",
                   "-",
                   {
                     "Ref": "env"

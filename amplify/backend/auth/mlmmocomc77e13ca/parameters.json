@@ -1,8 +1,8 @@
 {
-  "identityPoolName": "mlmmocom1ea39499_identitypool_1ea39499",
+  "identityPoolName": "mlmmocomc77e13ca_identitypool_c77e13ca",
   "allowUnauthenticatedIdentities": false,
-  "resourceNameTruncated": "mlmmoc1ea39499",
-  "userPoolName": "mlmmocom1ea39499_userpool_1ea39499",
+  "resourceNameTruncated": "mlmmocc77e13ca",
+  "userPoolName": "mlmmocomc77e13ca_userpool_c77e13ca",
   "autoVerifiedAttributes": ["email"],
   "mfaConfiguration": "OFF",
   "mfaTypes": ["SMS Text Message"],
@@ -18,10 +18,10 @@
   "userpoolClientRefreshTokenValidity": 30,
   "userpoolClientWriteAttributes": ["email"],
   "userpoolClientReadAttributes": ["email"],
-  "userpoolClientLambdaRole": "mlmmoc1ea39499_userpoolclient_lambda_role",
+  "userpoolClientLambdaRole": "mlmmocc77e13ca_userpoolclient_lambda_role",
   "userpoolClientSetAttributes": false,
-  "sharedId": "1ea39499",
-  "resourceName": "mlmmocom1ea39499",
+  "sharedId": "c77e13ca",
+  "resourceName": "mlmmocomc77e13ca",
   "authSelections": "identityPoolAndUserPool",
   "authRoleArn": {
     "Fn::GetAtt": ["AuthRole", "Arn"]
@@ -32,13 +32,13 @@
   "useDefault": "defaultSocial",
   "hostedUI": true,
   "triggers": "{\n  \"DefineAuthChallenge\": [\n    \"captcha-define-challenge\"\n  ],\n  \"CreateAuthChallenge\": [\n    \"captcha-create-challenge\"\n  ],\n  \"VerifyAuthChallengeResponse\": [\n    \"captcha-verify\"\n  ],\n  \"CustomMessage\": [\n    \"verification-link\"\n  ]\n}",
-  "hostedUIDomainName": "mlarpg",
+  "hostedUIDomainName": "mlmmocomc77e13ca-c77e13ca",
   "authProvidersUserPool": ["Facebook", "Google"],
   "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
   "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://www.mlarpg.com/\"],\"LogoutURLs\":[\"https://www.mlarpg.com/\"]}",
   "userPoolGroupList": [],
   "serviceName": "Cognito",
-  "verificationBucketName": "mlmmocom1ea39499verificationbucket",
+  "verificationBucketName": "mlmmocomc77e13caverificationbucket",
   "parentStack": {
     "Ref": "AWS::StackId"
   },
@@ -46,25 +46,25 @@
   "dependsOn": [
     {
       "category": "function",
-      "resourceName": "mlmmocom1ea39499DefineAuthChallenge",
+      "resourceName": "mlmmocomc77e13caDefineAuthChallenge",
       "triggerProvider": "Cognito",
       "attributes": ["Arn", "Name"]
     },
     {
       "category": "function",
-      "resourceName": "mlmmocom1ea39499CreateAuthChallenge",
+      "resourceName": "mlmmocomc77e13caCreateAuthChallenge",
       "triggerProvider": "Cognito",
       "attributes": ["Arn", "Name"]
     },
     {
       "category": "function",
-      "resourceName": "mlmmocom1ea39499VerifyAuthChallengeResponse",
+      "resourceName": "mlmmocomc77e13caVerifyAuthChallengeResponse",
       "triggerProvider": "Cognito",
       "attributes": ["Arn", "Name"]
     },
     {
       "category": "function",
-      "resourceName": "mlmmocom1ea39499CustomMessage",
+      "resourceName": "mlmmocomc77e13caCustomMessage",
       "triggerProvider": "Cognito",
       "attributes": ["Arn", "Name"]
     }
