@@ -37,7 +37,7 @@
           "EMAILSUBJECT": "MLaRPG confirmation email",
           "EMAILMESSAGE": "Use the following link to confirm your account ",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocomc77e13caCustomMessage-4d4f426f546f59495178-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caCustomMessage-7472485674642b364454-build.zip"
         }
       },
       "auth": {
