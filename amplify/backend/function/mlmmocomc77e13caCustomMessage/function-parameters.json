@@ -1,8 +1,6 @@
 {
   "trigger": true,
-  "modules": [
-    "verification-link"
-  ],
+  "modules": ["verification-link"],
   "parentResource": "mlmmocomc77e13ca",
   "functionName": "mlmmocomc77e13caCustomMessage",
   "resourceName": "mlmmocomc77e13caCustomMessage",
@@ -20,7 +18,7 @@
   "skipEdit": true,
   "REDIRECTURL": "https://www.mlarpg.com/",
   "EMAILSUBJECT": "MLaRPG confirmation email",
-  "EMAILMESSAGE": "Use the following link to confirm your account ",
+  "EMAILMESSAGE": "Complete the registration using the following code or activation link",
   "RESOURCENAME": "resourceName",
   "enableCors": false
 }
