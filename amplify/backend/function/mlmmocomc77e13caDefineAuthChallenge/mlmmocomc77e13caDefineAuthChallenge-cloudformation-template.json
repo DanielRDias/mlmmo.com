@@ -2,10 +2,6 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Lambda resource stack creation using Amplify CLI",
   "Parameters": {
-    "CHALLENGEANSWER": {
-      "Type": "String",
-      "Default": ""
-    },
     "modules": {
       "Type": "String",
       "Default": "",
@@ -67,12 +63,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mlmmocom1ea39499CreateAuthChallenge",
+            "mlmmocomc77e13caDefineAuthChallenge",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mlmmocom1ea39499CreateAuthChallenge",
+                  "mlmmocomc77e13caDefineAuthChallenge",
                   "-",
                   {
                     "Ref": "env"
@@ -92,9 +88,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "CHALLENGEANSWER": {
-              "Ref": "CHALLENGEANSWER"
             }
           }
         },
@@ -122,12 +115,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mlmmocom1ea39499CreateAuthChallenge",
+            "mlmmocomc77e13caDefineAuthChallenge",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mlmmocom1ea39499CreateAuthChallenge",
+                  "mlmmocomc77e13caDefineAuthChallenge",
                   "-",
                   {
                     "Ref": "env"

@@ -19,29 +19,29 @@
         }
       },
       "function": {
-        "mlmmocom1ea39499DefineAuthChallenge": {
+        "mlmmocomc77e13caDefineAuthChallenge": {
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom1ea39499DefineAuthChallenge-707466696f4b35483178-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caDefineAuthChallenge-4b684d737265696a6453-build.zip"
         },
-        "mlmmocom1ea39499CreateAuthChallenge": {
+        "mlmmocomc77e13caCreateAuthChallenge": {
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom1ea39499CreateAuthChallenge-4532632b517a74516365-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caCreateAuthChallenge-6c4576444b6c75473971-build.zip"
         },
-        "mlmmocom1ea39499VerifyAuthChallengeResponse": {
+        "mlmmocomc77e13caVerifyAuthChallengeResponse": {
           "RECAPTCHASECRET": "6Le8e2AaAAAAANeeY0h_OFhzSyGfi_84LBn6g4qR",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom1ea39499VerifyAuthChallengeResponse-527872647837706a3963-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caVerifyAuthChallengeResponse-617a536c794167336f56-build.zip"
         },
-        "mlmmocom1ea39499CustomMessage": {
+        "mlmmocomc77e13caCustomMessage": {
           "REDIRECTURL": "https://www.mlarpg.com/",
           "EMAILSUBJECT": "MLaRPG confirmation email",
-          "EMAILMESSAGE": "Use this link to confirm your account: ",
+          "EMAILMESSAGE": "Use the following link to confirm your account ",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom1ea39499CustomMessage-4153535a315657574e47-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caCustomMessage-4d4f426f546f59495178-build.zip"
         }
       },
       "auth": {
-        "mlmmocom1ea39499": {}
+        "mlmmocomc77e13ca": {}
       }
     }
   }

@@ -3,15 +3,15 @@
   "modules": [
     "captcha-create-challenge"
   ],
-  "parentResource": "mlmmocom1ea39499",
-  "functionName": "mlmmocom1ea39499CreateAuthChallenge",
-  "resourceName": "mlmmocom1ea39499CreateAuthChallenge",
+  "parentResource": "mlmmocomc77e13ca",
+  "functionName": "mlmmocomc77e13caCreateAuthChallenge",
+  "resourceName": "mlmmocomc77e13caCreateAuthChallenge",
   "parentStack": "auth",
   "triggerEnvs": [],
   "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/CreateAuthChallenge",
   "triggerTemplate": "CreateAuthChallenge.json.ejs",
   "triggerEventPath": "CreateAuthChallenge.event.json",
-  "roleName": "mlmmocom1ea39499CreateAuthChallenge",
+  "roleName": "mlmmocomc77e13caCreateAuthChallenge",
   "skipEdit": true,
   "enableCors": false
 }
