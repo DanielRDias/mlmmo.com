@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "mlmmocom1ea39499",
+  "functionName": "mlmmocom1ea39499CustomMessage",
+  "resourceName": "mlmmocom1ea39499CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "mlmmocom1ea39499CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://www.mlarpg.com/",
+  "EMAILSUBJECT": "MLaRPG confirmation email",
+  "EMAILMESSAGE": "Use this link to confirm your account: ",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

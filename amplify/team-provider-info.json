@@ -19,22 +19,34 @@
         }
       },
       "function": {
-        "mlmmocom9f949725DefineAuthChallenge": {
+        "mlmmocom1ea39499DefineAuthChallenge": {
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom9f949725DefineAuthChallenge-4c744e734d6d6b522b4a-build.zip"
+          "s3Key": "amplify-builds/mlmmocom1ea39499DefineAuthChallenge-707466696f4b35483178-build.zip"
         },
-        "mlmmocom9f949725CreateAuthChallenge": {
+        "mlmmocom1ea39499CreateAuthChallenge": {
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom9f949725CreateAuthChallenge-46474143475051356278-build.zip"
+          "s3Key": "amplify-builds/mlmmocom1ea39499CreateAuthChallenge-4532632b517a74516365-build.zip"
         },
-        "mlmmocom9f949725VerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": "6LffQTIaAAAAAOGPwX9YjWJoHmlSgZIn1hECGAoc",
+        "mlmmocom1ea39499VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6Le8e2AaAAAAANeeY0h_OFhzSyGfi_84LBn6g4qR",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocom9f949725VerifyAuthChallengeResponse-593041414353706c5965-build.zip"
+          "s3Key": "amplify-builds/mlmmocom1ea39499VerifyAuthChallengeResponse-527872647837706a3963-build.zip"
+        },
+        "mlmmocom1ea39499CustomMessage": {
+          "REDIRECTURL": "https://www.mlarpg.com/",
+          "EMAILSUBJECT": "MLaRPG confirmation email",
+          "EMAILMESSAGE": "Use this link to confirm your account: ",
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom1ea39499CustomMessage-4153535a315657574e47-build.zip"
         }
       },
       "auth": {
-        "mlmmocom9f949725": {}
+        "mlmmocom9f949725": {},
+        "mlarpg": {
+          "facebookAppId": "227771329017483",
+          "googleClientId": "33180781366-a7pqlorjn887aq6nc9o6mds13bgq360l.apps.googleusercontent.com"
+        },
+        "mlmmocom1ea39499": {}
       }
     }
   }
