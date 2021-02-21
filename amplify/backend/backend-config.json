@@ -7,21 +7,6 @@
     }
   },
   "function": {
-    "mlmmocom9f949725DefineAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "mlmmocom9f949725CreateAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "mlmmocom9f949725VerifyAuthChallengeResponse": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "mlmmocom1ea39499DefineAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -31,53 +16,9 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "mlmmocom1ea39499VerifyAuthChallengeResponse": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "mlmmocom1ea39499CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   },
   "auth": {
-    "mlmmocom9f949725": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "mlmmocom9f949725DefineAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "mlmmocom9f949725CreateAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "mlmmocom9f949725VerifyAuthChallengeResponse",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
-      "customAuth": true
-    },
     "mlmmocom1ea39499": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
@@ -86,37 +27,25 @@
           "category": "function",
           "resourceName": "mlmmocom1ea39499DefineAuthChallenge",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         },
         {
           "category": "function",
           "resourceName": "mlmmocom1ea39499CreateAuthChallenge",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         },
         {
           "category": "function",
           "resourceName": "mlmmocom1ea39499VerifyAuthChallengeResponse",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         },
         {
           "category": "function",
           "resourceName": "mlmmocom1ea39499CustomMessage",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         }
       ],
       "customAuth": true
