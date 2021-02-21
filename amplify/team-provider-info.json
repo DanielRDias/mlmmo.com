@@ -31,10 +31,59 @@
           "RECAPTCHASECRET": "6LffQTIaAAAAAOGPwX9YjWJoHmlSgZIn1hECGAoc",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
           "s3Key": "amplify-builds/mlmmocom9f949725VerifyAuthChallengeResponse-593041414353706c5965-build.zip"
+        },
+        "mlarpgCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlarpgCreateAuthChallenge-75635344434b4f762f34-build.zip"
+        },
+        "mlarpgCustomMessage": {
+          "REDIRECTURL": "https://www.mlarpg.com/",
+          "EMAILSUBJECT": "Confirm your email",
+          "EMAILMESSAGE": "Use this link to confirm your account: ",
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlarpgCustomMessage-584d703579725a357a47-build.zip"
+        },
+        "mlarpgDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlarpgDefineAuthChallenge-31386d7471624c4b3367-build.zip"
+        },
+        "mlarpgVerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6Le8e2AaAAAAANeeY0h_OFhzSyGfi_84LBn6g4qR",
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlarpgVerifyAuthChallengeResponse-496a50754f4a536b6145-build.zip"
+        },
+        "AdminQueriesc22955dd": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/AdminQueriesc22955dd-71782b737654686b704c-build.zip"
+        },
+        "mlmmocom1ea39499DefineAuthChallenge": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom1ea39499DefineAuthChallenge-707466696f4b35483178-build.zip"
+        },
+        "mlmmocom1ea39499CreateAuthChallenge": {
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom1ea39499CreateAuthChallenge-4532632b517a74516365-build.zip"
+        },
+        "mlmmocom1ea39499VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6Le8e2AaAAAAANeeY0h_OFhzSyGfi_84LBn6g4qR",
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom1ea39499VerifyAuthChallengeResponse-527872647837706a3963-build.zip"
+        },
+        "mlmmocom1ea39499CustomMessage": {
+          "REDIRECTURL": "https://www.mlarpg.com/",
+          "EMAILSUBJECT": "MLaRPG confirmation email",
+          "EMAILMESSAGE": "Use this link to confirm your account: ",
+          "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
+          "s3Key": "amplify-builds/mlmmocom1ea39499CustomMessage-4153535a315657574e47-build.zip"
         }
       },
       "auth": {
-        "mlmmocom9f949725": {}
+        "mlmmocom9f949725": {},
+        "mlarpg": {
+          "facebookAppId": "227771329017483",
+          "googleClientId": "33180781366-a7pqlorjn887aq6nc9o6mds13bgq360l.apps.googleusercontent.com"
+        },
+        "mlmmocom1ea39499": {}
       }
     }
   }
