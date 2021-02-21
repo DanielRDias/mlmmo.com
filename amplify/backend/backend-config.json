@@ -21,6 +21,26 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "mlmmocom1ea39499DefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocom1ea39499CreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocom1ea39499VerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocom1ea39499CustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "auth": {
@@ -57,6 +77,49 @@
         }
       ],
       "customAuth": true
+    },
+    "mlmmocom1ea39499": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "mlmmocom1ea39499DefineAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocom1ea39499CreateAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocom1ea39499VerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocom1ea39499CustomMessage",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": true
     }
   },
   "api": {
@@ -68,15 +131,15 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmlmmocom9f949725"
+              "userPoolId": "authmlmmocom1ea39499"
             }
           },
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "description": "Cards API Key"
+                "apiKeyExpirationDays": 365,
+                "description": "GraphQL API Key"
               }
             },
             {
@@ -87,10 +150,5 @@
       }
     }
   },
-  "storage": {
-    "cardss3": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  }
+  "storage": {}
 }
