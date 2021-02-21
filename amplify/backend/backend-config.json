@@ -7,30 +7,35 @@
     }
   },
   "function": {
-    "mlmmocom9f949725DefineAuthChallenge": {
+    "mlmmocomc77e13caDefineAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "mlmmocom9f949725CreateAuthChallenge": {
+    "mlmmocomc77e13caCreateAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "mlmmocom9f949725VerifyAuthChallengeResponse": {
+    "mlmmocomc77e13caVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocomc77e13caCustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "auth": {
-    "mlmmocom9f949725": {
+    "mlmmocomc77e13ca": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "mlmmocom9f949725DefineAuthChallenge",
+          "resourceName": "mlmmocomc77e13caDefineAuthChallenge",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -39,7 +44,7 @@
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom9f949725CreateAuthChallenge",
+          "resourceName": "mlmmocomc77e13caCreateAuthChallenge",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -48,7 +53,16 @@
         },
         {
           "category": "function",
-          "resourceName": "mlmmocom9f949725VerifyAuthChallengeResponse",
+          "resourceName": "mlmmocomc77e13caVerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocomc77e13caCustomMessage",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -68,15 +82,15 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmlmmocom9f949725"
+              "userPoolId": "authmlmmocomc77e13ca"
             }
           },
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "description": "Cards API Key"
+                "apiKeyExpirationDays": 365,
+                "description": "GraphQL API Key"
               }
             },
             {
@@ -87,10 +101,5 @@
       }
     }
   },
-  "storage": {
-    "cardss3": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  }
+  "storage": {}
 }
