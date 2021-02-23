@@ -292,7 +292,7 @@ export default {
       currentCardId: "",
       nocards: [],
       filterCards: [],
-      itemsPerPageArray: [1, 4, 8, 12, 20, 30, 60, 100, 200, 400],
+      itemsPerPageArray: [1, 2, 4, 8, 12, 20, 30, 60, 100, 200, 400],
       search: "",
       filter: {},
       sortDesc: false,
