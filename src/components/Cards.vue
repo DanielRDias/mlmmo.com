@@ -5,8 +5,9 @@
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
-      :sort-by="sortBy.toLowerCase()"
-      :sort-desc="sortDesc"
+      :custom-sort="customSort"
+      :sortBy="sortBy.toLowerCase()"
+      :sortDesc="sortDesc"
       hide-default-footer
       class="elevation-1"
       loading
@@ -196,7 +197,7 @@
 
       <template v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
-          <span class="grey--text">Items</span>
+          <span class="grey--text">Items per page</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -223,6 +224,30 @@
           </v-menu>
 
           <v-spacer></v-spacer>
+
+          <span class="mr-4 grey--text">
+            {{ page }} of {{ numberOfPages }}
+          </span>
+          <v-btn
+            small
+            fab
+            dark
+            color="blue darken-3"
+            class="mr-1"
+            @click="formerPage"
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn
+            small
+            fab
+            dark
+            color="blue darken-3"
+            class="ml-1"
+            @click="nextPage"
+          >
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
         </v-row>
       </template>
     </v-data-iterator>
@@ -256,13 +281,13 @@ export default {
       cardOverlay: false,
       currentCardId: "",
       nocards: [],
-      itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
+      itemsPerPageArray: [1, 4, 8, 12, 20, 30, 60, 100, 200, 400],
       search: "",
       filter: {},
       sortDesc: false,
       page: 1,
-      itemsPerPage: 30,
-      sortBy: "name",
+      itemsPerPage: 8,
+      sortBy: "color",
       cardRank: "1",
       keys: ["Name", "CMC", "Color", "Type", "Points", "Description"],
       ranks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -279,6 +304,11 @@ export default {
     };
   },
   computed: {
+    numberOfPages() {
+      let numberOfItems = 0;
+      this.cards ? (numberOfItems = this.cards.length) : (numberOfItems = 0);
+      return Math.ceil(numberOfItems / this.itemsPerPage);
+    },
     filteredKeys() {
       return this.keys.filter((key) => key !== "Description");
     },
@@ -288,6 +318,45 @@ export default {
     }),
   },
   methods: {
+    customSort(items, index, isDesc) {
+      items.sort((a, b) => {
+        if (index[0] === "color") {
+          const colorSort = [
+            "white",
+            "blue",
+            "black",
+            "red",
+            "green",
+            "azorius",
+            "orzhov",
+            "dimir",
+            "izzet",
+            "rakdos",
+            "golgari",
+            "grull",
+            "boros",
+            "selesnya",
+            "simic",
+            "colorless",
+            "?",
+          ];
+          var indexA = colorSort.findIndex((x) => x == a.color.toLowerCase());
+          var indexB = colorSort.findIndex((x) => x == b.color.toLowerCase());
+          if (!isDesc[0]) {
+            return indexA > indexB ? 1 : -1;
+          } else {
+            return indexB > indexA ? 1 : -1;
+          }
+        } else {
+          if (!isDesc[0]) {
+            return a[index[0]] > b[index[0]] ? 1 : -1;
+          } else {
+            return b[index[0]] > a[index[0]] ? 1 : -1;
+          }
+        }
+      });
+      return items;
+    },
     getCardOverlay(card) {
       this.cardOverlay = true;
       this.currentCardId = card.id;
