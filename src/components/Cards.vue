@@ -15,61 +15,58 @@
     >
       <template v-slot:header>
         <v-toolbar class="mb-1">
-          <v-text-field
-            v-model="search"
-            clearable
+          <v-menu bottom right :close-on-content-click="false">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on">
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </template>
+            <v-text-field
+              :autofocus="true"
+              v-model="search"
+              clearable
+              flat
+              solo-inverted
+              hide-details
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+            ></v-text-field>
+          </v-menu>
+
+          <v-spacer></v-spacer>
+          <v-select
+            class="pa-2 pt-10"
+            v-model="colorFilterSelect"
+            @input="colorFilter"
+            :items="mtgcolors"
+            label="Filter cards by color"
+          >
+            <template v-slot:selection="{ item }">
+              <img :src="item.image" width="14" height="14" />
+            </template>
+            <template v-slot:item="{ item }">
+              <img :src="item.image" width="14" height="14" />
+              <v-spacer></v-spacer>
+              {{ item.name }}
+            </template>
+          </v-select>
+          <v-select
+            v-model="sortBy"
             flat
             solo-inverted
             hide-details
-            prepend-inner-icon="mdi-magnify"
-            label="Search"
-          ></v-text-field>
-
-          <v-menu bottom left :close-on-content-click="false">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-select
-                v-model="colorFilterSelect"
-                @input="colorFilter"
-                :items="mtgcolors"
-                label="Filter cards by color"
-              >
-                <template v-slot:selection="{ item }">
-                  <img :src="item.image" width="14" height="14" />
-                  <v-spacer></v-spacer>
-                  {{ item.name }}
-                </template>
-                <template v-slot:item="{ item }">
-                  <img :src="item.image" width="14" height="14" />
-                  <v-spacer></v-spacer>
-                  {{ item.name }}
-                </template>
-              </v-select>
-              <v-spacer></v-spacer>
-              <v-select
-                v-model="sortBy"
-                flat
-                solo-inverted
-                hide-details
-                :items="keys"
-                prepend-inner-icon="mdi-sort"
-                label="Sort by"
-              ></v-select>
-              <v-spacer></v-spacer>
-              <v-btn-toggle v-model="sortDesc" mandatory>
-                <v-btn large depressed :value="false">
-                  <v-icon>mdi-arrow-up</v-icon>
-                </v-btn>
-                <v-btn large depressed :value="true">
-                  <v-icon>mdi-arrow-down</v-icon>
-                </v-btn>
-              </v-btn-toggle>
-            </v-list>
-          </v-menu>
+            :items="keys"
+            prepend-inner-icon="mdi-sort"
+            label="Sort by"
+          ></v-select>
+          <v-btn-toggle v-model="sortDesc" mandatory>
+            <v-btn icon depressed :value="false">
+              <v-icon>mdi-arrow-up</v-icon>
+            </v-btn>
+            <v-btn icon depressed :value="true">
+              <v-icon>mdi-arrow-down</v-icon>
+            </v-btn>
+          </v-btn-toggle>
         </v-toolbar>
       </template>
 
