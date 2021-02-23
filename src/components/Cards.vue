@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="cards ? cards : nocards"
+      :items="cards ? (filterCards.length > 0 ? filterCards : cards) : nocards"
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
@@ -32,16 +32,23 @@
               </v-btn>
             </template>
             <v-list>
-              <v-spacer></v-spacer>
               <v-select
-                v-model="cardRank"
-                flat
-                solo-inverted
-                hide-details
-                :items="ranks"
-                prepend-inner-icon="mdi-arrow-up-bold-circle-outline"
-                label="Card Rank"
-              ></v-select>
+                v-model="colorFilterSelect"
+                @input="colorFilter"
+                :items="mtgcolors"
+                label="Filter cards by color"
+              >
+                <template v-slot:selection="{ item }">
+                  <img :src="item.image" width="14" height="14" />
+                  <v-spacer></v-spacer>
+                  {{ item.name }}
+                </template>
+                <template v-slot:item="{ item }">
+                  <img :src="item.image" width="14" height="14" />
+                  <v-spacer></v-spacer>
+                  {{ item.name }}
+                </template>
+              </v-select>
               <v-spacer></v-spacer>
               <v-select
                 v-model="sortBy"
@@ -281,6 +288,7 @@ export default {
       cardOverlay: false,
       currentCardId: "",
       nocards: [],
+      filterCards: [],
       itemsPerPageArray: [1, 4, 8, 12, 20, 30, 60, 100, 200, 400],
       search: "",
       filter: {},
@@ -301,6 +309,15 @@ export default {
         "Range",
         "Area",
       ],
+      colorFilterSelect: { name: "All", image: "img/mana/C.svg" },
+      mtgcolors: [
+        { name: "White", image: "img/mana/W.svg" },
+        { name: "Blue", image: "img/mana/U.svg" },
+        { name: "Black", image: "img/mana/B.svg" },
+        { name: "Red", image: "img/mana/R.svg" },
+        { name: "Green", image: "img/mana/G.svg" },
+        { name: "All", image: "img/mana/C.svg" },
+      ],
     };
   },
   computed: {
@@ -318,6 +335,17 @@ export default {
     }),
   },
   methods: {
+    colorFilter() {
+      if (this.colorFilterSelect.name === "All") {
+        this.filterCards = this.cards;
+      } else {
+        this.filterCards = this.cards.filter(
+          (card) =>
+            card.color.toLowerCase() ===
+            this.colorFilterSelect.name.toLowerCase()
+        );
+      }
+    },
     customSort(items, index, isDesc) {
       items.sort((a, b) => {
         if (index[0] === "color") {
