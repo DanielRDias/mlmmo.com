@@ -73,10 +73,10 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:default="props">
+      <template v-slot:default="{ items, isExpanded, expand }">
         <v-row>
           <v-col
-            v-for="item in props.items"
+            v-for="item in items"
             :key="item.id"
             cols="12"
             sm="6"
@@ -159,14 +159,14 @@
               </v-hover>
 
               <v-card-actions>
-                <v-btn text color="teal accent-4" @click="reveal = true">
+                <v-btn text color="teal accent-4" @click="expand(item, true)">
                   Show Description
                 </v-btn>
               </v-card-actions>
 
               <v-expand-transition>
                 <v-card
-                  v-if="reveal"
+                  v-if="isExpanded(item)"
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%"
                 >
@@ -191,7 +191,11 @@
                     {{ item["description"] }}
                   </div>
                   <v-card-actions class="pt-0">
-                    <v-btn text color="teal accent-4" @click="reveal = false">
+                    <v-btn
+                      text
+                      color="teal accent-4"
+                      @click="expand(item, false)"
+                    >
                       Close
                     </v-btn>
                   </v-card-actions>
@@ -284,7 +288,6 @@ export default {
   },
   data() {
     return {
-      reveal: false,
       cardOverlay: false,
       currentCardId: "",
       nocards: [],
