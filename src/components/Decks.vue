@@ -207,13 +207,10 @@ export default {
       this.allCards = allCardsStore;
     },
     decks(allDecksStore) {
-      console.log("allDecksStore");
       if (!this.$props.userDecks) {
         // skip if we are not in user account
-        console.log("allDecksStore if");
         return;
       }
-      console.log("allDecksStore else");
       this.deleteCheck = [];
       allDecksStore.forEach((element) =>
         this.deleteCheck.push({ id: element.id, show: false })
@@ -222,13 +219,10 @@ export default {
   },
   methods: {
     showDeleteCheck(id) {
-      console.log("showDeleteCheck");
       if (this.deleteCheck.length === 0) {
         // skip if we are not in user account or if the cards aren't loaded yet
-        console.log("showDeleteCheck if");
         return false;
       }
-      console.log("showDeleteCheck else");
       let index = this.deleteCheck.findIndex((element) => element.id === id);
       return this.deleteCheck[index].show;
     },
