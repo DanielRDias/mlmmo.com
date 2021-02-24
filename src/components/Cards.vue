@@ -55,7 +55,7 @@
             flat
             solo-inverted
             hide-details
-            :items="keys"
+            :items="keysSort"
             prepend-inner-icon="mdi-sort"
             label="Sort by"
           ></v-select>
@@ -81,7 +81,7 @@
             lg="3"
           >
             <v-card>
-              <div class="font-weight-bold text-no-wrap secondary">
+              <div class="font-weight-bold text-no-wrap secondary white--text">
                 <v-tooltip right>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -107,25 +107,29 @@
                       height="200px"
                       :src="item.imgUrl ? item.imgUrl : `logo.png`"
                     >
-                      <div
-                        class="font-weight-bold v-card--reveal"
-                        v-html="convertManaString(item.cost)"
-                      ></div>
-                      <v-list dense class="v-card--over">
+                      <v-list
+                        dense
+                        height="100%"
+                        v-bind:style="{ opacity: 0.5 }"
+                      >
                         <v-list-item
-                          v-for="(key, index) in filteredKeys"
-                          :key="index"
-                        >
-                          <v-list-item-content
-                            :class="{ 'blue--text': sortBy === key }"
-                          >
-                            {{ key }}:
+                          class="mt-n4 font-weight-bold"
+                          v-html="
+                            convertManaString(item.cost) +
+                            '(CMC:' +
+                            item['cmc'] +
+                            ')'
+                          "
+                        ></v-list-item>
+                        <v-list-item class="mb-n4 mt-n4">
+                          <v-list-item-content class="ml-n3">
+                            Type: {{ item["type"] }}
                           </v-list-item-content>
                           <v-list-item-content
                             class="align-end"
-                            :class="{ 'blue--text': sortBy === key }"
+                            v-if="item['type'].toLowerCase() === 'creature'"
                           >
-                            {{ item[key.toLowerCase()] }}
+                            Points: {{ item["points"] }}
                           </v-list-item-content>
                         </v-list-item>
                       </v-list>
@@ -298,6 +302,8 @@ export default {
       sortBy: "color",
       cardRank: "1",
       keys: ["Name", "CMC", "Color", "Type", "Points", "Description"],
+      keysSort: ["Name", "CMC", "Color", "Type", "Points"],
+      keysShow: ["CMC", "Type", "Points"],
       ranks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       properties: [
         "Rank",
@@ -325,9 +331,6 @@ export default {
       let numberOfItems = 0;
       this.cards ? (numberOfItems = this.cards.length) : (numberOfItems = 0);
       return Math.ceil(numberOfItems / this.itemsPerPage);
-    },
-    filteredKeys() {
-      return this.keys.filter((key) => key !== "Description");
     },
     ...mapGetters({
       user: "auth/user",
