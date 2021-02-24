@@ -13,9 +13,18 @@
         ></v-text-field>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip bottom>
-        <span>Save Deck</span>
-      </v-tooltip>
+      <div
+        v-bind:style="{
+          color:
+            myNewDeckCards.length > 12
+              ? 'red'
+              : myNewDeckCards.length === 12
+              ? 'darkgreen'
+              : 'blue',
+        }"
+      >
+        {{ myNewDeckCards.length }}/12
+      </div>
 
       <v-tooltip left>
         <template v-slot:activator="{ on, attrs }">
