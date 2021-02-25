@@ -1,10 +1,19 @@
 <template>
   <div class="home">
+    <v-overlay :value="loading ? true : false">
+      <v-progress-circular
+        indeterminate
+        size="64"
+        v-if="loading ? true : false"
+      ></v-progress-circular>
+    </v-overlay>
     <v-container id="user-profile-view" fluid tag="section">
       <v-row justify="center">
         <v-col cols="12" md="8">
           <v-card icon="mdi-account-outline">
             <h1>Add a artifact</h1>
+            <v-alert type="success" v-if="sucessMsg">{{ sucessMsg }}</v-alert>
+            <v-alert type="error" v-if="errorMsg">{{ errorMsg }}</v-alert>
             <v-form>
               <v-container class="py-0">
                 <v-row>
@@ -101,6 +110,9 @@ export default {
     });
   },
   data: () => ({
+    loading: false,
+    sucessMsg: "",
+    errorMsg: "",
     lastArtifact: {
       name: "?",
       imgUrl: "logo.png",
@@ -118,16 +130,24 @@ export default {
       bonusR10: "?",
       bonusR20: "?",
     },
-    rarity: ["Legendary", "Greater", "Lesser"],
+    rarity: ["Mythic", "Greater", "Lesser"],
   }),
   methods: {
     async addArtifact(artifact) {
       try {
+        this.loading = true;
+        this.sucessMsg = "";
+        this.errorMsg = "";
+
         await this.$store.dispatch("cardInfo/createArtifact", {
           file: "",
           artifactData: this.artifact,
         });
+        this.sucessMsg = "finished";
+        this.loading = false;
       } catch (error) {
+        this.loading = false;
+        this.errorMsg = error;
         console.log("error adding the artifact", error);
       }
     },
