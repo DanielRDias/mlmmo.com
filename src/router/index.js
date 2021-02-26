@@ -170,6 +170,12 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/addartifacts",
+    name: "AddArtifacts",
+    component: () => import("../views/AddArtifacts.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/decks",
     name: "Decks",
     component: () => import("../views/Decks.vue"),

@@ -169,3 +169,62 @@ export const listCards = /* GraphQL */ `
     }
   }
 `;
+export const getArtifact = /* GraphQL */ `
+  query GetArtifact($id: ID!) {
+    getArtifact(id: $id) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const listArtifacts = /* GraphQL */ `
+  query ListArtifacts(
+    $filter: ModelArtifactFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listArtifacts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      nextToken
+    }
+  }
+`;
