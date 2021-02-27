@@ -250,3 +250,114 @@ export const deleteCard = /* GraphQL */ `
     }
   }
 `;
+export const createArtifact = /* GraphQL */ `
+  mutation CreateArtifact(
+    $input: CreateArtifactInput!
+    $condition: ModelArtifactConditionInput
+  ) {
+    createArtifact(input: $input, condition: $condition) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const updateArtifact = /* GraphQL */ `
+  mutation UpdateArtifact(
+    $input: UpdateArtifactInput!
+    $condition: ModelArtifactConditionInput
+  ) {
+    updateArtifact(input: $input, condition: $condition) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const deleteArtifact = /* GraphQL */ `
+  mutation DeleteArtifact(
+    $input: DeleteArtifactInput!
+    $condition: ModelArtifactConditionInput
+  ) {
+    deleteArtifact(input: $input, condition: $condition) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;

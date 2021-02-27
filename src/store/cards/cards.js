@@ -2,10 +2,13 @@ import { API, graphqlOperation, Storage } from "aws-amplify";
 import { createDeck as createDeckMutation } from "@/graphql/mutations";
 import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 import { createCard as createCardMutation } from "@/graphql/mutations";
+import { createArtifact as createArtifactMutation } from "@/graphql/mutations";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { getCard as getCardQuery } from "@/graphql/queries";
+import { getArtifact as getArtifactQuery } from "@/graphql/queries";
 import { listDecks as listDecksQuery } from "@/graphql/queries";
 import { listCards as listCardsQuery } from "@/graphql/queries";
+import { listArtifacts as listArtifactsQuery } from "@/graphql/queries";
 import { v4 as uuid } from "uuid";
 import awsconfig from "@/aws-exports";
 
@@ -14,6 +17,7 @@ export const cardInfo = {
   state: {
     decks: null,
     cards: null,
+    artifacts: null,
     newDeck: null,
     newDeckCards: [],
   },
@@ -34,14 +38,26 @@ export const cardInfo = {
     setDecks(state, payload) {
       state.decks = payload;
     },
+    appendDecks(state, payload) {
+      state.decks = state.decks.concat(payload);
+    },
     setCards(state, payload) {
       state.cards = payload;
     },
     appendCards(state, payload) {
       state.cards = state.cards.concat(payload);
     },
+    setArtifacts(state, payload) {
+      state.artifacts = payload;
+    },
+    appendArtifacts(state, payload) {
+      state.artifacts = state.artifacts.concat(payload);
+    },
   },
   actions: {
+    /**
+     * Decks
+     */
     async createDeck(_, data) {
       try {
         await API.graphql(
@@ -61,7 +77,6 @@ export const cardInfo = {
         return Promise.reject(error);
       }
     },
-
     async createAnonymousDeck(_, data) {
       try {
         await API.graphql({
@@ -91,6 +106,10 @@ export const cardInfo = {
       const decksData = await API.graphql(graphqlOperation(listDecksQuery));
       commit("setDecks", decksData.data.listDecks.items);
     },
+
+    /**
+     * Cards
+     */
     async getCard(_, cardId) {
       return await API.graphql({
         query: getCardQuery,
@@ -172,10 +191,74 @@ export const cardInfo = {
         return Promise.reject(error);
       }
     },
+
+    /**
+     * Artifacts
+     */
+    async getArtifact(_, artifactId) {
+      return await API.graphql({
+        query: getArtifactQuery,
+        variables: { id: artifactId },
+        authMode: "API_KEY",
+      });
+    },
+
+    async getArtifactsData({ commit }) {
+      var artifactsData = await API.graphql({
+        query: listArtifactsQuery,
+        authMode: "API_KEY",
+      });
+      commit("setArtifacts", artifactsData.data.listArtifacts.items);
+      while (artifactsData.data.listArtifacts.nextToken) {
+        cartifactsData = await API.graphql({
+          query: listArtifactsQuery,
+          variables: { nextToken: artifactsData.data.listArtifacts.nextToken },
+          authMode: "API_KEY",
+        });
+        commit("appendArtifacts", artifactsData.data.listartifacts.items);
+      }
+    },
+    async createArtifact(_, data) {
+      const {
+        aws_user_files_s3_bucket_region: region,
+        aws_user_files_s3_bucket: bucket,
+      } = awsconfig;
+      const { file, artifactData } = data;
+      // const extension = file.name.substr(file.name.lastIndexOf(".") + 1);
+      const artifactId = uuid();
+      // const key = `images/${cardId}.${extension}`;
+      // const inputData = {
+      //   id: cardId,
+      //   photoAlbumId: id,
+      //   contentType: mimeType,
+      //   fullsize: {
+      //     key,
+      //     region,
+      //     bucket,
+      //   },
+      // };
+
+      //s3 bucket storage add file to it
+      try {
+        // await Storage.put(key, file, {
+        //   level: "protected",
+        //   contentType: mimeType,
+        //   metadata: { albumId: id, cardId },
+        // });
+        await API.graphql(
+          graphqlOperation(createArtifactMutation, { input: artifactData })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("createArtifact error", error);
+        return Promise.reject(error);
+      }
+    },
   },
   getters: {
     cards: (state) => state.cards,
     decks: (state) => state.decks,
+    artifacts: (state) => state.artifacts,
     newDeck: (state) => state.newDeck,
     newDeckCards: (state) => state.newDeckCards,
   },

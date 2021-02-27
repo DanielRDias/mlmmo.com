@@ -266,8 +266,15 @@
 
     <v-overlay :value="cardOverlay">
       <v-icon large @click="cardOverlay = false">mdi-close-box</v-icon>
-      <v-card class="overflow-y-auto" max-height="600">
-        <Card :current-card-id="currentCardId" />
+      <v-card
+        :class="$vuetify.breakpoint.xs ? 'overflow-y-auto' : ''"
+        :max-height="$vuetify.breakpoint.xs ? 600 : 750"
+        width="350"
+      >
+        <Card
+          :current-card-id="currentCardId"
+          :currentCardInput="currentCardInput"
+        />
       </v-card>
     </v-overlay>
   </v-container>
@@ -291,6 +298,7 @@ export default {
     return {
       cardOverlay: false,
       currentCardId: "",
+      currentCardInput: null,
       nocards: [],
       filterCards: [],
       itemsPerPageArray: [1, 2, 4, 8, 12, 20, 30, 60, 100, 200, 400],
@@ -389,8 +397,9 @@ export default {
       return items;
     },
     getCardOverlay(card) {
-      this.cardOverlay = true;
       this.currentCardId = card.id;
+      this.currentCardInput = card;
+      this.cardOverlay = true;
     },
     addCardToDeck(cardId) {
       this.$store.commit({
