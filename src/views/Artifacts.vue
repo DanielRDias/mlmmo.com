@@ -1,5 +1,17 @@
 <template>
-  <div class="artifacts">
-    <h1>Work in progress</h1>
+  <div class="home">
+    <Artifacts />
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import Artifacts from "@/components/Artifacts.vue";
+
+export default {
+  name: "Home",
+  components: {
+    Artifacts,
+  },
+};
+</script>

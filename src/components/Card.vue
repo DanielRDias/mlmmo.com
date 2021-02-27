@@ -53,17 +53,27 @@
 <script>
 export default {
   props: {
+    currentCardInput: {
+      type: Object,
+      required: false,
+      default: null,
+    },
     currentCardId: {
       type: String,
       required: false,
+      default: null,
     },
   },
   async mounted() {
-    this.getCardData = await this.$store.dispatch(
-      "cardInfo/getCard",
-      this.$props.currentCardId
-    );
-    this.currentCard = this.getCardData.data.getCard;
+    if (this.$props.currentCardInput !== null) {
+      this.currentCard = this.$props.currentCardInput;
+    } else if (this.$props.currentCardId !== null) {
+      this.getCardData = await this.$store.dispatch(
+        "cardInfo/getCard",
+        this.$props.currentCardId
+      );
+      this.currentCard = this.getCardData.data.getCard;
+    }
   },
   methods: {
     convertManaString(manaStr) {
