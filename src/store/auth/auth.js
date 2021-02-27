@@ -56,6 +56,18 @@ export const auth = {
       const userInfo = await Auth.currentUserInfo();
       commit("setUser", userInfo);
     },
+    async userGroups() {
+      const authUser = await Auth.currentAuthenticatedUser();
+      // the array of groups that the user belongs to
+      const userGroups =
+        authUser.signInUserSession.accessToken.payload["cognito:groups"];
+
+      if (Array.isArray(userGroups)) {
+        return userGroups;
+      } else {
+        return [];
+      }
+    },
   },
   getters: {
     user: (state) => state.user,
