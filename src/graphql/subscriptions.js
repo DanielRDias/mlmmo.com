@@ -232,3 +232,105 @@ export const onDeleteCard = /* GraphQL */ `
     }
   }
 `;
+export const onCreateArtifact = /* GraphQL */ `
+  subscription OnCreateArtifact {
+    onCreateArtifact {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onUpdateArtifact = /* GraphQL */ `
+  subscription OnUpdateArtifact {
+    onUpdateArtifact {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onDeleteArtifact = /* GraphQL */ `
+  subscription OnDeleteArtifact {
+    onDeleteArtifact {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      description
+      bonusR10
+      bonusR20
+      vote {
+        downVote
+        upVote
+        rating
+        voteCount
+      }
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
