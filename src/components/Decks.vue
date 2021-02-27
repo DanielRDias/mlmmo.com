@@ -23,15 +23,6 @@
             prepend-inner-icon="mdi-magnify"
             label="Search"
           ></v-text-field>
-
-          <v-menu bottom left :close-on-content-click="false">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-            <v-list> </v-list>
-          </v-menu>
         </v-toolbar>
       </template>
 
@@ -39,7 +30,7 @@
         <v-row>
           <v-col
             v-for="item in props.items"
-            :key="item.name"
+            :key="item.id"
             cols="12"
             sm="6"
             md="4"
