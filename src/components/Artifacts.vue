@@ -7,6 +7,7 @@
       :search="search"
       :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
+      :single-expand="true"
       hide-default-footer
       class="elevation-1"
       loading
@@ -23,6 +24,7 @@
             prepend-inner-icon="mdi-magnify"
             label="Search"
           ></v-text-field>
+          <v-switch v-model="showInfo" label="Show/Hide Info"></v-switch>
         </v-toolbar>
       </template>
 
@@ -50,6 +52,7 @@
                       :src="item.imgUrl ? item.imgUrl : `logo.png`"
                     >
                       <v-list
+                        v-if="showInfo | (isExpanded(item) & showDescription)"
                         dense
                         height="100%"
                         v-bind:style="{ opacity: 0.8 }"
@@ -98,14 +101,34 @@
               </v-hover>
 
               <v-card-actions>
-                <v-btn text color="teal accent-4" @click="expand(item, true)">
-                  Show Rank Bonus
+                <v-btn
+                  v-if="!showInfo"
+                  text
+                  color="teal accent-4"
+                  @click="
+                    expand(item, true),
+                      (showDescription = true),
+                      (showRankBonus = false)
+                  "
+                >
+                  Description
+                </v-btn>
+                <v-btn
+                  text
+                  color="teal accent-4"
+                  @click="
+                    expand(item, true),
+                      (showRankBonus = true),
+                      (showDescription = false)
+                  "
+                >
+                  Rank Bonus
                 </v-btn>
               </v-card-actions>
 
               <v-expand-transition>
                 <v-card
-                  v-if="isExpanded(item)"
+                  v-if="isExpanded(item) & showRankBonus"
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%"
                 >
@@ -231,6 +254,10 @@ export default {
     return {
       previewOverlay: false,
       allowEdit: false,
+      showInfo: true,
+      showDescription: false,
+      showRankBonus: false,
+
       currentItem: {
         id: "?",
         name: "?",
