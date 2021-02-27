@@ -27,29 +27,23 @@ export default {
   data() {
     return {
       userDecks: true,
-      userGroups: null,
+      userGroups: [],
       mod: false,
       admin: false,
     };
   },
   async mounted() {
-    const authUser = await Auth.currentAuthenticatedUser();
+    this.userGroups = await this.$store.dispatch("auth/userGroups");
 
-    // the array of groups that the user belongs to
-    this.userGroups =
-      authUser.signInUserSession.accessToken.payload["cognito:groups"];
-
-    if (Array.isArray(this.userGroups)) {
-      if (this.userGroups.includes("Admins")) {
-        this.mod = true;
-        this.admin = true;
-      } else if (this.userGroups.includes("Moderators")) {
-        this.mod = true;
-        this.admin = false;
-      } else {
-        this.mod = false;
-        this.admin = false;
-      }
+    if (this.userGroups.includes("Admins")) {
+      this.mod = true;
+      this.admin = true;
+    } else if (this.userGroups.includes("Moderators")) {
+      this.mod = true;
+      this.admin = false;
+    } else {
+      this.mod = false;
+      this.admin = false;
     }
   },
   computed: {
