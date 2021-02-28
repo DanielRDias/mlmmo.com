@@ -9,9 +9,9 @@
     </v-overlay>
     <v-container id="user-profile-view" fluid tag="section">
       <v-row justify="center">
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="5">
           <v-card icon="mdi-account-outline">
-            <h1>Add a artifact</h1>
+            <h1>Add artifact</h1>
             <v-alert type="success" v-if="sucessMsg">{{ sucessMsg }}</v-alert>
             <v-alert type="error" v-if="errorMsg">{{ errorMsg }}</v-alert>
             <v-form>
@@ -69,7 +69,12 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="3">
+          <p>Preview of the current artifact:</p>
+          <Artifact :currentArtifactInput="artifact" />
+        </v-col>
+        <v-col cols="12" md="3">
           <v-card>
+            <v-card-subtitle>Last Artifact added:</v-card-subtitle>
             <v-card-title>{{ lastArtifact.name }}</v-card-title>
             <v-img :src="lastArtifact.imgUrl"></v-img>
             <v-card-text>Rarity: {{ lastArtifact.rarity }}</v-card-text>
@@ -98,8 +103,12 @@
 import { mapGetters } from "vuex";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
+import Artifact from "@/components/Artifact.vue";
 
 export default {
+  components: {
+    Artifact,
+  },
   async mounted() {
     this.$store.dispatch("cardInfo/getArtifactsData");
     // Subscribe to creation of Todo
