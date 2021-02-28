@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="items ? items : []"
+      :items="items ? (filterItems.length > 0 ? filterItems : items) : []"
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
@@ -24,7 +24,28 @@
             prepend-inner-icon="mdi-magnify"
             label="Search"
           ></v-text-field>
-          <v-switch v-model="showInfo" label="Show/Hide Info"></v-switch>
+
+          <v-select
+            class="pa-2 pt-10"
+            v-model="typeFilterSelect"
+            @input="typeFilter"
+            :items="mtgRarity"
+            label="Filter by type"
+            item-text="name"
+          >
+            <template v-slot:selection="{ item }">
+              <img :src="item.image" width="14" height="14" />
+              <v-spacer></v-spacer>
+              {{ item.name }}
+            </template>
+            <template v-slot:item="slotProps">
+              <img :src="slotProps.item.image" width="14" height="14" />
+              <v-spacer></v-spacer>
+              {{ slotProps.item.name }}
+            </template>
+          </v-select>
+
+          <v-switch v-model="showInfo" label="Info"></v-switch>
         </v-toolbar>
       </template>
 
@@ -258,7 +279,7 @@ export default {
       showInfo: true,
       showDescription: false,
       showRankBonus: false,
-
+      filterItems: [],
       currentItem: {
         id: "?",
         name: "?",
@@ -276,6 +297,14 @@ export default {
       itemsPerPage: 8,
       sortBy: "name",
       deleteCheck: [],
+
+      typeFilterSelect: "All",
+      mtgRarity: [
+        { name: "Lesser", image: "img/rarity/PW-C.svg" },
+        { name: "Greater", image: "img/rarity/PW-R.svg" },
+        { name: "Mythic", image: "img/rarity/PW-M.svg" },
+        { name: "All", image: "img/mana/C.svg" },
+      ],
     };
   },
   computed: {
@@ -302,6 +331,16 @@ export default {
     },
   },
   methods: {
+    typeFilter() {
+      if (this.typeFilterSelect === "All") {
+        this.filterItems = this.items;
+      } else {
+        this.filterItems = this.items.filter(
+          (item) =>
+            item.rarity.toLowerCase() === this.typeFilterSelect.toLowerCase()
+        );
+      }
+    },
     getItemHeader(item) {
       let headerHtml = item.name;
       let headerRarity = "";
