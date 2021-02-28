@@ -39,9 +39,10 @@
             lg="3"
           >
             <v-card>
-              <div class="font-weight-bold text-no-wrap secondary white--text">
-                {{ item.name }}
-              </div>
+              <div
+                class="font-weight-bold text-no-wrap secondary white--text"
+                v-html="getItemHeader(item)"
+              ></div>
 
               <v-hover>
                 <template v-slot:default="{ hover }">
@@ -136,7 +137,7 @@
                     <strong>Rank 10: </strong> {{ item.bonusR10 }}
                   </v-card-text>
                   <v-divider></v-divider>
-                  <v-card-text>
+                  <v-card-text v-if="item.rarity.toLowerCase() !== 'lesser'">
                     <strong>Rank 20: </strong> {{ item.bonusR20 }}
                   </v-card-text>
                   <v-card-actions class="pt-0">
@@ -301,6 +302,25 @@ export default {
     },
   },
   methods: {
+    getItemHeader(item) {
+      let headerHtml = item.name;
+      let headerRarity = "";
+      if (item["rarity"].toLowerCase() === "mythic") {
+        headerRarity =
+          "<img src='img/rarity/PW-M.svg' alt='Mythic' title='Mythic' width='13' height='15' />";
+      } else if (item["rarity"].toLowerCase() === "greater") {
+        headerRarity =
+          "<img src='img/rarity/PW-R.svg' alt='Greater' title='Greater' width='13' height='15' />";
+      } else {
+        headerRarity =
+          "<img src='img/rarity/PW-C.svg' alt='" +
+          item["rarity"] +
+          "' title='" +
+          item["rarity"] +
+          "' width='13' height='15' />";
+      }
+      return headerHtml.concat(headerRarity);
+    },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
     },
