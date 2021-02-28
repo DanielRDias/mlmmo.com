@@ -15,7 +15,12 @@
     >
       <template v-slot:header>
         <v-toolbar class="mb-1">
-          <v-menu bottom right :close-on-content-click="false">
+          <v-menu
+            v-if="$vuetify.breakpoint.xs"
+            bottom
+            right
+            :close-on-content-click="false"
+          >
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on">
                 <v-icon>mdi-magnify</v-icon>
@@ -32,24 +37,38 @@
               label="Search"
             ></v-text-field>
           </v-menu>
+          <v-text-field
+            v-if="!$vuetify.breakpoint.xs"
+            :autofocus="true"
+            v-model="search"
+            clearable
+            flat
+            solo-inverted
+            hide-details
+            prepend-inner-icon="mdi-magnify"
+            label="Search"
+          ></v-text-field>
 
-          <v-spacer></v-spacer>
           <v-select
             class="pa-2 pt-10"
             v-model="colorFilterSelect"
             @input="colorFilter"
             :items="mtgcolors"
             label="Filter cards by color"
+            item-text="name"
           >
             <template v-slot:selection="{ item }">
-              <img :src="item.image" width="14" height="14" />
-            </template>
-            <template v-slot:item="{ item }">
               <img :src="item.image" width="14" height="14" />
               <v-spacer></v-spacer>
               {{ item.name }}
             </template>
+            <template v-slot:item="slotProps">
+              <img :src="slotProps.item.image" width="14" height="14" />
+              <v-spacer></v-spacer>
+              {{ slotProps.item.name }}
+            </template>
           </v-select>
+
           <v-select
             v-model="sortBy"
             flat
@@ -323,7 +342,7 @@ export default {
         "Range",
         "Area",
       ],
-      colorFilterSelect: { name: "All", image: "img/mana/C.svg" },
+      colorFilterSelect: "All",
       mtgcolors: [
         { name: "White", image: "img/mana/W.svg" },
         { name: "Blue", image: "img/mana/U.svg" },
@@ -347,13 +366,12 @@ export default {
   },
   methods: {
     colorFilter() {
-      if (this.colorFilterSelect.name === "All") {
+      if (this.colorFilterSelect === "All") {
         this.filterCards = this.cards;
       } else {
         this.filterCards = this.cards.filter(
           (card) =>
-            card.color.toLowerCase() ===
-            this.colorFilterSelect.name.toLowerCase()
+            card.color.toLowerCase() === this.colorFilterSelect.toLowerCase()
         );
       }
     },
