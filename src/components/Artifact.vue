@@ -4,13 +4,15 @@
     <v-img :src="currentArtifact.imgUrl" height="300px"> </v-img>
 
     <v-divider></v-divider>
+    <v-card-text> {{ currentArtifact.rarity }} </v-card-text>
+    <v-divider></v-divider>
     <v-card-text> {{ currentArtifact.description }} </v-card-text>
     <v-divider></v-divider>
     <v-card-text>
       <strong>Rank 10: </strong> {{ currentArtifact.bonusR10 }}
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-text>
+    <v-card-text v-if="currentArtifact.rarity.toLowerCase() !== 'lesser'">
       <strong>Rank 20: </strong> {{ currentArtifact.bonusR20 }}
     </v-card-text>
   </v-card>
