@@ -71,6 +71,8 @@ export const onCreateCard = /* GraphQL */ `
   subscription OnCreateCard {
     onCreateCard {
       id
+      owner
+      ownerId
       name
       imgUrl
       imgFullSize {
@@ -88,6 +90,8 @@ export const onCreateCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -119,6 +123,62 @@ export const onCreateCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -126,6 +186,8 @@ export const onUpdateCard = /* GraphQL */ `
   subscription OnUpdateCard {
     onUpdateCard {
       id
+      owner
+      ownerId
       name
       imgUrl
       imgFullSize {
@@ -143,6 +205,8 @@ export const onUpdateCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -174,6 +238,62 @@ export const onUpdateCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -181,6 +301,8 @@ export const onDeleteCard = /* GraphQL */ `
   subscription OnDeleteCard {
     onDeleteCard {
       id
+      owner
+      ownerId
       name
       imgUrl
       imgFullSize {
@@ -198,6 +320,8 @@ export const onDeleteCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -229,6 +353,62 @@ export const onDeleteCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -236,6 +416,8 @@ export const onCreateArtifact = /* GraphQL */ `
   subscription OnCreateArtifact {
     onCreateArtifact {
       id
+      owner
+      ownerId
       name
       imgUrl
       imgFullSize {
@@ -263,6 +445,38 @@ export const onCreateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -270,6 +484,8 @@ export const onUpdateArtifact = /* GraphQL */ `
   subscription OnUpdateArtifact {
     onUpdateArtifact {
       id
+      owner
+      ownerId
       name
       imgUrl
       imgFullSize {
@@ -297,6 +513,38 @@ export const onUpdateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -304,6 +552,8 @@ export const onDeleteArtifact = /* GraphQL */ `
   subscription OnDeleteArtifact {
     onDeleteArtifact {
       id
+      owner
+      ownerId
       name
       imgUrl
       imgFullSize {
@@ -331,6 +581,38 @@ export const onDeleteArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
