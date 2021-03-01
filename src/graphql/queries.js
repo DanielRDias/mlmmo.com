@@ -50,8 +50,6 @@ export const getCard = /* GraphQL */ `
   query GetCard($id: ID!) {
     getCard(id: $id) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -104,8 +102,6 @@ export const getCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -132,8 +128,6 @@ export const getCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -170,8 +164,6 @@ export const listCards = /* GraphQL */ `
     listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -215,8 +207,6 @@ export const getArtifact = /* GraphQL */ `
   query GetArtifact($id: ID!) {
     getArtifact(id: $id) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -246,8 +236,6 @@ export const getArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -262,8 +250,6 @@ export const getArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -288,8 +274,6 @@ export const listArtifacts = /* GraphQL */ `
     listArtifacts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity

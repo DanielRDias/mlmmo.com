@@ -83,8 +83,6 @@ export const createCard = /* GraphQL */ `
   ) {
     createCard(input: $input, condition: $condition) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -137,8 +135,6 @@ export const createCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -165,8 +161,6 @@ export const createCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -201,8 +195,6 @@ export const updateCard = /* GraphQL */ `
   ) {
     updateCard(input: $input, condition: $condition) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -255,8 +247,6 @@ export const updateCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -283,8 +273,6 @@ export const updateCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -319,8 +307,6 @@ export const deleteCard = /* GraphQL */ `
   ) {
     deleteCard(input: $input, condition: $condition) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -373,8 +359,6 @@ export const deleteCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -401,8 +385,6 @@ export const deleteCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -437,8 +419,6 @@ export const createArtifact = /* GraphQL */ `
   ) {
     createArtifact(input: $input, condition: $condition) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -468,8 +448,6 @@ export const createArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -484,8 +462,6 @@ export const createArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -508,8 +484,6 @@ export const updateArtifact = /* GraphQL */ `
   ) {
     updateArtifact(input: $input, condition: $condition) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -539,8 +513,6 @@ export const updateArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -555,8 +527,6 @@ export const updateArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -579,8 +549,6 @@ export const deleteArtifact = /* GraphQL */ `
   ) {
     deleteArtifact(input: $input, condition: $condition) {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -610,8 +578,6 @@ export const deleteArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -626,8 +592,6 @@ export const deleteArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
