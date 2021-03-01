@@ -38,12 +38,6 @@ export const listDecks = /* GraphQL */ `
         colors
         type
         cards
-        vote {
-          downVote
-          upVote
-          rating
-          voteCount
-        }
         createdAt
         updatedAt
         version
@@ -73,6 +67,8 @@ export const getCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -104,6 +100,58 @@ export const getCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -118,21 +166,13 @@ export const listCards = /* GraphQL */ `
         id
         name
         imgUrl
-        imgFullSize {
-          region
-          bucket
-          key
-        }
-        imgThumbnail {
-          region
-          bucket
-          key
-        }
         cost
         cmc
         color
         type
         points
+        power
+        rarity
         properties {
           rank
           damage
@@ -153,12 +193,6 @@ export const listCards = /* GraphQL */ `
         r10range
         r10area
         decks
-        vote {
-          downVote
-          upVote
-          rating
-          voteCount
-        }
         updatedBy
         updatedById
         createdAt
@@ -200,6 +234,34 @@ export const getArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;

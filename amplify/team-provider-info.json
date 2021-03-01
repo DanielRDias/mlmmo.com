@@ -30,7 +30,7 @@
         "mlmmocomc77e13caVerifyAuthChallengeResponse": {
           "RECAPTCHASECRET": "6Le8e2AaAAAAANeeY0h_OFhzSyGfi_84LBn6g4qR",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocomc77e13caVerifyAuthChallengeResponse-617a536c794167336f56-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caVerifyAuthChallengeResponse-412f6e72764a34366653-build.zip"
         },
         "mlmmocomc77e13caCustomMessage": {
           "REDIRECTURL": "https://www.mlarpg.com/",

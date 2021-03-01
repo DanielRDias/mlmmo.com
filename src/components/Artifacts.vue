@@ -115,6 +115,18 @@
                               Open
                             </v-btn>
                           </v-col>
+                          <v-col>
+                            <v-btn
+                              small
+                              :to="{
+                                name: 'ManageArtifacts',
+                                query: { artifactId: item.id },
+                              }"
+                              target="_blank"
+                            >
+                              Edit
+                            </v-btn>
+                          </v-col>
                         </v-row>
                       </v-overlay>
                     </v-fade-transition>
@@ -259,13 +271,6 @@ import { mapGetters } from "vuex";
 import Artifact from "@/components/Artifact.vue";
 
 export default {
-  props: {
-    userDecks: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
   components: {
     Artifact,
   },
@@ -289,7 +294,6 @@ export default {
         bonusR10: "?",
         bonusR20: "?",
       },
-      nodecks: [],
       itemsPerPageArray: [1, 2, 4, 8, 12, 20, 30, 60, 100, 200, 400],
       search: "",
       sortDesc: false,
@@ -316,18 +320,6 @@ export default {
       let numberOfItems = 0;
       this.items ? (numberOfItems = this.items.length) : (numberOfItems = 0);
       return Math.ceil(numberOfItems / this.itemsPerPage);
-    },
-  },
-  watch: {
-    decks(allDecksStore) {
-      if (!this.$props.userDecks) {
-        // skip if we are not in user account
-        return;
-      }
-      this.deleteCheck = [];
-      allDecksStore.forEach((element) =>
-        this.deleteCheck.push({ id: element.id, show: false })
-      );
     },
   },
   methods: {
