@@ -170,9 +170,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/addartifacts",
-    name: "AddArtifacts",
-    component: () => import("../views/AddArtifacts.vue"),
+    path: "/manageartifacts",
+    name: "ManageArtifacts",
+    component: () => import("../views/ManageArtifacts.vue"),
     meta: { requiresAuth: true },
   },
   {
@@ -455,7 +455,7 @@ router.beforeEach(async (to, from, next) => {
   if (requiresAuth) {
     const isAuthenticated = await Auth.currentUserInfo();
     if (!isAuthenticated) {
-      next("/");
+      next("/login");
     }
   }
   const defaultTitle =

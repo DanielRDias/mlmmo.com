@@ -3,6 +3,7 @@ import { createDeck as createDeckMutation } from "@/graphql/mutations";
 import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 import { createCard as createCardMutation } from "@/graphql/mutations";
 import { createArtifact as createArtifactMutation } from "@/graphql/mutations";
+import { updateArtifact as updateArtifactMutation } from "@/graphql/mutations";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { getCard as getCardQuery } from "@/graphql/queries";
 import { getArtifact as getArtifactQuery } from "@/graphql/queries";
@@ -201,6 +202,80 @@ export const cardInfo = {
         variables: { id: artifactId },
         authMode: "API_KEY",
       });
+    },
+
+    async updateArtifact(_, data) {
+      let { file, artifactData } = data;
+
+      console.log("data", data);
+      console.log("artifactData", artifactData);
+
+      const currentArtifact = await API.graphql({
+        query: getArtifactQuery,
+        variables: { id: artifactData.id },
+        authMode: "API_KEY",
+      });
+
+      console.log("currentArtifact", currentArtifact);
+
+      if (artifactData.oldVersion) {
+        console.log("if");
+        artifactData.oldVersion.append(currentArtifact.data.getArtifact);
+      } else {
+        console.log("else");
+        artifactData.oldVersion = [currentArtifact.data.getArtifact];
+      }
+
+      console.log("artifactData with version", artifactData);
+
+      try {
+        await API.graphql(
+          graphqlOperation(updateArtifactMutation, { input: artifactData })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateArtifact error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async submitArtifact(_, data) {
+      let { file, artifactData } = data;
+
+      console.log("data", data);
+      console.log("artifactData", artifactData);
+
+      let currentArtifact = await API.graphql({
+        query: getArtifactQuery,
+        variables: { id: artifactData.id },
+        authMode: "API_KEY",
+      });
+
+      console.log("currentArtifact", currentArtifact);
+
+      if (currentArtifact.data.getArtifact.newVersion) {
+        console.log("if");
+        currentArtifact.data.getArtifact.newVersion.append(artifactData);
+      } else {
+        console.log("else");
+        currentArtifact.data.getArtifact.newVersion = [artifactData];
+      }
+
+      console.log(
+        "currentArtifact.data.getArtifact with version",
+        currentArtifact.data.getArtifact
+      );
+      try {
+        await API.graphql(
+          graphqlOperation(updateArtifactMutation, {
+            input: currentArtifact.data.getArtifact,
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateArtifact error", error);
+        return Promise.reject(error);
+      }
     },
 
     async getArtifactsData({ commit }) {
