@@ -33,8 +33,6 @@ type Card
     ]
   ) {
   id: ID!
-  owner: String
-  ownerId: String
   name: String!
   imgUrl: String
   imgFullSize: S3Object
@@ -63,7 +61,19 @@ type Card
   updatedAt: String
   version: String
   oldVersion: [Card]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
   newVersion: [Card]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
 }
 
 type Artifact
@@ -80,8 +90,6 @@ type Artifact
     ]
   ) {
   id: ID!
-  owner: String
-  ownerId: String
   name: String!
   imgUrl: String
   imgFullSize: S3Object
@@ -97,7 +105,19 @@ type Artifact
   updatedAt: String
   version: String
   oldVersion: [Artifact]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
   newVersion: [Artifact]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
 }
 
 type CardProperties {

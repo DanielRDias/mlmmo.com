@@ -71,8 +71,6 @@ export const onCreateCard = /* GraphQL */ `
   subscription OnCreateCard {
     onCreateCard {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -125,8 +123,6 @@ export const onCreateCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -153,8 +149,6 @@ export const onCreateCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -186,8 +180,6 @@ export const onUpdateCard = /* GraphQL */ `
   subscription OnUpdateCard {
     onUpdateCard {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -240,8 +232,6 @@ export const onUpdateCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -268,8 +258,6 @@ export const onUpdateCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -301,8 +289,6 @@ export const onDeleteCard = /* GraphQL */ `
   subscription OnDeleteCard {
     onDeleteCard {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -355,8 +341,6 @@ export const onDeleteCard = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -383,8 +367,6 @@ export const onDeleteCard = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         cost
@@ -416,8 +398,6 @@ export const onCreateArtifact = /* GraphQL */ `
   subscription OnCreateArtifact {
     onCreateArtifact {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -447,8 +427,6 @@ export const onCreateArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -463,8 +441,6 @@ export const onCreateArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -484,8 +460,6 @@ export const onUpdateArtifact = /* GraphQL */ `
   subscription OnUpdateArtifact {
     onUpdateArtifact {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -515,8 +489,6 @@ export const onUpdateArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -531,8 +503,6 @@ export const onUpdateArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -552,8 +522,6 @@ export const onDeleteArtifact = /* GraphQL */ `
   subscription OnDeleteArtifact {
     onDeleteArtifact {
       id
-      owner
-      ownerId
       name
       imgUrl
       imgFullSize {
@@ -583,8 +551,6 @@ export const onDeleteArtifact = /* GraphQL */ `
       version
       oldVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
@@ -599,8 +565,6 @@ export const onDeleteArtifact = /* GraphQL */ `
       }
       newVersion {
         id
-        owner
-        ownerId
         name
         imgUrl
         rarity
