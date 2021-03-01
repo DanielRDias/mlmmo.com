@@ -42,6 +42,8 @@ type Card
   color: String
   type: String
   points: Int
+  power: String
+  rarity: String
   properties: [CardProperties]
   description: String
   r10damage: Int
@@ -58,6 +60,20 @@ type Card
   createdAt: String
   updatedAt: String
   version: String
+  oldVersion: [Card]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
+  newVersion: [Card]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
 }
 
 type Artifact
@@ -88,6 +104,20 @@ type Artifact
   createdAt: String
   updatedAt: String
   version: String
+  oldVersion: [Artifact]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
+  newVersion: [Artifact]
+    @auth(
+      rules: [
+        { allow: public, operations: [read] }
+        { allow: private, operations: [update] }
+      ]
+    )
 }
 
 type CardProperties {

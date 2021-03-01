@@ -88,6 +88,8 @@ export const onCreateCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -119,6 +121,58 @@ export const onCreateCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -143,6 +197,8 @@ export const onUpdateCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -174,6 +230,58 @@ export const onUpdateCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -198,6 +306,8 @@ export const onDeleteCard = /* GraphQL */ `
       color
       type
       points
+      power
+      rarity
       properties {
         rank
         damage
@@ -229,6 +339,58 @@ export const onDeleteCard = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        r10damage
+        r10health
+        r10dps
+        r10role
+        r10duration
+        r10range
+        r10area
+        decks
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -263,6 +425,34 @@ export const onCreateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -297,6 +487,34 @@ export const onUpdateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
@@ -331,6 +549,34 @@ export const onDeleteArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
+      oldVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      newVersion {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
     }
   }
 `;
