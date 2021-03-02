@@ -173,17 +173,6 @@ export const listCards = /* GraphQL */ `
         points
         power
         rarity
-        properties {
-          rank
-          damage
-          healing
-          health
-          dps
-          role
-          duration
-          range
-          area
-        }
         description
         r10damage
         r10health
@@ -234,34 +223,6 @@ export const getArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -285,6 +246,63 @@ export const listArtifacts = /* GraphQL */ `
         createdAt
         updatedAt
         version
+      }
+      nextToken
+    }
+  }
+`;
+export const getArtifactVersion = /* GraphQL */ `
+  query GetArtifactVersion($id: ID!) {
+    getArtifactVersion(id: $id) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listArtifactVersions = /* GraphQL */ `
+  query ListArtifactVersions(
+    $filter: ModelArtifactVersionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listArtifactVersions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        createdAt
+        updatedAt
       }
       nextToken
     }
