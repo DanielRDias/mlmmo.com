@@ -4,6 +4,9 @@ import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 import { createCard as createCardMutation } from "@/graphql/mutations";
 import { createArtifact as createArtifactMutation } from "@/graphql/mutations";
 import { updateArtifact as updateArtifactMutation } from "@/graphql/mutations";
+import { createArtifactVersion as createVersionsArtifactMutation } from "@/graphql/mutations";
+import { updateArtifactVersion as updateVersionsArtifactMutation } from "@/graphql/mutations";
+import { getArtifactVersion as getArtifactVersionQuery } from "@/graphql/queries";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { getCard as getCardQuery } from "@/graphql/queries";
 import { getArtifact as getArtifactQuery } from "@/graphql/queries";
@@ -207,34 +210,75 @@ export const cardInfo = {
     async updateArtifact(_, data) {
       let { file, artifactData } = data;
 
-      console.log("data", data);
-      console.log("artifactData", artifactData);
-
       const currentArtifact = await API.graphql({
         query: getArtifactQuery,
         variables: { id: artifactData.id },
         authMode: "API_KEY",
       });
 
-      console.log("currentArtifact", currentArtifact);
+      let currentArtifactVersion = await API.graphql({
+        query: getArtifactVersionQuery,
+        variables: { id: artifactData.id },
+      });
 
-      if (artifactData.oldVersion) {
-        console.log("if");
-        artifactData.oldVersion.append(currentArtifact.data.getArtifact);
+      if (currentArtifactVersion.data.getArtifactVersion == null) {
+        //insert
+        try {
+          await API.graphql(
+            graphqlOperation(createVersionsArtifactMutation, {
+              input: {
+                id: artifactData.id,
+                newVersions: [],
+                oldVersions: [currentArtifact.data.getArtifact],
+              },
+            })
+          );
+        } catch (error) {
+          console.log("createVersionsArtifactMutation error", error);
+          return Promise.reject(error);
+        }
       } else {
-        console.log("else");
-        artifactData.oldVersion = [currentArtifact.data.getArtifact];
+        //update
+        if (
+          Array.isArray(
+            currentArtifactVersion.data.getArtifactVersion.oldVersions
+          )
+        ) {
+          currentArtifactVersion.data.getArtifactVersion.oldVersions.push(
+            currentArtifact.data.getArtifact
+          );
+        } else {
+          currentArtifactVersion.data.getArtifactVersion.oldVersions = [
+            currentArtifact.data.getArtifact,
+          ];
+        }
+        try {
+          await API.graphql(
+            graphqlOperation(updateVersionsArtifactMutation, {
+              input: {
+                id: currentArtifactVersion.data.getArtifactVersion.id,
+                oldVersions:
+                  currentArtifactVersion.data.getArtifactVersion.oldVersions,
+              },
+            })
+          );
+        } catch (error) {
+          console.log("updateVersionsArtifactMutation error", error);
+          return Promise.reject(error);
+        }
       }
 
-      console.log("artifactData with version", artifactData);
-
+      // remove old updatedAt to use the most recent date
+      delete artifactData.updatedAt;
       try {
         await API.graphql(
-          graphqlOperation(updateArtifactMutation, { input: artifactData })
+          graphqlOperation(updateArtifactMutation, {
+            input: artifactData,
+          })
         );
         return Promise.resolve("success");
       } catch (error) {
-        console.log("updateArtifact error", error);
+        console.log("updateArtifactMutation error", error);
         return Promise.reject(error);
       }
     },
@@ -242,39 +286,59 @@ export const cardInfo = {
     async submitArtifact(_, data) {
       let { file, artifactData } = data;
 
-      console.log("data", data);
-      console.log("artifactData", artifactData);
+      // remove old updatedAt to use the most recent date
+      delete artifactData.updatedAt;
 
-      let currentArtifact = await API.graphql({
-        query: getArtifactQuery,
+      let currentArtifactVersion = await API.graphql({
+        query: getArtifactVersionQuery,
         variables: { id: artifactData.id },
-        authMode: "API_KEY",
       });
 
-      console.log("currentArtifact", currentArtifact);
-
-      if (currentArtifact.data.getArtifact.newVersion) {
-        console.log("if");
-        currentArtifact.data.getArtifact.newVersion.append(artifactData);
+      if (currentArtifactVersion.data.getArtifactVersion == null) {
+        //insert
+        try {
+          await API.graphql(
+            graphqlOperation(createVersionsArtifactMutation, {
+              input: {
+                id: artifactData.id,
+                newVersions: [artifactData],
+                oldVersions: [],
+              },
+            })
+          );
+        } catch (error) {
+          console.log("createVersionsArtifactMutation error", error);
+          return Promise.reject(error);
+        }
       } else {
-        console.log("else");
-        currentArtifact.data.getArtifact.newVersion = [artifactData];
-      }
-
-      console.log(
-        "currentArtifact.data.getArtifact with version",
-        currentArtifact.data.getArtifact
-      );
-      try {
-        await API.graphql(
-          graphqlOperation(updateArtifactMutation, {
-            input: currentArtifact.data.getArtifact,
-          })
-        );
-        return Promise.resolve("success");
-      } catch (error) {
-        console.log("updateArtifact error", error);
-        return Promise.reject(error);
+        //update
+        if (
+          Array.isArray(
+            currentArtifactVersion.data.getArtifactVersion.newVersions
+          )
+        ) {
+          currentArtifactVersion.data.getArtifactVersion.newVersions.push(
+            artifactData
+          );
+        } else {
+          currentArtifactVersion.data.getArtifactVersion.newVersions = [
+            artifactData,
+          ];
+        }
+        try {
+          await API.graphql(
+            graphqlOperation(updateVersionsArtifactMutation, {
+              input: {
+                id: currentArtifactVersion.data.getArtifactVersion.id,
+                newVersions:
+                  currentArtifactVersion.data.getArtifactVersion.newVersions,
+              },
+            })
+          );
+        } catch (error) {
+          console.log("updateVersionsArtifactMutation error", error);
+          return Promise.reject(error);
+        }
       }
     },
 
