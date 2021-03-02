@@ -425,34 +425,6 @@ export const onCreateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -487,34 +459,6 @@ export const onUpdateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -549,7 +493,14 @@ export const onDeleteArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
+    }
+  }
+`;
+export const onCreateArtifactVersion = /* GraphQL */ `
+  subscription OnCreateArtifactVersion {
+    onCreateArtifactVersion {
+      id
+      newVersions {
         id
         name
         imgUrl
@@ -563,7 +514,7 @@ export const onDeleteArtifact = /* GraphQL */ `
         updatedAt
         version
       }
-      newVersion {
+      oldVersions {
         id
         name
         imgUrl
@@ -577,6 +528,82 @@ export const onDeleteArtifact = /* GraphQL */ `
         updatedAt
         version
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateArtifactVersion = /* GraphQL */ `
+  subscription OnUpdateArtifactVersion {
+    onUpdateArtifactVersion {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteArtifactVersion = /* GraphQL */ `
+  subscription OnDeleteArtifactVersion {
+    onDeleteArtifactVersion {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

@@ -61,19 +61,9 @@ type Card
   updatedAt: String
   version: String
   oldVersion: [Card]
-    @auth(
-      rules: [
-        { allow: public, operations: [read] }
-        { allow: private, operations: [update] }
-      ]
-    )
+    @auth(rules: [{ allow: public, operations: [read] }, { allow: private }])
   newVersion: [Card]
-    @auth(
-      rules: [
-        { allow: public, operations: [read] }
-        { allow: private, operations: [update] }
-      ]
-    )
+    @auth(rules: [{ allow: public, operations: [read] }, { allow: private }])
 }
 
 type Artifact
@@ -104,20 +94,30 @@ type Artifact
   createdAt: String
   updatedAt: String
   version: String
-  oldVersion: [Artifact]
-    @auth(
-      rules: [
-        { allow: public, operations: [read] }
-        { allow: private, operations: [update] }
-      ]
-    )
-  newVersion: [Artifact]
-    @auth(
-      rules: [
-        { allow: public, operations: [read] }
-        { allow: private, operations: [update] }
-      ]
-    )
+}
+
+type ArtifactVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [ArtifactItem]
+  oldVersions: [ArtifactItem]
+}
+
+type ArtifactItem {
+  id: ID
+  name: String
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  rarity: String
+  description: String
+  bonusR10: String
+  bonusR20: String
+  vote: Vote
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
 }
 
 type CardProperties {

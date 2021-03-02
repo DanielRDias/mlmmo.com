@@ -446,34 +446,6 @@ export const createArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -511,34 +483,6 @@ export const updateArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        rarity
-        description
-        bonusR10
-        bonusR20
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -576,7 +520,17 @@ export const deleteArtifact = /* GraphQL */ `
       createdAt
       updatedAt
       version
-      oldVersion {
+    }
+  }
+`;
+export const createArtifactVersion = /* GraphQL */ `
+  mutation CreateArtifactVersion(
+    $input: CreateArtifactVersionInput!
+    $condition: ModelArtifactVersionConditionInput
+  ) {
+    createArtifactVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
         id
         name
         imgUrl
@@ -590,7 +544,7 @@ export const deleteArtifact = /* GraphQL */ `
         updatedAt
         version
       }
-      newVersion {
+      oldVersions {
         id
         name
         imgUrl
@@ -604,6 +558,88 @@ export const deleteArtifact = /* GraphQL */ `
         updatedAt
         version
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateArtifactVersion = /* GraphQL */ `
+  mutation UpdateArtifactVersion(
+    $input: UpdateArtifactVersionInput!
+    $condition: ModelArtifactVersionConditionInput
+  ) {
+    updateArtifactVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteArtifactVersion = /* GraphQL */ `
+  mutation DeleteArtifactVersion(
+    $input: DeleteArtifactVersionInput!
+    $condition: ModelArtifactVersionConditionInput
+  ) {
+    deleteArtifactVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        rarity
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
