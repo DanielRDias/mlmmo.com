@@ -170,6 +170,12 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/approvechanges",
+    name: "ApproveChanges",
+    component: () => import("../views/ApproveChanges.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/manageartifacts",
     name: "ManageArtifacts",
     component: () => import("../views/ManageArtifacts.vue"),
