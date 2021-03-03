@@ -173,6 +173,17 @@ export const listCards = /* GraphQL */ `
         points
         power
         rarity
+        properties {
+          rank
+          damage
+          healing
+          health
+          dps
+          role
+          duration
+          range
+          area
+        }
         description
         r10damage
         r10health
@@ -303,6 +314,20 @@ export const listArtifactVersions = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        newVersions {
+          id
+          name
+          imgUrl
+          rarity
+          description
+          bonusR10
+          bonusR20
+          updatedBy
+          updatedById
+          createdAt
+          updatedAt
+          version
+        }
       }
       nextToken
     }
