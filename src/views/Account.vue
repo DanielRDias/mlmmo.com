@@ -6,6 +6,7 @@
       <h2>Mod Options</h2>
       <br />
       <v-btn text to="manageartifacts">Manage Artifacts</v-btn>
+      <v-btn text to="approvechanges">Review Artifact Submissions</v-btn>
       <br />
       <br />
     </div>
