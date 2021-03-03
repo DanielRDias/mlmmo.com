@@ -334,7 +334,7 @@ export default {
       }
     },
     getItemHeader(item) {
-      let headerHtml = item.name;
+      let headerHtml = item.name + "&nbsp;";
       let headerRarity = "";
       if (item["rarity"].toLowerCase() === "mythic") {
         headerRarity =

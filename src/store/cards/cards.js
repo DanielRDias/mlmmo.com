@@ -7,6 +7,7 @@ import { updateArtifact as updateArtifactMutation } from "@/graphql/mutations";
 import { createArtifactVersion as createVersionsArtifactMutation } from "@/graphql/mutations";
 import { updateArtifactVersion as updateVersionsArtifactMutation } from "@/graphql/mutations";
 import { getArtifactVersion as getArtifactVersionQuery } from "@/graphql/queries";
+import { listArtifactVersions as listArtifactVersionsQuery } from "@/graphql/queries";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { getCard as getCardQuery } from "@/graphql/queries";
 import { getArtifact as getArtifactQuery } from "@/graphql/queries";
@@ -22,6 +23,7 @@ export const cardInfo = {
     decks: null,
     cards: null,
     artifacts: null,
+    artifactVersions: null,
     newDeck: null,
     newDeckCards: [],
   },
@@ -56,6 +58,12 @@ export const cardInfo = {
     },
     appendArtifacts(state, payload) {
       state.artifacts = state.artifacts.concat(payload);
+    },
+    setArtifactVersions(state, payload) {
+      state.artifactVersions = payload;
+    },
+    appendArtifactVersions(state, payload) {
+      state.artifactVersions = state.artifactVersions.concat(payload);
     },
   },
   actions: {
@@ -285,9 +293,12 @@ export const cardInfo = {
 
     async submitArtifact(_, data) {
       let { file, artifactData } = data;
+      console.log(data);
 
-      // remove old updatedAt to use the most recent date
-      delete artifactData.updatedAt;
+      // replace old updatedAt with the current date
+      const now = new Date();
+      artifactData.updatedAt = now.toISOString();
+      console.log(artifactData);
 
       let currentArtifactVersion = await API.graphql({
         query: getArtifactVersionQuery,
@@ -335,10 +346,68 @@ export const cardInfo = {
               },
             })
           );
+          return Promise.resolve("success");
         } catch (error) {
           console.log("updateVersionsArtifactMutation error", error);
           return Promise.reject(error);
         }
+      }
+    },
+
+    async deleteSubmitArtifact(_, data) {
+      let { file, artifactData, position } = data;
+      console.log("artifactData", artifactData);
+      let currentArtifactVersion = (
+        await API.graphql({
+          query: getArtifactVersionQuery,
+          variables: { id: artifactData.id },
+        })
+      ).data.getArtifactVersion;
+      console.log("currentArtifactVersion", currentArtifactVersion);
+
+      try {
+        currentArtifactVersion.newVersions.splice(position, 1);
+        console.log("splice", currentArtifactVersion);
+        console.log(
+          "id",
+          artifactData.id,
+          "newVersions",
+          currentArtifactVersion.newVersions
+        );
+        await API.graphql(
+          graphqlOperation(updateVersionsArtifactMutation, {
+            input: {
+              id: artifactData.id,
+              newVersions: currentArtifactVersion.newVersions,
+            },
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateVersionsArtifactMutation error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async getArtifactsVersionsData({ commit }) {
+      var artifactsData = await API.graphql({
+        query: listArtifactVersionsQuery,
+      });
+      commit(
+        "setArtifactVersions",
+        artifactsData.data.listArtifactVersions.items
+      );
+      while (artifactsData.data.listArtifactVersions.nextToken) {
+        artifactsData = await API.graphql({
+          query: listArtifactVersionsQuery,
+          variables: {
+            nextToken: artifactsData.data.listArtifactVersions.nextToken,
+          },
+        });
+        commit(
+          "appendArtifactVersions",
+          artifactsData.data.listArtifactVersions.items
+        );
       }
     },
 
@@ -349,7 +418,7 @@ export const cardInfo = {
       });
       commit("setArtifacts", artifactsData.data.listArtifacts.items);
       while (artifactsData.data.listArtifacts.nextToken) {
-        cartifactsData = await API.graphql({
+        artifactsData = await API.graphql({
           query: listArtifactsQuery,
           variables: { nextToken: artifactsData.data.listArtifacts.nextToken },
           authMode: "API_KEY",
@@ -398,6 +467,7 @@ export const cardInfo = {
     cards: (state) => state.cards,
     decks: (state) => state.decks,
     artifacts: (state) => state.artifacts,
+    artifactVersions: (state) => state.artifactVersions,
     newDeck: (state) => state.newDeck,
     newDeckCards: (state) => state.newDeckCards,
   },
