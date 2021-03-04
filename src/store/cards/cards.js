@@ -293,12 +293,10 @@ export const cardInfo = {
 
     async submitArtifact(_, data) {
       let { file, artifactData } = data;
-      console.log(data);
 
       // replace old updatedAt with the current date
       const now = new Date();
       artifactData.updatedAt = now.toISOString();
-      console.log(artifactData);
 
       let currentArtifactVersion = await API.graphql({
         query: getArtifactVersionQuery,
@@ -356,24 +354,15 @@ export const cardInfo = {
 
     async deleteSubmitArtifact(_, data) {
       let { file, artifactData, position } = data;
-      console.log("artifactData", artifactData);
       let currentArtifactVersion = (
         await API.graphql({
           query: getArtifactVersionQuery,
           variables: { id: artifactData.id },
         })
       ).data.getArtifactVersion;
-      console.log("currentArtifactVersion", currentArtifactVersion);
 
       try {
         currentArtifactVersion.newVersions.splice(position, 1);
-        console.log("splice", currentArtifactVersion);
-        console.log(
-          "id",
-          artifactData.id,
-          "newVersions",
-          currentArtifactVersion.newVersions
-        );
         await API.graphql(
           graphqlOperation(updateVersionsArtifactMutation, {
             input: {
