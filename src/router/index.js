@@ -50,7 +50,7 @@ const routes = [
     name: "Account",
     component: () => import("../views/Account.vue"),
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
       title: "Account | Magic: Legends ARPG",
     },
   },
@@ -167,13 +167,13 @@ const routes = [
     path: "/addcards",
     name: "AddCards",
     component: () => import("../views/AddCards.vue"),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requiresGroup: ["Admins", "Moderators"] },
   },
   {
     path: "/approvechanges",
     name: "ApproveChanges",
     component: () => import("../views/ApproveChanges.vue"),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requiresGroup: ["Admins", "Moderators"] },
   },
   {
     path: "/manageartifacts",
@@ -463,7 +463,32 @@ router.beforeEach(async (to, from, next) => {
     if (!isAuthenticated) {
       next("/login");
     }
+    const requiresGroup = to.matched.some(
+      (record) => record.meta.requiresGroup
+    );
+    if (requiresGroup) {
+      const allowedGroups = to.matched.find(
+        (record) => record.meta.requiresGroup
+      );
+      const authUser = await Auth.currentAuthenticatedUser();
+      const userGroups = await authUser.signInUserSession.accessToken.payload[
+        "cognito:groups"
+      ];
+
+      if (Array.isArray(userGroups)) {
+        if (
+          !allowedGroups.meta.requiresGroup.some(
+            (r) => userGroups.indexOf(r) >= 0
+          )
+        ) {
+          next("/");
+        }
+      } else {
+        next("/");
+      }
+    }
   }
+
   const defaultTitle =
     "Magic: Legends ARPG - Best deck, class, cards and artifacts";
   // This goes through the matched routes from last to first, finding the closest route with a title.
