@@ -131,6 +131,10 @@ export default {
         this.$props.currentArtifactId
       );
       this.artifact = getArtifactData.data.getArtifact;
+    } else {
+      if (!(this.admin | this.mod)) {
+        this.$router.push("/artifacts");
+      }
     }
 
     this.$store.dispatch("cardInfo/getArtifactsData");
@@ -183,19 +187,22 @@ export default {
               file: "",
               artifactData: this.artifact,
             });
+            this.sucessMsg = "Artifact Updated";
           } else {
             await this.$store.dispatch("cardInfo/submitArtifact", {
               file: "",
               artifactData: this.artifact,
             });
+            this.sucessMsg =
+              "Your update was submited for review. It will be visible after mod approval.";
           }
         } else {
           await this.$store.dispatch("cardInfo/createArtifact", {
             file: "",
             artifactData: this.artifact,
           });
+          this.sucessMsg = "Artifact Added";
         }
-        this.sucessMsg = "finished";
         this.loading = false;
       } catch (error) {
         this.loading = false;
