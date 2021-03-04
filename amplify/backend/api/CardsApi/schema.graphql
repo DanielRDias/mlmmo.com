@@ -42,6 +42,8 @@ type Card
   color: String
   type: String
   points: Int
+  power: String
+  rarity: String
   properties: [CardProperties]
   description: String
   r10damage: Int
@@ -58,6 +60,10 @@ type Card
   createdAt: String
   updatedAt: String
   version: String
+  oldVersion: [Card]
+    @auth(rules: [{ allow: public, operations: [read] }, { allow: private }])
+  newVersion: [Card]
+    @auth(rules: [{ allow: public, operations: [read] }, { allow: private }])
 }
 
 type Artifact
@@ -75,6 +81,30 @@ type Artifact
   ) {
   id: ID!
   name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  rarity: String
+  description: String
+  bonusR10: String
+  bonusR20: String
+  vote: Vote
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type ArtifactVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [ArtifactItem]
+  oldVersions: [ArtifactItem]
+}
+
+type ArtifactItem {
+  id: ID
+  name: String
   imgUrl: String
   imgFullSize: S3Object
   imgThumbnail: S3Object

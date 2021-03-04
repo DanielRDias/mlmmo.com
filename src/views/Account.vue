@@ -5,7 +5,8 @@
     <div v-if="mod">
       <h2>Mod Options</h2>
       <br />
-      <v-btn text to="addartifacts">Add Artifacts</v-btn>
+      <v-btn text to="manageartifacts">Manage Artifacts</v-btn>
+      <v-btn text to="approvechanges">Review Artifact Submissions</v-btn>
       <br />
       <br />
     </div>
@@ -17,8 +18,6 @@
 <script>
 import Decks from "@/components/Decks.vue";
 import { mapGetters } from "vuex";
-
-import { Auth } from "aws-amplify";
 
 export default {
   components: {
