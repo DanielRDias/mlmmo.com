@@ -1,19 +1,29 @@
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { createDeck as createDeckMutation } from "@/graphql/mutations";
 import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
+
 import { createCard as createCardMutation } from "@/graphql/mutations";
+import { updateCard as updateCardMutation } from "@/graphql/mutations";
+import { createCardVersion as createVersionsCardMutation } from "@/graphql/mutations";
+import { updateCardVersion as updateVersionsCardMutation } from "@/graphql/mutations";
+import { getCardVersion as getCardVersionQuery } from "@/graphql/queries";
+import { listCardVersions as listCardVersionsQuery } from "@/graphql/queries";
+
 import { createArtifact as createArtifactMutation } from "@/graphql/mutations";
 import { updateArtifact as updateArtifactMutation } from "@/graphql/mutations";
 import { createArtifactVersion as createVersionsArtifactMutation } from "@/graphql/mutations";
 import { updateArtifactVersion as updateVersionsArtifactMutation } from "@/graphql/mutations";
 import { getArtifactVersion as getArtifactVersionQuery } from "@/graphql/queries";
 import { listArtifactVersions as listArtifactVersionsQuery } from "@/graphql/queries";
+
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { getCard as getCardQuery } from "@/graphql/queries";
 import { getArtifact as getArtifactQuery } from "@/graphql/queries";
+
 import { listDecks as listDecksQuery } from "@/graphql/queries";
 import { listCards as listCardsQuery } from "@/graphql/queries";
 import { listArtifacts as listArtifactsQuery } from "@/graphql/queries";
+
 import { v4 as uuid } from "uuid";
 import awsconfig from "@/aws-exports";
 
@@ -22,6 +32,7 @@ export const cardInfo = {
   state: {
     decks: null,
     cards: null,
+    cardVersions: null,
     artifacts: null,
     artifactVersions: null,
     newDeck: null,
@@ -52,6 +63,12 @@ export const cardInfo = {
     },
     appendCards(state, payload) {
       state.cards = state.cards.concat(payload);
+    },
+    setCardVersions(state, payload) {
+      state.cardVersions = payload;
+    },
+    appendCardVersions(state, payload) {
+      state.cardVersions = state.cardVersions.concat(payload);
     },
     setArtifacts(state, payload) {
       state.artifacts = payload;
@@ -129,6 +146,172 @@ export const cardInfo = {
         authMode: "API_KEY",
       });
     },
+
+    async updateCard(_, data) {
+      let { file, cardData } = data;
+
+      const currentCard = await API.graphql({
+        query: getCardQuery,
+        variables: { id: cardData.id },
+        authMode: "API_KEY",
+      });
+
+      let currentCardVersion = await API.graphql({
+        query: getCardVersionQuery,
+        variables: { id: cardData.id },
+      });
+
+      if (currentCardVersion.data.getCardVersion == null) {
+        //insert
+        try {
+          await API.graphql(
+            graphqlOperation(createVersionsCardMutation, {
+              input: {
+                id: cardData.id,
+                newVersions: [],
+                oldVersions: [currentCard.data.getCard],
+              },
+            })
+          );
+        } catch (error) {
+          console.log("createVersionsCardMutation error", error);
+          return Promise.reject(error);
+        }
+      } else {
+        //update
+        if (Array.isArray(currentCardVersion.data.getCardVersion.oldVersions)) {
+          currentCardVersion.data.getCardVersion.oldVersions.push(
+            currentCard.data.getCard
+          );
+        } else {
+          currentCardVersion.data.getCardVersion.oldVersions = [
+            currentCard.data.getCard,
+          ];
+        }
+        try {
+          await API.graphql(
+            graphqlOperation(updateVersionsCardMutation, {
+              input: {
+                id: currentCardVersion.data.getCardVersion.id,
+                oldVersions: currentCardVersion.data.getCardVersion.oldVersions,
+              },
+            })
+          );
+        } catch (error) {
+          console.log("updateVersionsCardMutation error", error);
+          return Promise.reject(error);
+        }
+      }
+
+      // remove old updatedAt to use the most recent date
+      delete cardData.updatedAt;
+      try {
+        await API.graphql(
+          graphqlOperation(updateCardMutation, {
+            input: cardData,
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateCardMutation error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async submitCard(_, data) {
+      let { file, cardData } = data;
+
+      // replace old updatedAt with the current date
+      const now = new Date();
+      cardData.updatedAt = now.toISOString();
+
+      let currentCardVersion = await API.graphql({
+        query: getCardVersionQuery,
+        variables: { id: cardData.id },
+      });
+
+      if (currentCardVersion.data.getCardVersion == null) {
+        //insert
+        try {
+          await API.graphql(
+            graphqlOperation(createVersionsCardMutation, {
+              input: {
+                id: cardData.id,
+                newVersions: [cardData],
+                oldVersions: [],
+              },
+            })
+          );
+        } catch (error) {
+          console.log("createVersionsCardMutation error", error);
+          return Promise.reject(error);
+        }
+      } else {
+        //update
+        if (Array.isArray(currentCardVersion.data.getCardVersion.newVersions)) {
+          currentCardVersion.data.getCardVersion.newVersions.push(cardData);
+        } else {
+          currentCardVersion.data.getCardVersion.newVersions = [cardData];
+        }
+        try {
+          await API.graphql(
+            graphqlOperation(updateVersionsCardMutation, {
+              input: {
+                id: currentCardVersion.data.getCardVersion.id,
+                newVersions: currentCardVersion.data.getCardVersion.newVersions,
+              },
+            })
+          );
+          return Promise.resolve("success");
+        } catch (error) {
+          console.log("updateVersionsCardMutation error", error);
+          return Promise.reject(error);
+        }
+      }
+    },
+
+    async deleteSubmitCard(_, data) {
+      let { file, cardData, position } = data;
+      let currentCardVersion = (
+        await API.graphql({
+          query: getCardVersionQuery,
+          variables: { id: cardData.id },
+        })
+      ).data.getCardVersion;
+
+      try {
+        currentCardVersion.newVersions.splice(position, 1);
+        await API.graphql(
+          graphqlOperation(updateVersionsCardMutation, {
+            input: {
+              id: cardData.id,
+              newVersions: currentCardVersion.newVersions,
+            },
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateVersionsCardMutation error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async getCardsVersionsData({ commit }) {
+      var cardsData = await API.graphql({
+        query: listCardVersionsQuery,
+      });
+      commit("setCardVersions", cardsData.data.listCardVersions.items);
+      while (cardsData.data.listcardVersions.nextToken) {
+        cardsData = await API.graphql({
+          query: listCardVersionsQuery,
+          variables: {
+            nextToken: cardsData.data.listCardVersions.nextToken,
+          },
+        });
+        commit("appendCardVersions", cardsData.data.listCardVersions.items);
+      }
+    },
+
     async getCardList(_, cardIdList) {
       let filterId = [];
       let cardList = [];

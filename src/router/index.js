@@ -176,6 +176,12 @@ const routes = [
     meta: { requiresAuth: true, requiresGroup: ["Admins", "Moderators"] },
   },
   {
+    path: "/managecards",
+    name: "ManageCards",
+    component: () => import("../views/ManageCards.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/manageartifacts",
     name: "ManageArtifacts",
     component: () => import("../views/ManageArtifacts.vue"),
