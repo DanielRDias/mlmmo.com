@@ -164,12 +164,6 @@ const routes = [
     },
   },
   {
-    path: "/addcards",
-    name: "AddCards",
-    component: () => import("../views/AddCards.vue"),
-    meta: { requiresAuth: true, requiresGroup: ["Admins", "Moderators"] },
-  },
-  {
     path: "/approvechanges",
     name: "ApproveChanges",
     component: () => import("../views/ApproveChanges.vue"),

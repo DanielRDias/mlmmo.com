@@ -5,8 +5,20 @@
     <div v-if="mod">
       <h2>Mod Options</h2>
       <br />
-      <v-btn text to="manageartifacts">Manage Artifacts</v-btn>
-      <v-btn text to="approvechanges">Review Artifact Submissions</v-btn>
+      <v-btn to="manageartifacts" elevation="6">
+        <v-icon>mdi-dots-triangle</v-icon> Add Artifact
+      </v-btn>
+      <v-btn to="approvechanges?manageType=artifacts" elevation="6">
+        <v-icon>mdi-dots-triangle</v-icon>
+        Review Artifact Submissions
+      </v-btn>
+      <v-btn to="managecards" elevation="6">
+        <v-icon>mdi-cards</v-icon> Add Card
+      </v-btn>
+
+      <v-btn to="approvechanges?manageType=cards" elevation="6">
+        <v-icon>mdi-cards</v-icon> Review Card Submissions
+      </v-btn>
       <br />
       <br />
     </div>

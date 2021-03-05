@@ -12,7 +12,20 @@
       :src="this.currentCard.imgUrl"
       :alt="this.currentCard.name"
       height="300"
-    ></v-img>
+    >
+      <div
+        v-if="
+          (this.currentCard.type.toLowerCase() === 'creature') &
+          (typeof this.currentCard.power !== 'undefined') &
+          (typeof this.currentCard.toughness !== 'undefined')
+        "
+        class="text-right"
+      >
+        <v-btn text elevation="6" class="creatureStats">
+          {{ this.currentCard.power }}/{{ this.currentCard.toughness }}
+        </v-btn>
+      </div>
+    </v-img>
     <v-row>
       <v-col align-self="center" class="text-right text-caption" cols="2">
         Rank:
@@ -141,3 +154,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.creatureStats {
+  background: #1e1e1e;
+  color: white;
+  margin-top: 2px;
+  margin-right: 2px;
+}
+</style>
