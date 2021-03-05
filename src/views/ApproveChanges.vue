@@ -18,7 +18,16 @@
           <v-row class="fill-height" align="center" justify="center">
             <v-col class="current">
               <div class="text-center">Current item version</div>
-              <Artifact :currentArtifactId="item.id" :key="item.updatedAt" />
+              <Artifact
+                :currentArtifactId="item.id"
+                :key="item.updatedAt"
+                v-if="$route.query.manageType === 'artifacts'"
+              />
+              <Card
+                :currentCardId="item.id"
+                :key="item.updatedAt"
+                v-if="$route.query.manageType === 'cards'"
+              />
             </v-col>
             <v-col
               v-for="(version, i) in item.newVersions"
@@ -30,6 +39,12 @@
               <Artifact
                 :currentArtifactInput="version"
                 :key="version.updatedAt"
+                v-if="$route.query.manageType === 'artifacts'"
+              />
+              <Card
+                :currentCardInput="version"
+                :key="version.updatedAt"
+                v-if="$route.query.manageType === 'cards'"
               />
               <div class="text-center">
                 <v-btn text color="green" @click="approve(version, i)">
@@ -53,17 +68,12 @@
 <script>
 import { mapGetters } from "vuex";
 import Artifact from "@/components/Artifact.vue";
+import Card from "@/components/Card.vue";
 
 export default {
   components: {
     Artifact,
-  },
-  props: {
-    manageType: {
-      type: String,
-      required: false,
-      default: "artifacts",
-    },
+    Card,
   },
   data: () => ({
     model: 0,
@@ -71,11 +81,12 @@ export default {
     loading: false,
   }),
   async mounted() {
-    this.$store.dispatch("cardInfo/getArtifactsVersionsData");
-    this.$store.dispatch("cardInfo/getArtifactsData");
-    if (this.$props.manageType == "artifacts") {
+    if (this.$route.query.manageType == "artifacts") {
       this.$store.dispatch("cardInfo/getArtifactsVersionsData");
       this.$store.dispatch("cardInfo/getArtifactsData");
+    } else if (this.$route.query.manageType == "cards") {
+      this.$store.dispatch("cardInfo/getCardsVersionsData");
+      this.$store.dispatch("cardInfo/getCardsData");
     } else {
       console.log("unknown manage type");
     }
@@ -123,6 +134,9 @@ export default {
       this.items = artifactVersions.filter(
         (item) => item.newVersions.length > 0
       );
+    },
+    cardVersions(cardVersions) {
+      this.items = cardVersions.filter((item) => item.newVersions.length > 0);
     },
   },
 };

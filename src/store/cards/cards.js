@@ -301,7 +301,7 @@ export const cardInfo = {
         query: listCardVersionsQuery,
       });
       commit("setCardVersions", cardsData.data.listCardVersions.items);
-      while (cardsData.data.listcardVersions.nextToken) {
+      while (cardsData.data.listCardVersions.nextToken) {
         cardsData = await API.graphql({
           query: listCardVersionsQuery,
           variables: {
@@ -637,6 +637,7 @@ export const cardInfo = {
   },
   getters: {
     cards: (state) => state.cards,
+    cardVersions: (state) => state.cardVersions,
     decks: (state) => state.decks,
     artifacts: (state) => state.artifacts,
     artifactVersions: (state) => state.artifactVersions,
