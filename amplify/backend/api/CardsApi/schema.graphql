@@ -40,8 +40,9 @@ type Card
   cmc: Int
   color: String
   type: String
-  points: Int
+  points: String
   power: String
+  toughness: Int
   rarity: String
   properties: [CardProperties]
   description: String
@@ -62,8 +63,9 @@ type CardItem {
   cmc: Int
   color: String
   type: String
-  points: Int
+  points: String
   power: String
+  toughness: Int
   rarity: String
   properties: [CardProperties]
   description: String

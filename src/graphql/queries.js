@@ -62,6 +62,7 @@ export const getCard = /* GraphQL */ `
       type
       points
       power
+      toughness
       rarity
       properties {
         rank
@@ -100,6 +101,7 @@ export const listCards = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         properties {
           rank
@@ -137,6 +139,7 @@ export const getCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
@@ -155,6 +158,7 @@ export const getCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         properties {
           rank
