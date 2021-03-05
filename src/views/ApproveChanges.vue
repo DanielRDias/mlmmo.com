@@ -94,29 +94,58 @@ export default {
   methods: {
     async approve(item, position) {
       this.loading = true;
-      await this.$store.dispatch({
-        type: "cardInfo/updateArtifact",
-        artifactData: item,
-      });
+      if (this.$route.query.manageType == "artifacts") {
+        await this.$store.dispatch({
+          type: "cardInfo/updateArtifact",
+          artifactData: item,
+        });
 
-      await this.$store.dispatch({
-        type: "cardInfo/deleteSubmitArtifact",
-        artifactData: item,
-        position: position,
-      });
-      await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
-      await this.$store.dispatch("cardInfo/getArtifactsData");
+        await this.$store.dispatch({
+          type: "cardInfo/deleteSubmitArtifact",
+          artifactData: item,
+          position: position,
+        });
+        await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
+        await this.$store.dispatch("cardInfo/getArtifactsData");
+      } else if (this.$route.query.manageType == "cards") {
+        await this.$store.dispatch({
+          type: "cardInfo/updateCard",
+          cardData: item,
+        });
+
+        await this.$store.dispatch({
+          type: "cardInfo/deleteSubmitCard",
+          cardData: item,
+          position: position,
+        });
+        await this.$store.dispatch("cardInfo/getCardsVersionsData");
+        await this.$store.dispatch("cardInfo/getCardsData");
+      } else {
+        console.log("unknown manage type");
+      }
       this.loading = false;
     },
     async reject(item, position) {
       this.loading = true;
-      await this.$store.dispatch({
-        type: "cardInfo/deleteSubmitArtifact",
-        artifactData: item,
-        position: position,
-      });
-      await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
-      await this.$store.dispatch("cardInfo/getArtifactsData");
+      if (this.$route.query.manageType == "artifacts") {
+        await this.$store.dispatch({
+          type: "cardInfo/deleteSubmitArtifact",
+          artifactData: item,
+          position: position,
+        });
+        await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
+        await this.$store.dispatch("cardInfo/getArtifactsData");
+      } else if (this.$route.query.manageType == "cards") {
+        await this.$store.dispatch({
+          type: "cardInfo/deleteSubmitCard",
+          cardData: item,
+          position: position,
+        });
+        await this.$store.dispatch("cardInfo/getCardsVersionsData");
+        await this.$store.dispatch("cardInfo/getCardsData");
+      } else {
+        console.log("unknown manage type");
+      }
       this.loading = false;
     },
   },
