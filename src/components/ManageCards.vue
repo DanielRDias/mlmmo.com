@@ -64,6 +64,10 @@
                     <v-text-field v-model="card.power" label="Power" />
                   </v-col>
 
+                  <v-col cols="12" md="2">
+                    <v-text-field v-model="card.toughness" label="Toughness" />
+                  </v-col>
+
                   <v-col cols="12" md="9">
                     <v-text-field v-model="card.imgUrl" label="Image URL" />
                   </v-col>

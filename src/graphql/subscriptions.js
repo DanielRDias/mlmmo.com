@@ -71,6 +71,7 @@ export const onCreateCard = /* GraphQL */ `
       type
       points
       power
+      toughness
       rarity
       properties {
         rank
@@ -114,6 +115,7 @@ export const onUpdateCard = /* GraphQL */ `
       type
       points
       power
+      toughness
       rarity
       properties {
         rank
@@ -157,6 +159,7 @@ export const onDeleteCard = /* GraphQL */ `
       type
       points
       power
+      toughness
       rarity
       properties {
         rank
@@ -192,6 +195,7 @@ export const onCreateCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
@@ -210,6 +214,7 @@ export const onCreateCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
@@ -237,6 +242,7 @@ export const onUpdateCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
@@ -255,6 +261,7 @@ export const onUpdateCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
@@ -282,6 +289,7 @@ export const onDeleteCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
@@ -300,6 +308,7 @@ export const onDeleteCardVersion = /* GraphQL */ `
         type
         points
         power
+        toughness
         rarity
         description
         updatedBy
