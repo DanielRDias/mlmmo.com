@@ -372,12 +372,6 @@ export const createArtifact = /* GraphQL */ `
       description
       bonusR10
       bonusR20
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt
@@ -409,12 +403,6 @@ export const updateArtifact = /* GraphQL */ `
       description
       bonusR10
       bonusR20
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt
@@ -446,12 +434,6 @@ export const deleteArtifact = /* GraphQL */ `
       description
       bonusR10
       bonusR20
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt

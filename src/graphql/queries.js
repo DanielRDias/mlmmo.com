@@ -260,12 +260,6 @@ export const getArtifact = /* GraphQL */ `
       description
       bonusR10
       bonusR20
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt

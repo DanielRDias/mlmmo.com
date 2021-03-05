@@ -104,7 +104,6 @@ type Artifact
   description: String
   bonusR10: String
   bonusR20: String
-  vote: Vote
   updatedBy: String
   updatedById: String
   createdAt: String
@@ -151,11 +150,4 @@ type S3Object @aws_iam @aws_cognito_user_pools {
   region: String!
   bucket: String!
   key: String!
-}
-
-type Vote {
-  downVote: Int
-  upVote: Int
-  rating: Float
-  voteCount: Int
 }
