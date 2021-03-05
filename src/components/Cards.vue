@@ -158,10 +158,13 @@
                       <v-overlay v-if="hover" absolute color="#036358">
                         <v-row align-content="center">
                           <v-col>
-                            <v-btn @click="getCardOverlay(item)">Preview</v-btn>
+                            <v-btn small @click="getCardOverlay(item)">
+                              Preview
+                            </v-btn>
                           </v-col>
                           <v-col>
                             <v-btn
+                              small
                               :to="{
                                 name: 'Card',
                                 query: { cardId: item.id },
@@ -169,6 +172,18 @@
                               target="_blank"
                             >
                               Open Card
+                            </v-btn>
+                          </v-col>
+                          <v-col>
+                            <v-btn
+                              small
+                              :to="{
+                                name: 'ManageCards',
+                                query: { cardId: item.id },
+                              }"
+                              target="_blank"
+                            >
+                              Edit
                             </v-btn>
                           </v-col>
                         </v-row>
