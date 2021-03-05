@@ -141,6 +141,17 @@ export const getCardVersion = /* GraphQL */ `
         power
         toughness
         rarity
+        properties {
+          rank
+          damage
+          healing
+          health
+          dps
+          role
+          duration
+          range
+          area
+        }
         description
         updatedBy
         updatedById
@@ -192,6 +203,36 @@ export const listCardVersions = /* GraphQL */ `
     listCardVersions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        newVersions {
+          id
+          name
+          imgUrl
+          cost
+          cmc
+          color
+          type
+          points
+          power
+          toughness
+          rarity
+          properties {
+            rank
+            damage
+            healing
+            health
+            dps
+            role
+            duration
+            range
+            area
+          }
+          description
+          updatedBy
+          updatedById
+          createdAt
+          updatedAt
+          version
+        }
         createdAt
         updatedAt
       }
