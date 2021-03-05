@@ -126,6 +126,23 @@
                       height="200px"
                       :src="item.imgUrl ? item.imgUrl : `logo.png`"
                     >
+                      <v-btn
+                        small
+                        text
+                        elevation="6"
+                        class="creatureStats float-right"
+                        v-if="
+                          (item.type.toLowerCase() === 'creature') &
+                          ((typeof item.power !== 'undefined') &
+                            (item.power !== null) &
+                            (item.power !== '')) &
+                          ((typeof item.toughness !== 'undefined') &
+                            (item.toughness !== null) &
+                            (item.toughness !== ''))
+                        "
+                      >
+                        {{ item.power }}/{{ item.toughness }}
+                      </v-btn>
                       <v-list
                         dense
                         height="100%"
@@ -171,7 +188,7 @@
                               }"
                               target="_blank"
                             >
-                              Open Card
+                              Open
                             </v-btn>
                           </v-col>
                           <v-col>
@@ -465,7 +482,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-card--reveal {
   bottom: 0;
   opacity: 0.9 !important;
@@ -477,5 +494,11 @@ export default {
   opacity: 0.5 !important;
   position: absolute;
   width: 100%;
+}
+.creatureStats {
+  background: #1e1e1e !important;
+  color: white !important;
+  margin-top: 2px;
+  margin-right: 2px;
 }
 </style>

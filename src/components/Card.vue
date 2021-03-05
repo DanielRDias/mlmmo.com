@@ -16,8 +16,12 @@
       <div
         v-if="
           (this.currentCard.type.toLowerCase() === 'creature') &
-          (typeof this.currentCard.power !== 'undefined') &
-          (typeof this.currentCard.toughness !== 'undefined')
+          ((typeof this.currentCard.power !== 'undefined') &
+            (this.currentCard.power !== null) &
+            (this.currentCard.power !== '')) &
+          ((typeof this.currentCard.toughness !== 'undefined') &
+            (this.currentCard.toughness !== null) &
+            (this.currentCard.toughness !== ''))
         "
         class="text-right"
       >
