@@ -164,16 +164,16 @@ const routes = [
     },
   },
   {
-    path: "/addcards",
-    name: "AddCards",
-    component: () => import("../views/AddCards.vue"),
-    meta: { requiresAuth: true, requiresGroup: ["Admins", "Moderators"] },
-  },
-  {
     path: "/approvechanges",
     name: "ApproveChanges",
     component: () => import("../views/ApproveChanges.vue"),
     meta: { requiresAuth: true, requiresGroup: ["Admins", "Moderators"] },
+  },
+  {
+    path: "/managecards",
+    name: "ManageCards",
+    component: () => import("../views/ManageCards.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/manageartifacts",

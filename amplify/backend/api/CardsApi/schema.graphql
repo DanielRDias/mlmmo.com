@@ -13,7 +13,6 @@ type Deck
   colors: String
   type: String
   cards: [String]
-  vote: Vote
   createdAt: String
   updatedAt: String
   version: String
@@ -41,29 +40,46 @@ type Card
   cmc: Int
   color: String
   type: String
-  points: Int
+  points: String
   power: String
+  toughness: Int
   rarity: String
   properties: [CardProperties]
   description: String
-  r10damage: Int
-  r10health: Int
-  r10dps: String
-  r10role: String
-  r10duration: String
-  r10range: Int
-  r10area: String
-  decks: [String]
-  vote: Vote
   updatedBy: String
   updatedById: String
   createdAt: String
   updatedAt: String
   version: String
-  oldVersion: [Card]
-    @auth(rules: [{ allow: public, operations: [read] }, { allow: private }])
-  newVersion: [Card]
-    @auth(rules: [{ allow: public, operations: [read] }, { allow: private }])
+}
+
+type CardItem {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  cost: String
+  cmc: Int
+  color: String
+  type: String
+  points: String
+  power: String
+  toughness: Int
+  rarity: String
+  properties: [CardProperties]
+  description: String
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type CardVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [CardItem]
+  oldVersions: [CardItem]
 }
 
 type Artifact
@@ -88,7 +104,6 @@ type Artifact
   description: String
   bonusR10: String
   bonusR20: String
-  vote: Vote
   updatedBy: String
   updatedById: String
   createdAt: String
@@ -103,8 +118,8 @@ type ArtifactVersion @model @auth(rules: [{ allow: private }]) {
 }
 
 type ArtifactItem {
-  id: ID
-  name: String
+  id: ID!
+  name: String!
   imgUrl: String
   imgFullSize: S3Object
   imgThumbnail: S3Object
@@ -112,7 +127,6 @@ type ArtifactItem {
   description: String
   bonusR10: String
   bonusR20: String
-  vote: Vote
   updatedBy: String
   updatedById: String
   createdAt: String
@@ -136,11 +150,4 @@ type S3Object @aws_iam @aws_cognito_user_pools {
   region: String!
   bucket: String!
   key: String!
-}
-
-type Vote {
-  downVote: Int
-  upVote: Int
-  rating: Float
-  voteCount: Int
 }
