@@ -14,12 +14,6 @@ export const createDeck = /* GraphQL */ `
       colors
       type
       cards
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       createdAt
       updatedAt
       version
@@ -39,12 +33,6 @@ export const updateDeck = /* GraphQL */ `
       colors
       type
       cards
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       createdAt
       updatedAt
       version
@@ -64,12 +52,6 @@ export const deleteDeck = /* GraphQL */ `
       colors
       type
       cards
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       createdAt
       updatedAt
       version
@@ -114,77 +96,11 @@ export const createCard = /* GraphQL */ `
         area
       }
       description
-      r10damage
-      r10health
-      r10dps
-      r10role
-      r10duration
-      r10range
-      r10area
-      decks
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        power
-        rarity
-        description
-        r10damage
-        r10health
-        r10dps
-        r10role
-        r10duration
-        r10range
-        r10area
-        decks
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        power
-        rarity
-        description
-        r10damage
-        r10health
-        r10dps
-        r10role
-        r10duration
-        r10range
-        r10area
-        decks
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -226,77 +142,11 @@ export const updateCard = /* GraphQL */ `
         area
       }
       description
-      r10damage
-      r10health
-      r10dps
-      r10role
-      r10duration
-      r10range
-      r10area
-      decks
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt
       updatedAt
       version
-      oldVersion {
-        id
-        name
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        power
-        rarity
-        description
-        r10damage
-        r10health
-        r10dps
-        r10role
-        r10duration
-        r10range
-        r10area
-        decks
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
-      newVersion {
-        id
-        name
-        imgUrl
-        cost
-        cmc
-        color
-        type
-        points
-        power
-        rarity
-        description
-        r10damage
-        r10health
-        r10dps
-        r10role
-        r10duration
-        r10range
-        r10area
-        decks
-        updatedBy
-        updatedById
-        createdAt
-        updatedAt
-        version
-      }
     }
   }
 `;
@@ -338,26 +188,22 @@ export const deleteCard = /* GraphQL */ `
         area
       }
       description
-      r10damage
-      r10health
-      r10dps
-      r10role
-      r10duration
-      r10range
-      r10area
-      decks
-      vote {
-        downVote
-        upVote
-        rating
-        voteCount
-      }
       updatedBy
       updatedById
       createdAt
       updatedAt
       version
-      oldVersion {
+    }
+  }
+`;
+export const createCardVersion = /* GraphQL */ `
+  mutation CreateCardVersion(
+    $input: CreateCardVersionInput!
+    $condition: ModelCardVersionConditionInput
+  ) {
+    createCardVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
         id
         name
         imgUrl
@@ -369,21 +215,13 @@ export const deleteCard = /* GraphQL */ `
         power
         rarity
         description
-        r10damage
-        r10health
-        r10dps
-        r10role
-        r10duration
-        r10range
-        r10area
-        decks
         updatedBy
         updatedById
         createdAt
         updatedAt
         version
       }
-      newVersion {
+      oldVersions {
         id
         name
         imgUrl
@@ -395,20 +233,110 @@ export const deleteCard = /* GraphQL */ `
         power
         rarity
         description
-        r10damage
-        r10health
-        r10dps
-        r10role
-        r10duration
-        r10range
-        r10area
-        decks
         updatedBy
         updatedById
         createdAt
         updatedAt
         version
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCardVersion = /* GraphQL */ `
+  mutation UpdateCardVersion(
+    $input: UpdateCardVersionInput!
+    $condition: ModelCardVersionConditionInput
+  ) {
+    updateCardVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCardVersion = /* GraphQL */ `
+  mutation DeleteCardVersion(
+    $input: DeleteCardVersionInput!
+    $condition: ModelCardVersionConditionInput
+  ) {
+    deleteCardVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        cost
+        cmc
+        color
+        type
+        points
+        power
+        rarity
+        description
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
