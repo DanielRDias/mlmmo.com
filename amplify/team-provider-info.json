@@ -21,23 +21,23 @@
       "function": {
         "mlmmocomc77e13caDefineAuthChallenge": {
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocomc77e13caDefineAuthChallenge-4b684d737265696a6453-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caDefineAuthChallenge-6d3054765a3167376169-build.zip"
         },
         "mlmmocomc77e13caCreateAuthChallenge": {
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocomc77e13caCreateAuthChallenge-6c4576444b6c75473971-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caCreateAuthChallenge-48392f5a4b55386c774e-build.zip"
         },
         "mlmmocomc77e13caVerifyAuthChallengeResponse": {
           "RECAPTCHASECRET": "6Le8e2AaAAAAANeeY0h_OFhzSyGfi_84LBn6g4qR",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocomc77e13caVerifyAuthChallengeResponse-412f6e72764a34366653-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caVerifyAuthChallengeResponse-374268326d414a6b6238-build.zip"
         },
         "mlmmocomc77e13caCustomMessage": {
           "REDIRECTURL": "https://www.mlarpg.com/",
           "EMAILSUBJECT": "MLaRPG confirmation email",
           "EMAILMESSAGE": "Use the following link to confirm your account ",
           "deploymentBucketName": "amplify-mlmmocom-dev-13250-deployment",
-          "s3Key": "amplify-builds/mlmmocomc77e13caCustomMessage-7472485674642b364454-build.zip"
+          "s3Key": "amplify-builds/mlmmocomc77e13caCustomMessage-6c363236444536587a6a-build.zip"
         }
       },
       "auth": {
