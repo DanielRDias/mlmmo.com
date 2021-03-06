@@ -101,6 +101,7 @@ type Artifact
   imgFullSize: S3Object
   imgThumbnail: S3Object
   rarity: String
+  tier: String
   description: String
   bonusR10: String
   bonusR20: String
@@ -124,6 +125,7 @@ type ArtifactItem {
   imgFullSize: S3Object
   imgThumbnail: S3Object
   rarity: String
+  tier: String
   description: String
   bonusR10: String
   bonusR20: String

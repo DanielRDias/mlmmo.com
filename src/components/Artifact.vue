@@ -4,7 +4,7 @@
     <v-img :src="currentArtifact.imgUrl" height="300px"> </v-img>
 
     <v-divider></v-divider>
-    <v-card-text> {{ currentArtifact.rarity }} </v-card-text>
+    <v-card-text> {{ currentArtifact["tier"] }} </v-card-text>
     <v-divider></v-divider>
     <v-card-text> {{ currentArtifact.description }} </v-card-text>
     <v-divider></v-divider>
@@ -12,7 +12,12 @@
       <strong>Rank 10: </strong> {{ currentArtifact.bonusR10 }}
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-text v-if="currentArtifact.rarity.toLowerCase() !== 'lesser'">
+    <v-card-text
+      v-if="
+        currentArtifact['tier'] !== null &&
+        currentArtifact['tier'].toLowerCase() !== 'lesser'
+      "
+    >
       <strong>Rank 20: </strong> {{ currentArtifact.bonusR20 }}
     </v-card-text>
   </v-card>
@@ -39,7 +44,7 @@ export default {
       id: "?",
       name: "?",
       imgUrl: "logo.png",
-      rarity: "?",
+      tier: "?",
       description: "?",
       bonusR10: "?",
       bonusR20: "?",

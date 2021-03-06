@@ -29,8 +29,8 @@
             class="pa-2 pt-10"
             v-model="typeFilterSelect"
             @input="typeFilter"
-            :items="mtgRarity"
-            label="Filter by type"
+            :items="mtgTier"
+            label="Filter by tier"
             item-text="name"
           >
             <template v-slot:selection="{ item }">
@@ -81,7 +81,7 @@
                       >
                         <v-list-item class="mt-n4">
                           <v-list-item-content class="ml-n3">
-                            <p><strong>Rarity:</strong> {{ item["rarity"] }}</p>
+                            <p><strong>Tier:</strong> {{ item["tier"] }}</p>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
@@ -170,7 +170,12 @@
                     <strong>Rank 10: </strong> {{ item.bonusR10 }}
                   </v-card-text>
                   <v-divider></v-divider>
-                  <v-card-text v-if="item.rarity.toLowerCase() !== 'lesser'">
+                  <v-card-text
+                    v-if="
+                      item['tier'] !== null &&
+                      item['tier'].toLowerCase() !== 'lesser'
+                    "
+                  >
                     <strong>Rank 20: </strong> {{ item.bonusR20 }}
                   </v-card-text>
                   <v-card-actions class="pt-0">
@@ -289,7 +294,7 @@ export default {
         id: "?",
         name: "?",
         imgUrl: "logo.png",
-        rarity: "?",
+        tier: "?",
         description: "?",
         bonusR10: "?",
         bonusR20: "?",
@@ -307,6 +312,12 @@ export default {
         { name: "Lesser", image: "img/rarity/PW-C.svg" },
         { name: "Greater", image: "img/rarity/PW-R.svg" },
         { name: "Mythic", image: "img/rarity/PW-M.svg" },
+        { name: "All", image: "img/mana/C.svg" },
+      ],
+      mtgTier: [
+        { name: "Lesser", image: "img/tier/lesser.svg" },
+        { name: "Greater", image: "img/tier/greater.svg" },
+        { name: "Legendary", image: "img/tier/legendary.svg" },
         { name: "All", image: "img/mana/C.svg" },
       ],
     };
@@ -329,28 +340,33 @@ export default {
       } else {
         this.filterItems = this.items.filter(
           (item) =>
-            item.rarity.toLowerCase() === this.typeFilterSelect.toLowerCase()
+            item["tier"].toLowerCase() === this.typeFilterSelect.toLowerCase()
         );
       }
     },
     getItemHeader(item) {
       let headerHtml = item.name + "&nbsp;";
-      let headerRarity = "";
-      if (item["rarity"].toLowerCase() === "mythic") {
-        headerRarity =
-          "<img src='img/rarity/PW-M.svg' alt='Mythic' title='Mythic' width='13' height='15' />";
-      } else if (item["rarity"].toLowerCase() === "greater") {
-        headerRarity =
-          "<img src='img/rarity/PW-R.svg' alt='Greater' title='Greater' width='13' height='15' />";
-      } else {
-        headerRarity =
-          "<img src='img/rarity/PW-C.svg' alt='" +
-          item["rarity"] +
-          "' title='" +
-          item["rarity"] +
-          "' width='13' height='15' />";
+      let headerTier = "";
+      if (item["tier"] !== null) {
+        if (item["tier"].toLowerCase() === "legendary") {
+          headerTier =
+            "<img src='img/tier/legendary.svg' alt='Mythic' title='Mythic' width='15' height='15' />";
+        } else if (item["tier"].toLowerCase() === "greater") {
+          headerTier =
+            "<img src='img/tier/greater.svg' alt='Greater' title='Greater' width='15' height='15' />";
+        } else if (item["tier"].toLowerCase() === "lesser") {
+          headerTier =
+            "<img src='img/tier/lesser.svg' alt='Greater' title='Greater' width='15' height='15' />";
+        } else {
+          headerTier =
+            "<img src='img/icons/question-mark.svg' alt='" +
+            item["tier"] +
+            "' title='" +
+            item["tier"] +
+            "' width='15' height='15' />";
+        }
       }
-      return headerHtml.concat(headerRarity);
+      return headerHtml.concat(headerTier);
     },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
