@@ -257,6 +257,7 @@ export const getArtifact = /* GraphQL */ `
         key
       }
       rarity
+      tier
       description
       bonusR10
       bonusR20
@@ -280,6 +281,7 @@ export const listArtifacts = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -302,6 +304,7 @@ export const getArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -316,6 +319,7 @@ export const getArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -350,6 +354,7 @@ export const listArtifactVersions = /* GraphQL */ `
           name
           imgUrl
           rarity
+          tier
           description
           bonusR10
           bonusR20

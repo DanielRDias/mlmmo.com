@@ -26,15 +26,24 @@
 
                   <v-col cols="12" md="3">
                     <v-select
+                      v-model="artifact.tier"
+                      :items="tier"
+                      label="Tier"
+                      required
+                    ></v-select>
+                  </v-col>
+
+                  <v-col cols="12" md="9">
+                    <v-text-field v-model="artifact.imgUrl" label="Image URL" />
+                  </v-col>
+
+                  <v-col cols="12" md="3">
+                    <v-select
                       v-model="artifact.rarity"
                       :items="rarity"
                       label="Rarity"
                       required
                     ></v-select>
-                  </v-col>
-
-                  <v-col cols="12" md="12">
-                    <v-text-field v-model="artifact.imgUrl" label="Image URL" />
                   </v-col>
 
                   <v-col cols="12">
@@ -153,6 +162,7 @@ export default {
       name: "?",
       imgUrl: "logo.png",
       rarity: "?",
+      tier: "?",
       description: "?",
       bonusR10: "?",
       bonusR20: "?",
@@ -162,11 +172,21 @@ export default {
       name: "?",
       imgUrl: "logo.png",
       rarity: "?",
+      tier: "?",
       description: "?",
       bonusR10: "?",
       bonusR20: "?",
     },
-    rarity: ["Mythic", "Greater", "Lesser"],
+    rarity: [
+      "Mythic",
+      "Rare",
+      "Uncommon",
+      "Common",
+      "Legendary",
+      "Greater",
+      "Lesser",
+    ],
+    tier: ["Legendary", "Greater", "Lesser"],
     userGroups: [],
     mod: false,
     admin: false,
