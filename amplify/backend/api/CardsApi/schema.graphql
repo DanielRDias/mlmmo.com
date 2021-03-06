@@ -42,7 +42,7 @@ type Card
   type: String
   points: String
   power: String
-  toughness: Int
+  toughness: String
   rarity: String
   properties: [CardProperties]
   description: String
@@ -65,7 +65,7 @@ type CardItem {
   type: String
   points: String
   power: String
-  toughness: Int
+  toughness: String
   rarity: String
   properties: [CardProperties]
   description: String
@@ -136,13 +136,13 @@ type ArtifactItem {
 
 type CardProperties {
   rank: Int
-  damage: Int
-  healing: Int
-  health: Int
+  damage: String
+  healing: String
+  health: String
   dps: String
   role: String
   duration: String
-  range: Int
+  range: String
   area: String
 }
 
