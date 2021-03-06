@@ -369,6 +369,7 @@ export const createArtifact = /* GraphQL */ `
         key
       }
       rarity
+      tier
       description
       bonusR10
       bonusR20
@@ -400,6 +401,7 @@ export const updateArtifact = /* GraphQL */ `
         key
       }
       rarity
+      tier
       description
       bonusR10
       bonusR20
@@ -431,6 +433,7 @@ export const deleteArtifact = /* GraphQL */ `
         key
       }
       rarity
+      tier
       description
       bonusR10
       bonusR20
