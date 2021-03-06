@@ -5,7 +5,7 @@
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
-      :sort-by="sortBy.toLowerCase()"
+      :sort-by="sortBy"
       :sort-desc="sortDesc"
       hide-default-footer
       class="elevation-1"
@@ -39,57 +39,67 @@
             <v-hover>
               <template v-slot:default="{ hover }">
                 <v-card class="mx-auto">
-                  <v-card-subtitle>{{ item.name }}</v-card-subtitle>
+                  <v-img :src="deckImgs[item.id]" max-height="50" width="100%">
+                    <v-card-subtitle
+                      ><div class="v-card--img">
+                        {{ item.name }}
+                      </div></v-card-subtitle
+                    >
 
-                  <v-fade-transition>
-                    <v-overlay v-if="hover" absolute color="#036358">
-                      <v-row
-                        align-content="center"
-                        v-show="!showDeleteCheck(item.id)"
-                      >
-                        <v-col>
-                          <v-btn small @click="getDeck(item)">
-                            Preview Deck
-                          </v-btn>
-                        </v-col>
-                        <v-col>
-                          <v-btn
-                            small
-                            :to="{
-                              name: 'Deck',
-                              query: { deckId: item.id },
-                            }"
-                            target="_blank"
-                          >
-                            Open Deck
-                          </v-btn>
-                        </v-col>
-                        <v-col v-if="userDecks">
-                          <v-icon
-                            color="red"
-                            @click="confirmDeleteDeck(item.id)"
-                          >
-                            mdi-delete
-                          </v-icon>
-                        </v-col>
-                      </v-row>
-                      <v-row
-                        align-content="center"
-                        v-if="userDecks && showDeleteCheck(item.id)"
-                      >
-                        <v-col>
-                          <v-btn color="red" small @click="deleteDeck(item.id)">
-                            Delete Deck
-                          </v-btn>
-                        </v-col>
-                        <v-col>
-                          <v-btn small @click="confirmDeleteDeck(item.id)">
-                            Cancel
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-overlay>
-                  </v-fade-transition>
+                    <v-fade-transition>
+                      <v-overlay v-if="hover" absolute color="#036358">
+                        <v-row
+                          align-content="center"
+                          v-show="!showDeleteCheck(item.id)"
+                        >
+                          <v-col>
+                            <v-btn small @click="getDeck(item)">
+                              Preview Deck
+                            </v-btn>
+                          </v-col>
+                          <v-col>
+                            <v-btn
+                              small
+                              :to="{
+                                name: 'Deck',
+                                query: { deckId: item.id },
+                              }"
+                              target="_blank"
+                            >
+                              Open Deck
+                            </v-btn>
+                          </v-col>
+                          <v-col v-if="userDecks">
+                            <v-icon
+                              color="red"
+                              @click="confirmDeleteDeck(item.id)"
+                            >
+                              mdi-delete
+                            </v-icon>
+                          </v-col>
+                        </v-row>
+                        <v-row
+                          align-content="center"
+                          v-if="userDecks && showDeleteCheck(item.id)"
+                        >
+                          <v-col>
+                            <v-btn
+                              color="red"
+                              small
+                              @click="deleteDeck(item.id)"
+                            >
+                              Delete Deck
+                            </v-btn>
+                          </v-col>
+                          <v-col>
+                            <v-btn small @click="confirmDeleteDeck(item.id)">
+                              Cancel
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-overlay>
+                    </v-fade-transition>
+                  </v-img>
                 </v-card>
               </template>
             </v-hover>
@@ -99,7 +109,7 @@
 
       <template v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
-          <span class="grey--text">Items</span>
+          <span class="grey--text">Items per page</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -126,6 +136,30 @@
           </v-menu>
 
           <v-spacer></v-spacer>
+
+          <span class="mr-4 grey--text">
+            {{ page }} of {{ numberOfPages }}
+          </span>
+          <v-btn
+            small
+            fab
+            dark
+            color="blue darken-3"
+            class="mr-1"
+            @click="formerPage"
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn
+            small
+            fab
+            dark
+            color="blue darken-3"
+            class="ml-1"
+            @click="nextPage"
+          >
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
         </v-row>
       </template>
     </v-data-iterator>
@@ -176,17 +210,22 @@ export default {
       allowEdit: false,
       currentDeck: { cards: [] },
       nodecks: [],
-      allCards: [],
-      itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180, 360],
+      deckImgs: {},
+      itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180],
       search: "",
-      sortDesc: false,
+      sortDesc: true,
       page: 1,
       itemsPerPage: 12,
-      sortBy: "name",
+      sortBy: "updatedAt",
       deleteCheck: [],
     };
   },
   computed: {
+    numberOfPages() {
+      let numberOfItems = 0;
+      this.decks ? (numberOfItems = this.decks.length) : (numberOfItems = 0);
+      return Math.ceil(numberOfItems / this.itemsPerPage);
+    },
     ...mapGetters({
       user: "auth/user",
       decks: "cardInfo/decks",
@@ -194,8 +233,23 @@ export default {
     }),
   },
   watch: {
-    cards(allCardsStore) {
-      this.allCards = allCardsStore;
+    cards() {
+      if (this.decks) {
+        let newDeckImgs = {};
+        this.decks.forEach((deck) => {
+          var index = this.cards
+            .map(function (e) {
+              return e.id;
+            })
+            .indexOf(deck.cards[Math.floor(Math.random() * Math.floor(11))]);
+          if (index !== -1) {
+            newDeckImgs[deck.id] = this.cards[index].imgUrl;
+          } else {
+            newDeckImgs[deck.id] = "logo.png";
+          }
+        });
+        this.deckImgs = newDeckImgs;
+      }
     },
     decks(allDecksStore) {
       if (!this.$props.userDecks) {
@@ -250,18 +304,12 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
-    convertManaString(manaStr) {
-      var manaConvert = {
-        R: "<img src='img/mana/R.svg' width='14' height='14' />",
-        W: "<img src='img/mana/W.svg' width='14' height='14' />",
-        B: "<img src='img/mana/B.svg' width='14' height='14' />",
-        U: "<img src='img/mana/U.svg' width='14' height='14' />",
-        G: "<img src='img/mana/G.svg' width='14' height='14' />",
-      };
-      return manaStr.replace(/R|W|B|U|G/gi, function (matched) {
-        return manaConvert[matched];
-      });
-    },
   },
 };
 </script>
+
+<style scoped>
+.v-card--img {
+  background: rgba(0, 0, 0, 0.5);
+}
+</style>
