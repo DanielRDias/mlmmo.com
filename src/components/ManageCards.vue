@@ -107,6 +107,7 @@
                     <v-text-field
                       v-model="card.properties[cardRank][name]"
                       :label="name"
+                      :disabled="name == 'rank'"
                     />
                   </v-col>
                   <v-col cols="12">
