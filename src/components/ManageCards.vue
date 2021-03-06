@@ -54,6 +54,7 @@
 
                   <v-col cols="12" md="2">
                     <v-text-field
+                      v-show="card.type.toLowerCase() === 'creature'"
                       v-model="card.points"
                       label="Points"
                       type="number"
@@ -61,11 +62,19 @@
                   </v-col>
 
                   <v-col cols="12" md="2">
-                    <v-text-field v-model="card.power" label="Power" />
+                    <v-text-field
+                      v-show="card.type.toLowerCase() === 'creature'"
+                      v-model="card.power"
+                      label="Power"
+                    />
                   </v-col>
 
                   <v-col cols="12" md="2">
-                    <v-text-field v-model="card.toughness" label="Toughness" />
+                    <v-text-field
+                      v-show="card.type.toLowerCase() === 'creature'"
+                      v-model="card.toughness"
+                      label="Toughness"
+                    />
                   </v-col>
 
                   <v-col cols="12" md="9">
