@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
       <v-img
-        v-if="$vuetify.breakpoint.xs"
+        v-if="$vuetify.breakpoint.height < 700"
         src="mlarpg-mobile-logo.png"
         width="270"
         height="135"
