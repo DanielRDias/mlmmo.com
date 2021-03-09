@@ -1,15 +1,14 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">MLaRPG.com</v-list-item-title>
-          <v-list-item-subtitle>Magic Legends ARPG</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-
+      <v-img
+        v-if="$vuetify.breakpoint.xs"
+        src="mlarpg-mobile-logo.png"
+        width="270"
+        height="135"
+      />
+      <v-img v-else src="mlarpg-logo.png" width="270" height="270" />
       <v-divider></v-divider>
-
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
           <v-list-item-icon>
