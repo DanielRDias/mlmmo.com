@@ -1,5 +1,80 @@
 <template>
   <v-card class="mx-auto" max-width="350">
+    <v-speed-dial
+      v-model="dialShare"
+      absolute
+      right
+      top
+      direction="bottom"
+      open-on-hover
+    >
+      <template v-slot:activator>
+        <v-btn fab top right small color="primary">
+          <v-icon v-if="dialShare">mdi-close</v-icon>
+          <v-icon v-else>mdi-share-variant</v-icon>
+        </v-btn>
+      </template>
+      <ShareNetwork
+        network="Facebook"
+        :url="shareInfo.url"
+        :title="shareInfo.title"
+        :description="shareInfo.description"
+        :quote="shareInfo.quote"
+        :hashtags="shareInfo.hashtags"
+      >
+        <v-btn style="text-decoration: none" dark fab bottom color="blue" small>
+          <v-icon>mdi-facebook</v-icon>
+        </v-btn>
+      </ShareNetwork>
+      <ShareNetwork
+        network="Twitter"
+        :url="shareInfo.url"
+        :title="shareInfo.title"
+        :description="shareInfo.description"
+        :hashtags="shareInfo.hashtags"
+        :twitter-user="shareInfo.twitteruser"
+      >
+        <v-btn dark fab bottom color="blue" small>
+          <v-icon>mdi-twitter</v-icon>
+        </v-btn>
+      </ShareNetwork>
+      <ShareNetwork
+        network="Reddit"
+        :url="shareInfo.url"
+        :title="shareInfo.title"
+        :description="shareInfo.description"
+        :hashtags="shareInfo.hashtags"
+      >
+        <v-btn dark fab bottom color="red" small>
+          <v-icon>mdi-reddit</v-icon>
+        </v-btn>
+      </ShareNetwork>
+      <ShareNetwork
+        network="WhatsApp"
+        :url="shareInfo.url"
+        :title="shareInfo.title"
+        :description="shareInfo.description"
+        :hashtags="shareInfo.hashtags"
+      >
+        <v-btn dark fab bottom color="green" small>
+          <v-icon>mdi-whatsapp</v-icon>
+        </v-btn>
+      </ShareNetwork>
+      <ShareNetwork
+        network="Email"
+        :url="shareInfo.url"
+        :title="shareInfo.title"
+        :description="shareInfo.description"
+        :hashtags="shareInfo.hashtags"
+      >
+        <v-btn dark fab bottom small>
+          <v-icon>mdi-email</v-icon>
+        </v-btn>
+      </ShareNetwork>
+      <v-btn dark fab bottom small @click="copyText()">
+        <v-icon>mdi-content-copy</v-icon>
+      </v-btn>
+    </v-speed-dial>
     <v-card-title>{{ this.deck.name }}</v-card-title>
     <v-card-subtitle>Created by {{ this.deck.owner }}</v-card-subtitle>
     <v-list>
@@ -14,12 +89,12 @@
             <v-img :src="card.imgUrl" height="50px">
               <v-container>
                 <v-row>
-                  <v-col cols="8" sm="6" md="8">
+                  <v-col cols="8">
                     <v-card color="rgba(0, 0, 0, 0.3)">
                       {{ card.name }}
                     </v-card>
                   </v-col>
-                  <v-col cols="2" md="2">
+                  <v-col cols="4">
                     <v-card color="rgba(0, 0, 0, 0.3)">
                       <div
                         class="font-weight-bold"
@@ -71,6 +146,15 @@ export default {
         cards: [],
       },
       reveal: false,
+      dialShare: false,
+      shareInfo: {
+        url: "https://www.mlarpg.com/deck?deckId=" + this.$props.deckId,
+        title: "Checkout this deck",
+        description: "Created using MLaRPG Deck Builder",
+        hashtags: "MLaRPG,MagicLegends,ML",
+        quote: "Checkout this deck, created using MLaRPG Deck Builder",
+        twitteruser: "MLaRPG",
+      },
     };
   },
   computed: {
@@ -100,6 +184,15 @@ export default {
     }
   },
   methods: {
+    copyText() {
+      let textToCopy =
+        this.shareInfo.title +
+        ": " +
+        this.shareInfo.url +
+        " " +
+        this.shareInfo.description;
+      navigator.clipboard.writeText(textToCopy);
+    },
     convertManaString(manaStr) {
       var manaConvert = {
         R: "<img src='img/mana/R.svg' width='14' height='14' />",
@@ -115,3 +208,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+a:link {
+  text-decoration: none;
+}
+</style>
