@@ -13,6 +13,89 @@
       :alt="this.currentCard.name"
       height="300"
     >
+      <v-speed-dial
+        v-model="dialShare"
+        absolute
+        left
+        top
+        direction="bottom"
+        open-on-hover
+      >
+        <template v-slot:activator>
+          <v-btn fab top right x-small color="primary">
+            <v-icon v-if="dialShare">mdi-close</v-icon>
+            <v-icon v-else>mdi-share-variant</v-icon>
+          </v-btn>
+        </template>
+        <ShareNetwork
+          network="Facebook"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :quote="shareInfo.quote"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn
+            style="text-decoration: none"
+            dark
+            fab
+            bottom
+            color="blue"
+            x-small
+            class="ma-1 mt-n2"
+          >
+            <v-icon>mdi-facebook</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="Twitter"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+          :twitter-user="shareInfo.twitteruser"
+        >
+          <v-btn dark fab bottom color="blue" x-small class="ma-1">
+            <v-icon>mdi-twitter</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="Reddit"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn dark fab bottom color="red" x-small class="ma-1">
+            <v-icon>mdi-reddit</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="WhatsApp"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn dark fab bottom color="green" x-small class="ma-1">
+            <v-icon>mdi-whatsapp</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="Email"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn dark fab bottom x-small class="ma-1">
+            <v-icon>mdi-email</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <v-btn dark fab bottom x-small @click="copyText()">
+          <v-icon>mdi-content-copy</v-icon>
+        </v-btn>
+      </v-speed-dial>
       <div
         v-if="
           (this.currentCard.type.toLowerCase() === 'creature') &
@@ -93,6 +176,15 @@ export default {
     }
   },
   methods: {
+    copyText() {
+      let textToCopy =
+        this.shareInfo.title +
+        ": " +
+        this.shareInfo.url +
+        " " +
+        this.shareInfo.description;
+      navigator.clipboard.writeText(textToCopy);
+    },
     convertManaString(manaStr) {
       var manaConvert = {
         R: "<img src='img/mana/R.svg' width='16' height='16' />",
@@ -154,6 +246,34 @@ export default {
       getCardData: null,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       rank: 0,
+      dialShare: false,
+      shareInfo: {
+        url:
+          "https://www.mlarpg.com/card?cardId=" +
+          (this.$props.currentCardInput !== null
+            ? this.$props.currentCardInput.id
+            : this.$props.currentCardId),
+        title:
+          this.$props.currentCardInput !== null
+            ? "Checkout this card: " + this.$props.currentCardInput.name
+            : "Checkout this card",
+        description:
+          this.$props.currentCardInput !== null
+            ? "Card: " +
+              this.$props.currentCardInput.name +
+              " Description: " +
+              this.$props.currentCardInput.description
+            : "Go to MLaRPG.com for more details.",
+        hashtags: "MLaRPG,MagicLegends,ML",
+        quote:
+          this.$props.currentCardInput !== null
+            ? "Card: " +
+              this.$props.currentCardInput.name +
+              " Description: " +
+              this.$props.currentCardInput.description
+            : "Go to MLaRPG.com for more details.",
+        twitteruser: "MLaRPG",
+      },
     };
   },
 };
@@ -165,5 +285,8 @@ export default {
   color: white;
   margin-top: 2px;
   margin-right: 2px;
+}
+a:link {
+  text-decoration: none;
 }
 </style>
