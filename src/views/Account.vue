@@ -5,20 +5,45 @@
     <div v-if="mod">
       <h2>Mod Options</h2>
       <br />
-      <v-btn to="manageartifacts" elevation="6">
-        <v-icon>mdi-dots-triangle</v-icon> Add Artifact
-      </v-btn>
-      <v-btn to="approvechanges?manageType=artifacts" elevation="6">
-        <v-icon>mdi-dots-triangle</v-icon>
-        Review Artifact Submissions
-      </v-btn>
-      <v-btn to="managecards" elevation="6">
-        <v-icon>mdi-cards</v-icon> Add Card
-      </v-btn>
+      <v-row>
+        <v-col cols="2">
+          <v-btn to="manageartifacts" elevation="6">
+            <v-icon>mdi-dots-triangle</v-icon> Add Artifact
+          </v-btn>
+        </v-col>
+        <v-col cols="2">
+          <v-btn to="approvechanges?manageType=artifacts" elevation="6">
+            <v-icon>mdi-dots-triangle</v-icon>
+            Review Artifact Submissions
+          </v-btn>
+        </v-col>
+      </v-row>
 
-      <v-btn to="approvechanges?manageType=cards" elevation="6">
-        <v-icon>mdi-cards</v-icon> Review Card Submissions
-      </v-btn>
+      <v-row>
+        <v-col cols="2">
+          <v-btn to="managecards" elevation="6">
+            <v-icon>mdi-cards</v-icon> Add Card
+          </v-btn>
+        </v-col>
+        <v-col cols="2">
+          <v-btn to="approvechanges?manageType=cards" elevation="6">
+            <v-icon>mdi-cards</v-icon> Review Card Submissions
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="2">
+          <v-btn to="manageequipments" elevation="6">
+            <v-icon>mdi-tshirt-crew</v-icon> Add Equipment
+          </v-btn>
+        </v-col>
+        <v-col cols="2">
+          <v-btn to="approvechanges?manageType=equipments" elevation="6">
+            <v-icon>mdi-tshirt-crew</v-icon> Review Equipment Submissions
+          </v-btn>
+        </v-col>
+      </v-row>
       <br />
       <br />
     </div>

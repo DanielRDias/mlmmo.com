@@ -369,3 +369,142 @@ export const listArtifactVersions = /* GraphQL */ `
     }
   }
 `;
+export const getEquipment = /* GraphQL */ `
+  query GetEquipment($id: ID!) {
+    getEquipment(id: $id) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const listEquipments = /* GraphQL */ `
+  query ListEquipments(
+    $filter: ModelEquipmentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEquipments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      nextToken
+    }
+  }
+`;
+export const getEquipmentVersion = /* GraphQL */ `
+  query GetEquipmentVersion($id: ID!) {
+    getEquipmentVersion(id: $id) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEquipmentVersions = /* GraphQL */ `
+  query ListEquipmentVersions(
+    $filter: ModelEquipmentVersionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEquipmentVersions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        newVersions {
+          id
+          name
+          imgUrl
+          imgTmogUrl
+          rarity
+          slot
+          description
+          mods
+          updatedBy
+          updatedById
+          createdAt
+          updatedAt
+          version
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

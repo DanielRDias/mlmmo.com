@@ -1,7 +1,12 @@
 import { API, graphqlOperation, Storage } from "aws-amplify";
+
+import { getDeck as getDeckQuery } from "@/graphql/queries";
+import { listDecks as listDecksQuery } from "@/graphql/queries";
 import { createDeck as createDeckMutation } from "@/graphql/mutations";
 import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 
+import { getCard as getCardQuery } from "@/graphql/queries";
+import { listCards as listCardsQuery } from "@/graphql/queries";
 import { createCard as createCardMutation } from "@/graphql/mutations";
 import { updateCard as updateCardMutation } from "@/graphql/mutations";
 import { createCardVersion as createVersionsCardMutation } from "@/graphql/mutations";
@@ -9,6 +14,8 @@ import { updateCardVersion as updateVersionsCardMutation } from "@/graphql/mutat
 import { getCardVersion as getCardVersionQuery } from "@/graphql/queries";
 import { listCardVersions as listCardVersionsQuery } from "@/graphql/queries";
 
+import { getArtifact as getArtifactQuery } from "@/graphql/queries";
+import { listArtifacts as listArtifactsQuery } from "@/graphql/queries";
 import { createArtifact as createArtifactMutation } from "@/graphql/mutations";
 import { updateArtifact as updateArtifactMutation } from "@/graphql/mutations";
 import { createArtifactVersion as createVersionsArtifactMutation } from "@/graphql/mutations";
@@ -16,13 +23,14 @@ import { updateArtifactVersion as updateVersionsArtifactMutation } from "@/graph
 import { getArtifactVersion as getArtifactVersionQuery } from "@/graphql/queries";
 import { listArtifactVersions as listArtifactVersionsQuery } from "@/graphql/queries";
 
-import { getDeck as getDeckQuery } from "@/graphql/queries";
-import { getCard as getCardQuery } from "@/graphql/queries";
-import { getArtifact as getArtifactQuery } from "@/graphql/queries";
-
-import { listDecks as listDecksQuery } from "@/graphql/queries";
-import { listCards as listCardsQuery } from "@/graphql/queries";
-import { listArtifacts as listArtifactsQuery } from "@/graphql/queries";
+import { getEquipment as getEquipmentQuery } from "@/graphql/queries";
+import { listEquipments as listEquipmentsQuery } from "@/graphql/queries";
+import { createEquipment as createEquipmentMutation } from "@/graphql/mutations";
+import { updateEquipment as updateEquipmentMutation } from "@/graphql/mutations";
+import { createEquipmentVersion as createVersionsEquipmentMutation } from "@/graphql/mutations";
+import { updateEquipmentVersion as updateVersionsEquipmentMutation } from "@/graphql/mutations";
+import { getEquipmentVersion as getEquipmentVersionQuery } from "@/graphql/queries";
+import { listEquipmentVersions as listEquipmentVersionsQuery } from "@/graphql/queries";
 
 import { v4 as uuid } from "uuid";
 import awsconfig from "@/aws-exports";
@@ -35,6 +43,8 @@ export const cardInfo = {
     cardVersions: null,
     artifacts: null,
     artifactVersions: null,
+    equipments: null,
+    equipmentVersions: null,
     newDeck: null,
     newDeckCards: [],
   },
@@ -81,6 +91,19 @@ export const cardInfo = {
     },
     appendArtifactVersions(state, payload) {
       state.artifactVersions = state.artifactVersions.concat(payload);
+    },
+
+    setEquipments(state, payload) {
+      state.equipments = payload;
+    },
+    appendEquipments(state, payload) {
+      state.equipments = state.equipments.concat(payload);
+    },
+    setEquipmentVersions(state, payload) {
+      state.equipmentVersions = payload;
+    },
+    appendEquipmentVersions(state, payload) {
+      state.equipmentVersions = state.equipmentVersions.concat(payload);
     },
   },
   actions: {
@@ -634,6 +657,256 @@ export const cardInfo = {
         return Promise.reject(error);
       }
     },
+
+    /**
+     * Equipments
+     */
+    async getEquipment(_, equipmentId) {
+      return await API.graphql({
+        query: getEquipmentQuery,
+        variables: { id: equipmentId },
+        authMode: "API_KEY",
+      });
+    },
+
+    async updateEquipment(_, data) {
+      let { file, equipmentData } = data;
+
+      const currentEquipment = await API.graphql({
+        query: getEquipmentQuery,
+        variables: { id: equipmentData.id },
+        authMode: "API_KEY",
+      });
+
+      let currentEquipmentVersion = await API.graphql({
+        query: getEquipmentVersionQuery,
+        variables: { id: equipmentData.id },
+      });
+
+      if (currentEquipmentVersion.data.getEquipmentVersion == null) {
+        //insert
+        try {
+          await API.graphql(
+            graphqlOperation(createVersionsEquipmentMutation, {
+              input: {
+                id: equipmentData.id,
+                newVersions: [],
+                oldVersions: [currentEquipment.data.getEquipment],
+              },
+            })
+          );
+        } catch (error) {
+          console.log("createVersionsEquipmentMutation error", error);
+          return Promise.reject(error);
+        }
+      } else {
+        //update
+        if (
+          Array.isArray(
+            currentEquipmentVersion.data.getEquipmentVersion.oldVersions
+          )
+        ) {
+          currentEquipmentVersion.data.getEquipmentVersion.oldVersions.push(
+            currentEquipment.data.getEquipment
+          );
+        } else {
+          currentEquipmentVersion.data.getEquipmentVersion.oldVersions = [
+            currentEquipment.data.getEquipment,
+          ];
+        }
+        try {
+          await API.graphql(
+            graphqlOperation(updateVersionsEquipmentMutation, {
+              input: {
+                id: currentEquipmentVersion.data.getEquipmentVersion.id,
+                oldVersions:
+                  currentEquipmentVersion.data.getEquipmentVersion.oldVersions,
+              },
+            })
+          );
+        } catch (error) {
+          console.log("updateVersionsEquipmentMutation error", error);
+          return Promise.reject(error);
+        }
+      }
+
+      // remove old updatedAt to use the most recent date
+      delete equipmentData.updatedAt;
+      try {
+        await API.graphql(
+          graphqlOperation(updateEquipmentMutation, {
+            input: equipmentData,
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateEquipmentMutation error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async submitEquipment(_, data) {
+      let { file, equipmentData } = data;
+
+      // replace old updatedAt with the current date
+      const now = new Date();
+      equipmentData.updatedAt = now.toISOString();
+
+      let currentEquipmentVersion = await API.graphql({
+        query: getEquipmentVersionQuery,
+        variables: { id: equipmentData.id },
+      });
+
+      if (currentEquipmentVersion.data.getEquipmentVersion == null) {
+        //insert
+        try {
+          await API.graphql(
+            graphqlOperation(createVersionsEquipmentMutation, {
+              input: {
+                id: equipmentData.id,
+                newVersions: [equipmentData],
+                oldVersions: [],
+              },
+            })
+          );
+        } catch (error) {
+          console.log("createVersionsEquipmentMutation error", error);
+          return Promise.reject(error);
+        }
+      } else {
+        //update
+        if (
+          Array.isArray(
+            currentEquipmentVersion.data.getEquipmentVersion.newVersions
+          )
+        ) {
+          currentEquipmentVersion.data.getEquipmentVersion.newVersions.push(
+            equipmentData
+          );
+        } else {
+          currentEquipmentVersion.data.getEquipmentVersion.newVersions = [
+            equipmentData,
+          ];
+        }
+        try {
+          await API.graphql(
+            graphqlOperation(updateVersionsEquipmentMutation, {
+              input: {
+                id: currentEquipmentVersion.data.getEquipmentVersion.id,
+                newVersions:
+                  currentEquipmentVersion.data.getEquipmentVersion.newVersions,
+              },
+            })
+          );
+          return Promise.resolve("success");
+        } catch (error) {
+          console.log("updateVersionsEquipmentMutation error", error);
+          return Promise.reject(error);
+        }
+      }
+    },
+
+    async deleteSubmitEquipment(_, data) {
+      let { file, equipmentData, position } = data;
+      let currentEquipmentVersion = (
+        await API.graphql({
+          query: getEquipmentVersionQuery,
+          variables: { id: equipmentData.id },
+        })
+      ).data.getEquipmentVersion;
+
+      try {
+        currentEquipmentVersion.newVersions.splice(position, 1);
+        await API.graphql(
+          graphqlOperation(updateVersionsEquipmentMutation, {
+            input: {
+              id: equipmentData.id,
+              newVersions: currentEquipmentVersion.newVersions,
+            },
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateVersionsEquipmentMutation error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async getEquipmentsVersionsData({ commit }) {
+      var equipmentsData = await API.graphql({
+        query: listEquipmentVersionsQuery,
+      });
+      commit(
+        "setEquipmentVersions",
+        equipmentsData.data.listEquipmentVersions.items
+      );
+      while (equipmentsData.data.listEquipmentVersions.nextToken) {
+        equipmentsData = await API.graphql({
+          query: listEquipmentVersionsQuery,
+          variables: {
+            nextToken: equipmentsData.data.listEquipmentVersions.nextToken,
+          },
+        });
+        commit(
+          "appendEquipmentVersions",
+          equipmentsData.data.listEquipmentVersions.items
+        );
+      }
+    },
+
+    async getEquipmentsData({ commit }) {
+      var equipmentsData = await API.graphql({
+        query: listEquipmentsQuery,
+        authMode: "API_KEY",
+      });
+      commit("setEquipments", equipmentsData.data.listEquipments.items);
+      while (equipmentsData.data.listEquipments.nextToken) {
+        equipmentsData = await API.graphql({
+          query: listEquipmentsQuery,
+          variables: {
+            nextToken: equipmentsData.data.listEquipments.nextToken,
+          },
+          authMode: "API_KEY",
+        });
+        commit("appendEquipments", equipmentsData.data.listequipments.items);
+      }
+    },
+    async createEquipment(_, data) {
+      const {
+        aws_user_files_s3_bucket_region: region,
+        aws_user_files_s3_bucket: bucket,
+      } = awsconfig;
+      const { file, equipmentData } = data;
+      // const extension = file.name.substr(file.name.lastIndexOf(".") + 1);
+      const equipmentId = uuid();
+      // const key = `images/${cardId}.${extension}`;
+      // const inputData = {
+      //   id: cardId,
+      //   photoAlbumId: id,
+      //   contentType: mimeType,
+      //   fullsize: {
+      //     key,
+      //     region,
+      //     bucket,
+      //   },
+      // };
+
+      //s3 bucket storage add file to it
+      try {
+        // await Storage.put(key, file, {
+        //   level: "protected",
+        //   contentType: mimeType,
+        //   metadata: { albumId: id, cardId },
+        // });
+        await API.graphql(
+          graphqlOperation(createEquipmentMutation, { input: equipmentData })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("createEquipment error", error);
+        return Promise.reject(error);
+      }
+    },
   },
   getters: {
     cards: (state) => state.cards,
@@ -641,6 +914,8 @@ export const cardInfo = {
     decks: (state) => state.decks,
     artifacts: (state) => state.artifacts,
     artifactVersions: (state) => state.artifactVersions,
+    equipments: (state) => state.equipments,
+    equipmentVersions: (state) => state.equipmentVersions,
     newDeck: (state) => state.newDeck,
     newDeckCards: (state) => state.newDeckCards,
   },

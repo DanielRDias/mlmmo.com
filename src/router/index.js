@@ -182,22 +182,24 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/manageequipments",
+    name: "ManageEquipments",
+    component: () => import("../views/ManageEquipments.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/artifact",
     name: "Artifact",
     component: () => import("../views/Artifact.vue"),
-    meta: { requiresAuth: false },
-  },
-  {
-    path: "/decks",
-    name: "Decks",
-    component: () => import("../views/Decks.vue"),
     meta: {
       requiresAuth: false,
-      title: "Decks - Best Magic Legends Decks | Magic: Legends ARPG",
+      title:
+        "Artifact | Magic: Legends ARPG",
       metaTags: [
         {
           name: "og:title",
-          content: "Decks - Best Magic Legends Decks | Magic: Legends ARPG",
+          content:
+            "Artifact | Magic: Legends ARPG",
         },
         {
           name: "og:image",
@@ -212,6 +214,97 @@ const routes = [
           property: "og:description",
           content:
             "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
+    },
+  },
+  {
+    path: "/artifacts",
+    name: "Artifacts",
+    component: () => import("../views/Artifacts.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Artifacts - Lesser, Greater & Legendary | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Artifacts - Lesser, Greater & Legendary | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
+    },
+  },
+  {
+    path: "/equipment",
+    name: "Equipment",
+    component: () => import("../views/Equipment.vue"),
+    meta: {
+      requiresAuth: false,
+      title:
+        "Equipment | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Equipment | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells, artifacts and equipments. Build and share your own decks with our deck building tool, card, equipments and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells, artifacts and equipments. Build and share your own decks with our deck building tool, card, equipments and gear database.",
+        },
+      ],
+    },
+  },
+  {
+    path: "/equipments",
+    name: "Equipments",
+    component: () => import("../views/Equipments.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Equipments | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Equipments | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells, artifacts and equipments. Build and share your own decks with our deck building tool, card, equipments and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells, artifacts and equipments. Build and share your own decks with our deck building tool, card, equipments and gear database.",
         },
       ],
     },
@@ -246,16 +339,16 @@ const routes = [
     },
   },
   {
-    path: "/adddeck",
-    name: "AddDeck",
-    component: () => import("../views/AddDeck.vue"),
+    path: "/decks",
+    name: "Decks",
+    component: () => import("../views/Decks.vue"),
     meta: {
       requiresAuth: false,
-      title: "Create Deck - Deck building tool | Magic: Legends ARPG",
+      title: "Decks - Best Magic Legends Decks | Magic: Legends ARPG",
       metaTags: [
         {
           name: "og:title",
-          content: "Create Deck - Deck building tool | Magic: Legends ARPG",
+          content: "Decks - Best Magic Legends Decks | Magic: Legends ARPG",
         },
         {
           name: "og:image",
@@ -275,17 +368,16 @@ const routes = [
     },
   },
   {
-    path: "/artifacts",
-    name: "Artifacts",
-    component: () => import("../views/Artifacts.vue"),
+    path: "/adddeck",
+    name: "AddDeck",
+    component: () => import("../views/AddDeck.vue"),
     meta: {
       requiresAuth: false,
-      title: "Artifacts - Lesser, Greater & Legendary | Magic: Legends ARPG",
+      title: "Create Deck - Deck building tool | Magic: Legends ARPG",
       metaTags: [
         {
           name: "og:title",
-          content:
-            "Artifacts - Lesser, Greater & Legendary | Magic: Legends ARPG",
+          content: "Create Deck - Deck building tool | Magic: Legends ARPG",
         },
         {
           name: "og:image",
