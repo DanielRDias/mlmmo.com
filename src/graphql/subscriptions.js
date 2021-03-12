@@ -418,6 +418,7 @@ export const onCreateArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -432,6 +433,7 @@ export const onCreateArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -455,6 +457,7 @@ export const onUpdateArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -469,6 +472,7 @@ export const onUpdateArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -492,6 +496,7 @@ export const onDeleteArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -506,9 +511,244 @@ export const onDeleteArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateEquipment = /* GraphQL */ `
+  subscription OnCreateEquipment {
+    onCreateEquipment {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onUpdateEquipment = /* GraphQL */ `
+  subscription OnUpdateEquipment {
+    onUpdateEquipment {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onDeleteEquipment = /* GraphQL */ `
+  subscription OnDeleteEquipment {
+    onDeleteEquipment {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onCreateEquipmentVersion = /* GraphQL */ `
+  subscription OnCreateEquipmentVersion {
+    onCreateEquipmentVersion {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateEquipmentVersion = /* GraphQL */ `
+  subscription OnUpdateEquipmentVersion {
+    onUpdateEquipmentVersion {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteEquipmentVersion = /* GraphQL */ `
+  subscription OnDeleteEquipmentVersion {
+    onDeleteEquipmentVersion {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
         updatedBy
         updatedById
         createdAt

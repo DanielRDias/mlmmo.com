@@ -457,6 +457,7 @@ export const createArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -471,6 +472,7 @@ export const createArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -497,6 +499,7 @@ export const updateArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -511,6 +514,7 @@ export const updateArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -537,6 +541,7 @@ export const deleteArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
@@ -551,9 +556,262 @@ export const deleteArtifactVersion = /* GraphQL */ `
         name
         imgUrl
         rarity
+        tier
         description
         bonusR10
         bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEquipment = /* GraphQL */ `
+  mutation CreateEquipment(
+    $input: CreateEquipmentInput!
+    $condition: ModelEquipmentConditionInput
+  ) {
+    createEquipment(input: $input, condition: $condition) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const updateEquipment = /* GraphQL */ `
+  mutation UpdateEquipment(
+    $input: UpdateEquipmentInput!
+    $condition: ModelEquipmentConditionInput
+  ) {
+    updateEquipment(input: $input, condition: $condition) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const deleteEquipment = /* GraphQL */ `
+  mutation DeleteEquipment(
+    $input: DeleteEquipmentInput!
+    $condition: ModelEquipmentConditionInput
+  ) {
+    deleteEquipment(input: $input, condition: $condition) {
+      id
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      imgTmogUrl
+      imgTmogFullSize {
+        region
+        bucket
+        key
+      }
+      imgTmogThumbnail {
+        region
+        bucket
+        key
+      }
+      rarity
+      slot
+      description
+      mods
+      updatedBy
+      updatedById
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const createEquipmentVersion = /* GraphQL */ `
+  mutation CreateEquipmentVersion(
+    $input: CreateEquipmentVersionInput!
+    $condition: ModelEquipmentVersionConditionInput
+  ) {
+    createEquipmentVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateEquipmentVersion = /* GraphQL */ `
+  mutation UpdateEquipmentVersion(
+    $input: UpdateEquipmentVersionInput!
+    $condition: ModelEquipmentVersionConditionInput
+  ) {
+    updateEquipmentVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteEquipmentVersion = /* GraphQL */ `
+  mutation DeleteEquipmentVersion(
+    $input: DeleteEquipmentVersionInput!
+    $condition: ModelEquipmentVersionConditionInput
+  ) {
+    deleteEquipmentVersion(input: $input, condition: $condition) {
+      id
+      newVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      oldVersions {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
         updatedBy
         updatedById
         createdAt

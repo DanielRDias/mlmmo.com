@@ -21,12 +21,17 @@
               <Artifact
                 :currentArtifactId="item.id"
                 :key="item.updatedAt"
-                v-if="$route.query.manageType === 'artifacts'"
+                v-if="manageType === 'artifacts'"
+              />
+              <Equipment
+                :currentEquipmentId="item.id"
+                :key="item.updatedAt"
+                v-if="manageType === 'equipments'"
               />
               <Card
                 :currentCardId="item.id"
                 :key="item.updatedAt"
-                v-if="$route.query.manageType === 'cards'"
+                v-if="manageType === 'cards'"
               />
             </v-col>
             <v-col
@@ -39,12 +44,17 @@
               <Artifact
                 :currentArtifactInput="version"
                 :key="version.updatedAt"
-                v-if="$route.query.manageType === 'artifacts'"
+                v-if="manageType === 'artifacts'"
+              />
+              <Equipment
+                :currentEquipmentInput="version"
+                :key="version.updatedAt"
+                v-if="manageType === 'equipments'"
               />
               <Card
                 :currentCardInput="version"
                 :key="version.updatedAt"
-                v-if="$route.query.manageType === 'cards'"
+                v-if="manageType === 'cards'"
               />
               <div class="text-center">
                 <v-btn text color="green" @click="approve(version, i)">
@@ -68,83 +78,131 @@
 <script>
 import { mapGetters } from "vuex";
 import Artifact from "@/components/Artifact.vue";
+import Equipment from "@/components/Equipment.vue";
 import Card from "@/components/Card.vue";
 
 export default {
   components: {
     Artifact,
+    Equipment,
     Card,
   },
   data: () => ({
     model: 0,
     items: [],
     loading: false,
+    manageType: null,
   }),
   async mounted() {
-    if (this.$route.query.manageType == "artifacts") {
-      this.$store.dispatch("cardInfo/getArtifactsVersionsData");
-      this.$store.dispatch("cardInfo/getArtifactsData");
-    } else if (this.$route.query.manageType == "cards") {
-      this.$store.dispatch("cardInfo/getCardsVersionsData");
-      this.$store.dispatch("cardInfo/getCardsData");
-    } else {
-      console.log("unknown manage type");
+    this.manageType = this.$route.query.manageType;
+    switch (this.manageType) {
+      case "cards":
+        this.$store.dispatch("cardInfo/getCardsVersionsData");
+        this.$store.dispatch("cardInfo/getCardsData");
+        break;
+      case "artifacts":
+        this.$store.dispatch("cardInfo/getArtifactsVersionsData");
+        this.$store.dispatch("cardInfo/getArtifactsData");
+        break;
+      case "equipments":
+        this.$store.dispatch("cardInfo/getEquipmentsVersionsData");
+        this.$store.dispatch("cardInfo/getEquipmentsData");
+        break;
+      default:
+        alert("error: unknown manage type");
+        console.log("error: unknown manage type");
     }
   },
   methods: {
     async approve(item, position) {
       this.loading = true;
-      if (this.$route.query.manageType == "artifacts") {
-        await this.$store.dispatch({
-          type: "cardInfo/updateArtifact",
-          artifactData: item,
-        });
+      switch (this.manageType) {
+        case "cards":
+          await this.$store.dispatch({
+            type: "cardInfo/updateCard",
+            cardData: item,
+          });
 
-        await this.$store.dispatch({
-          type: "cardInfo/deleteSubmitArtifact",
-          artifactData: item,
-          position: position,
-        });
-        await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
-        await this.$store.dispatch("cardInfo/getArtifactsData");
-      } else if (this.$route.query.manageType == "cards") {
-        await this.$store.dispatch({
-          type: "cardInfo/updateCard",
-          cardData: item,
-        });
+          await this.$store.dispatch({
+            type: "cardInfo/deleteSubmitCard",
+            cardData: item,
+            position: position,
+          });
+          await this.$store.dispatch("cardInfo/getCardsVersionsData");
+          await this.$store.dispatch("cardInfo/getCardsData");
+          break;
+        case "artifacts":
+          await this.$store.dispatch({
+            type: "cardInfo/updateArtifact",
+            artifactData: item,
+          });
 
-        await this.$store.dispatch({
-          type: "cardInfo/deleteSubmitCard",
-          cardData: item,
-          position: position,
-        });
-        await this.$store.dispatch("cardInfo/getCardsVersionsData");
-        await this.$store.dispatch("cardInfo/getCardsData");
-      } else {
-        console.log("unknown manage type");
+          await this.$store.dispatch({
+            type: "cardInfo/deleteSubmitArtifact",
+            artifactData: item,
+            position: position,
+          });
+          await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
+          await this.$store.dispatch("cardInfo/getArtifactsData");
+          break;
+        case "equipments":
+          await this.$store.dispatch({
+            type: "cardInfo/updateEquipment",
+            equipmentData: item,
+          });
+
+          await this.$store.dispatch({
+            type: "cardInfo/deleteSubmitEquipment",
+            equipmentData: item,
+            position: position,
+          });
+          await this.$store.dispatch("cardInfo/getEquipmentsVersionsData");
+          await this.$store.dispatch("cardInfo/getEquipmentsData");
+          break;
+        default:
+          alert("error: unknown manage type");
+          console.log("error: unknown manage type");
+          this.loading = false;
+          return;
       }
       this.loading = false;
     },
     async reject(item, position) {
       this.loading = true;
-      if (this.$route.query.manageType == "artifacts") {
-        await this.$store.dispatch({
-          type: "cardInfo/deleteSubmitArtifact",
-          artifactData: item,
-          position: position,
-        });
-        await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
-        await this.$store.dispatch("cardInfo/getArtifactsData");
-      } else if (this.$route.query.manageType == "cards") {
-        await this.$store.dispatch({
-          type: "cardInfo/deleteSubmitCard",
-          cardData: item,
-          position: position,
-        });
-        await this.$store.dispatch("cardInfo/getCardsVersionsData");
-        await this.$store.dispatch("cardInfo/getCardsData");
-      } else {
-        console.log("unknown manage type");
+
+      switch (this.manageType) {
+        case "cards":
+          await this.$store.dispatch({
+            type: "cardInfo/deleteSubmitCard",
+            cardData: item,
+            position: position,
+          });
+          await this.$store.dispatch("cardInfo/getCardsVersionsData");
+          await this.$store.dispatch("cardInfo/getCardsData");
+          break;
+        case "artifacts":
+          await this.$store.dispatch({
+            type: "cardInfo/deleteSubmitArtifact",
+            artifactData: item,
+            position: position,
+          });
+          await this.$store.dispatch("cardInfo/getArtifactsVersionsData");
+          await this.$store.dispatch("cardInfo/getArtifactsData");
+          break;
+        case "equipments":
+          await this.$store.dispatch({
+            type: "cardInfo/deleteSubmitEquipment",
+            equipmentData: item,
+            position: position,
+          });
+          await this.$store.dispatch("cardInfo/getEquipmentsVersionsData");
+          await this.$store.dispatch("cardInfo/getEquipmentsData");
+          break;
+        default:
+          alert("error: unknown manage type");
+          console.log("error: unknown manage type");
+          this.loading = false;
+          return;
       }
       this.loading = false;
     },
@@ -156,6 +214,8 @@ export default {
       cardVersions: "cardInfo/cardVersions",
       artifacts: "cardInfo/artifacts",
       artifactVersions: "cardInfo/artifactVersions",
+      equipments: "cardInfo/equipments",
+      equipmentVersions: "cardInfo/equipmentVersions",
     }),
   },
   watch: {
@@ -166,6 +226,11 @@ export default {
     },
     cardVersions(cardVersions) {
       this.items = cardVersions.filter((item) => item.newVersions.length > 0);
+    },
+    equipmentVersions(equipmentVersions) {
+      this.items = equipmentVersions.filter(
+        (item) => item.newVersions.length > 0
+      );
     },
   },
 };
