@@ -11,7 +11,7 @@
       <v-row justify="center">
         <v-col cols="12" md="5">
           <v-card icon="mdi-account-outline">
-            <h1>Submit artifact</h1>
+            <h1>Submit equipment</h1>
             <v-alert type="success" v-if="sucessMsg">{{ sucessMsg }}</v-alert>
             <v-alert type="error" v-if="errorMsg">{{ errorMsg }}</v-alert>
             <v-form>
@@ -19,59 +19,70 @@
                 <v-row>
                   <v-col cols="12" md="9">
                     <v-text-field
-                      v-model="artifact.name"
-                      label="Artifact Name"
+                      v-model="equipment.name"
+                      label="Equipment Name"
                     />
                   </v-col>
 
                   <v-col cols="12" md="3">
                     <v-select
-                      v-model="artifact.tier"
-                      :items="tier"
-                      label="Tier"
+                      v-model="equipment.slot"
+                      :items="slot"
+                      label="Slot"
                       required
                     ></v-select>
                   </v-col>
 
                   <v-col cols="12" md="9">
-                    <v-text-field v-model="artifact.imgUrl" label="Image URL" />
+                    <v-text-field
+                      v-model="equipment.imgUrl"
+                      label="Image URL"
+                    />
                   </v-col>
 
                   <v-col cols="12" md="3">
                     <v-select
-                      v-model="artifact.rarity"
+                      v-model="equipment.rarity"
                       :items="rarity"
                       label="Rarity"
                       required
                     ></v-select>
                   </v-col>
 
-                  <v-col cols="12">
-                    <v-textarea
-                      v-model="artifact.description"
-                      label="Artifact description"
+                  <v-col cols="12" md="9">
+                    <v-text-field
+                      v-model="equipment.imgTmogUrl"
+                      label="Transmog Image URL"
                     />
                   </v-col>
 
                   <v-col cols="12">
                     <v-textarea
-                      v-model="artifact.bonusR10"
-                      label="Unlocks at rank 10"
+                      v-model="equipment.description"
+                      label="Equipment description"
                     />
                   </v-col>
 
-                  <v-col cols="12">
+                </v-row>
+                <v-row v-for="(mod, index) in equipment.mods" :key="index">
+                  <v-col cols="10">
                     <v-textarea
-                      v-model="artifact.bonusR20"
-                      label="Unlocks at rank 20"
+                      v-model="equipment.mods[index]"
+                      label="Modifier"
                     />
                   </v-col>
+                  <v-col cols="2">
+                    <v-btn x-small text color="red" @click="removeMod(index)">Delete Mod</v-btn>
+                  </v-col>
+                </v-row>
+                <v-row>
 
+                    <v-btn text @click="addMod()">Add Mod</v-btn>
                   <v-col cols="12" class="text-right">
                     <v-btn
                       color="primary"
                       min-width="150"
-                      @click="submitArtifact"
+                      @click="submitEquipment"
                     >
                       Submit
                     </v-btn>
@@ -83,19 +94,19 @@
         </v-col>
         <v-col cols="12" md="3">
           <v-card>
-            <v-card-subtitle>Preview of the current artifact:</v-card-subtitle>
-            <Artifact
-              :currentArtifactInput="this.artifact"
-              :key="this.artifact.id"
+            <v-card-subtitle>Preview of the current equipment:</v-card-subtitle>
+            <Equipment
+              :currentEquipmentInput="this.equipment"
+              :key="this.equipment.id"
             />
           </v-card>
         </v-col>
-        <v-col cols="12" md="3" v-if="this.lastArtifact.id">
+        <v-col cols="12" md="3" v-if="this.lastEquipment.id">
           <v-card>
-            <v-card-subtitle>Last Artifact added:</v-card-subtitle>
-            <Artifact
-              :currentArtifactInput="this.lastArtifact"
-              :key="this.lastArtifact.id"
+            <v-card-subtitle>Last Equipment added:</v-card-subtitle>
+            <Equipment
+              :currentEquipmentInput="this.lastEquipment"
+              :key="this.lastEquipment.id"
             />
           </v-card>
         </v-col>
@@ -108,18 +119,18 @@
 import { mapGetters } from "vuex";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
-import Artifact from "@/components/Artifact.vue";
+import Equipment from "@/components/Equipment.vue";
 
 export default {
   props: {
-    currentArtifactId: {
+    currentEquipmentId: {
       type: String,
       required: false,
       default: null,
     },
   },
   components: {
-    Artifact,
+    Equipment,
   },
   async mounted() {
     this.userGroups = await this.$store.dispatch("auth/userGroups");
@@ -134,48 +145,46 @@ export default {
       this.mod = false;
       this.admin = false;
     }
-    if (this.$props.currentArtifactId) {
-      let getArtifactData = await this.$store.dispatch(
-        "cardInfo/getArtifact",
-        this.$props.currentArtifactId
+    if (this.$props.currentEquipmentId) {
+      let getEquipmentData = await this.$store.dispatch(
+        "cardInfo/getEquipment",
+        this.$props.currentEquipmentId
       );
-      this.artifact = getArtifactData.data.getArtifact;
+      this.equipment = getEquipmentData.data.getEquipment;
     } else {
       if (!(this.admin | this.mod)) {
-        this.$router.push("/artifacts");
+        this.$router.push("/equipments");
       }
     }
 
-    this.$store.dispatch("cardInfo/getArtifactsData");
+    this.$store.dispatch("cardInfo/getEquipmentsData");
     // Subscribe to creation of Todo
     const subscription = API.graphql(
-      graphqlOperation(subscriptions.onCreateArtifact)
+      graphqlOperation(subscriptions.onCreateEquipment)
     ).subscribe({
-      next: ({ value }) => (this.lastArtifact = value.data.onCreateArtifact),
+      next: ({ value }) => (this.lastEquipment = value.data.onCreateEquipment),
     });
   },
   data: () => ({
     loading: false,
     sucessMsg: "",
     errorMsg: "",
-    lastArtifact: {
+    lastEquipment: {
       name: "?",
       imgUrl: "logo.png",
       rarity: "?",
-      tier: "?",
+      slot: "?",
       description: "?",
-      bonusR10: "?",
-      bonusR20: "?",
+      mods: ["?"],
     },
     artifacsDebug: false,
-    artifact: {
+    equipment: {
       name: "?",
       imgUrl: "logo.png",
       rarity: "?",
-      tier: "?",
+      slot: "?",
       description: "?",
-      bonusR10: "?",
-      bonusR20: "?",
+      mods: ["?"],
     },
     rarity: [
       "Mythic",
@@ -183,55 +192,62 @@ export default {
       "Uncommon",
       "Common"
     ],
-    tier: ["Legendary", "Greater", "Lesser"],
+    slot: ["Head", "Body", "Arms", "Feet", "Accessory"],
     userGroups: [],
     mod: false,
     admin: false,
   }),
   methods: {
-    async submitArtifact(artifact) {
+    async submitEquipment(equipment) {
       try {
         this.loading = true;
         this.sucessMsg = "";
         this.errorMsg = "";
 
-        this.artifact.updatedBy = this.user.username;
-        this.artifact.updatedById = this.user.id;
+        this.equipment.updatedBy = this.user.username;
+        this.equipment.updatedById = this.user.id;
 
-        if (this.$props.currentArtifactId) {
+        if (this.$props.currentEquipmentId) {
           if (this.admin | this.mod) {
-            await this.$store.dispatch("cardInfo/updateArtifact", {
+            await this.$store.dispatch("cardInfo/updateEquipment", {
               file: "",
-              artifactData: this.artifact,
+              equipmentData: this.equipment,
             });
-            this.sucessMsg = "Artifact Updated";
+            this.sucessMsg = "Equipment Updated";
           } else {
-            await this.$store.dispatch("cardInfo/submitArtifact", {
+            await this.$store.dispatch("cardInfo/submitEquipment", {
               file: "",
-              artifactData: this.artifact,
+              equipmentData: this.equipment,
             });
             this.sucessMsg =
               "Your update was submited for review. It will be visible after mod approval.";
           }
         } else {
-          await this.$store.dispatch("cardInfo/createArtifact", {
+          await this.$store.dispatch("cardInfo/createEquipment", {
             file: "",
-            artifactData: this.artifact,
+            equipmentData: this.equipment,
           });
-          this.sucessMsg = "Artifact Added";
+          this.sucessMsg = "Equipment Added";
         }
         this.loading = false;
       } catch (error) {
         this.loading = false;
         this.errorMsg = error.errors[0].message;
-        console.log("error adding the artifact", error);
+        console.log("error adding the equipment", error);
       }
     },
+
+    addMod() {
+      this.equipment.mods.push('')
+    },
+    removeMod(index) {
+      this.equipment.mods.splice(index, 1)
+    }
   },
   computed: {
     ...mapGetters({
       user: "auth/user",
-      artifacts: "cardInfo/artifacts",
+      equipments: "cardInfo/equipments",
     }),
   },
 };

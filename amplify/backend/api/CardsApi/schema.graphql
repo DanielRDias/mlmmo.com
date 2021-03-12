@@ -53,6 +53,18 @@ type Card
   version: String
 }
 
+type CardProperties {
+  rank: Int
+  damage: String
+  healing: String
+  health: String
+  dps: String
+  role: String
+  duration: String
+  range: String
+  area: String
+}
+
 type CardItem {
   id: ID!
   name: String!
@@ -136,16 +148,64 @@ type ArtifactItem {
   version: String
 }
 
-type CardProperties {
-  rank: Int
-  damage: String
-  healing: String
-  health: String
-  dps: String
-  role: String
-  duration: String
-  range: String
-  area: String
+# Gear
+
+type Equipment
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Admins", "Moderators"]
+        queries: [get, list]
+        mutations: [create, update, delete]
+      }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  imgTmogUrl: String
+  imgTmogFullSize: S3Object
+  imgTmogThumbnail: S3Object
+  rarity: String
+  slot: String
+  description: String
+  mods: [String]
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type EquipmentVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [EquipmentItem]
+  oldVersions: [EquipmentItem]
+}
+
+type EquipmentItem {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  imgTmogUrl: String
+  imgTmogFullSize: S3Object
+  imgTmogThumbnail: S3Object
+  rarity: String
+  slot: String
+  description: String
+  mods: [String]
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
 }
 
 type S3Object @aws_iam @aws_cognito_user_pools {
