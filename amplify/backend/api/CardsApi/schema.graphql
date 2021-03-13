@@ -208,6 +208,32 @@ type EquipmentItem {
   version: String
 }
 
+type Loadout
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: public, queries: [get, list], mutations: [create] }
+    ]
+  ) {
+  id: ID!
+  owner: String
+  ownerId: String
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  type: String
+  shortDescription: String
+  class: String
+  deck: String
+  equipments: [EquipmentItem]
+  artifacts: [ArtifactItem]
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
 type S3Object @aws_iam @aws_cognito_user_pools {
   region: String!
   bucket: String!
