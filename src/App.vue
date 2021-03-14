@@ -68,8 +68,8 @@
       >
       </v-switch>
     </v-navigation-drawer>
-    <v-app-bar app src="./assets/other/book-1769625_640-min.png">
-      <template v-slot:img="{ props }">
+    <v-app-bar app src="./assets/img/header.jpg">
+      <template v-slot:img="{ props }" v-if="!$vuetify.theme.dark">
         <v-img
           v-bind="props"
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
@@ -77,8 +77,6 @@
       </template>
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-app-bar-title>MLaRPG.com</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
