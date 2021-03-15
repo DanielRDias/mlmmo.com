@@ -225,6 +225,7 @@ type Loadout
   imgThumbnail: S3Object
   type: String
   shortDescription: String
+  longDescription: String
   class: String
   deck: String
   equipments: [EquipmentItem]
