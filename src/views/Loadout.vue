@@ -82,28 +82,58 @@
             v-model="loadout.deck"
             :items="deckList"
             :search-input.sync="searchDeck"
-            item-text="Deck"
+            item-text="name"
+            item-value="name"
             label="Deck"
             placeholder="Start typing to Search"
             prepend-icon="mdi-cards"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="deckImgs[data.item.id]"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="deckImgs[data.item.id]" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle>
+                    Author: {{ data.item.owner }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
 
           <v-skeleton-loader
+            v-if="loadout.deck == null"
             class="mx-auto"
             max-width="300"
             max-height="300"
             type="card-avatar"
           >
           </v-skeleton-loader>
+          <Deck v-else :deck-id="loadout.deck.id" :key="loadout.deck.id" />
         </v-col>
         <v-col cols="6" align="center">
           <v-row>
             <v-col cols="3"> </v-col>
             <v-col cols="6">
               <v-autocomplete
-                :items="deckList"
+                :items="artifactLegendaryList"
                 item-text="Legendary Artifact"
                 label="Legendary Artifact"
                 placeholder="Start typing to Search"
@@ -117,7 +147,7 @@
           <v-row>
             <v-col>
               <v-autocomplete
-                :items="deckList"
+                :items="artifactGreaterList"
                 item-text="Greater Artifact"
                 label="Greater Artifact"
                 placeholder="Start typing to Search"
@@ -128,7 +158,7 @@
             </v-col>
             <v-col>
               <v-autocomplete
-                :items="deckList"
+                :items="artifactGreaterList"
                 item-text="Greater Artifact"
                 label="Greater Artifact"
                 placeholder="Start typing to Search"
@@ -141,7 +171,7 @@
           <v-row>
             <v-col>
               <v-autocomplete
-                :items="deckList"
+                :items="artifactLesserList"
                 item-text="Lesser Artifact"
                 label="Lesser Artifact"
                 placeholder="Start typing to Search"
@@ -152,7 +182,7 @@
             </v-col>
             <v-col>
               <v-autocomplete
-                :items="deckList"
+                :items="artifactLesserList"
                 item-text="Lesser Artifact"
                 label="Lesser Artifact"
                 placeholder="Start typing to Search"
@@ -163,7 +193,7 @@
             </v-col>
             <v-col>
               <v-autocomplete
-                :items="deckList"
+                :items="artifactLesserList"
                 item-text="Lesser Artifact"
                 label="Lesser Artifact"
                 placeholder="Start typing to Search"
@@ -264,8 +294,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Deck from "@/components/Deck.vue";
 
 export default {
+  components: {
+    Deck,
+  },
   data() {
     return {
       searchClass: null,
@@ -290,6 +324,7 @@ export default {
         "Beast Caller",
       ],
       deckList: [],
+      deckImgs: {},
 
       artifactLegendaryList: [],
       artifactGreaterList: [],
@@ -310,6 +345,65 @@ export default {
         { name: "All", image: "img/mana/C.svg" },
       ],
     };
+  },
+  async mounted() {
+    this.$store.dispatch("cardInfo/getDecksData");
+    this.$store.dispatch("cardInfo/getCardsData");
+    this.$store.dispatch("cardInfo/getArtifactsData");
+    this.$store.dispatch("cardInfo/getEquipmentsData");
+  },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+      decks: "cardInfo/decks",
+      cards: "cardInfo/cards",
+      artifacts: "cardInfo/artifacts",
+      equipments: "cardInfo/equipments",
+    }),
+  },
+  watch: {
+    decks() {
+      this.deckList = this.decks;
+    },
+    cards() {
+      if (this.decks) {
+        let newDeckImgs = {};
+        this.decks.forEach((deck) => {
+          var index = this.cards
+            .map(function (e) {
+              return e.id;
+            })
+            .indexOf(deck.cards[Math.floor(Math.random() * Math.floor(11))]);
+          if (index !== -1) {
+            newDeckImgs[deck.id] = this.cards[index].imgUrl;
+          } else {
+            newDeckImgs[deck.id] = "logo.png";
+          }
+        });
+        this.deckImgs = newDeckImgs;
+      }
+    },
+    artifacts() {
+      this.artifactLegendaryList = [];
+      this.artifactGreaterList = [];
+      this.artifactLesserList = [];
+      this.artifacts.forEach((artifact) => {
+        if (artifact.tier) {
+          let tier = artifact.tier.toLowerCase();
+          switch (tier) {
+            case "legendary":
+              this.artifactLegendaryList.push(artifact);
+              break;
+            case "greater":
+              this.artifactGreaterList.push(artifact);
+              break;
+            case "lesser":
+              this.artifactLesserList.push(artifact);
+              break;
+          }
+        }
+      });
+    },
   },
 };
 </script>
