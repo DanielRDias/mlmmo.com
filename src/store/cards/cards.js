@@ -1,4 +1,4 @@
-import { API, graphqlOperation, Storage } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { listDecks as listDecksQuery } from "@/graphql/queries";

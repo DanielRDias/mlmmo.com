@@ -146,7 +146,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
 import Card from "@/components/Card.vue";
 

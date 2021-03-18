@@ -62,7 +62,6 @@
                       label="Equipment description"
                     />
                   </v-col>
-
                 </v-row>
                 <v-row v-for="(mod, index) in equipment.mods" :key="index">
                   <v-col cols="10">
@@ -72,12 +71,13 @@
                     />
                   </v-col>
                   <v-col cols="2">
-                    <v-btn x-small text color="red" @click="removeMod(index)">Delete Mod</v-btn>
+                    <v-btn x-small text color="red" @click="removeMod(index)"
+                      >Delete Mod</v-btn
+                    >
                   </v-col>
                 </v-row>
                 <v-row>
-
-                    <v-btn text @click="addMod()">Add Mod</v-btn>
+                  <v-btn text @click="addMod()">Add Mod</v-btn>
                   <v-col cols="12" class="text-right">
                     <v-btn
                       color="primary"
@@ -117,7 +117,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
 import Equipment from "@/components/Equipment.vue";
 
@@ -186,12 +186,7 @@ export default {
       description: "?",
       mods: ["?"],
     },
-    rarity: [
-      "Mythic",
-      "Rare",
-      "Uncommon",
-      "Common"
-    ],
+    rarity: ["Mythic", "Rare", "Uncommon", "Common"],
     slot: ["Head", "Body", "Arms", "Feet", "Accessory"],
     userGroups: [],
     mod: false,
@@ -238,11 +233,11 @@ export default {
     },
 
     addMod() {
-      this.equipment.mods.push('')
+      this.equipment.mods.push("");
     },
     removeMod(index) {
-      this.equipment.mods.splice(index, 1)
-    }
+      this.equipment.mods.splice(index, 1);
+    },
   },
   computed: {
     ...mapGetters({
