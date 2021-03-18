@@ -54,7 +54,6 @@
 
                   <v-col cols="12" md="2">
                     <v-text-field
-                      v-show="card.type.toLowerCase() === 'creature'"
                       v-model="card.points"
                       label="Points"
                       type="number"
@@ -146,7 +145,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
 import Card from "@/components/Card.vue";
 
