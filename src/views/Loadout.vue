@@ -403,72 +403,240 @@
       <v-row>
         <v-col>
           <v-autocomplete
-            :items="deckList"
-            item-text="Head"
+            v-model="selHead"
+            :items="headList"
+            item-text="name"
+            item-value="name"
             label="Head"
             placeholder="Start typing to Search"
             prepend-icon="mdi-redhat"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="data.item.imgUrl"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="data.item.imgUrl" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.description">
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
         </v-col>
         <v-col>
           <v-autocomplete
-            :items="deckList"
-            item-text="Body"
+            v-model="selBody"
+            :items="bodyList"
+            item-text="name"
+            item-value="name"
             label="Body"
             placeholder="Start typing to Search"
             prepend-icon="mdi-tshirt-crew"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="data.item.imgUrl"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="data.item.imgUrl" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.description">
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
           <v-autocomplete
-            :items="deckList"
-            item-text="Arms"
+            v-model="selArms"
+            :items="armsList"
+            item-text="name"
+            item-value="name"
             label="Arms"
             placeholder="Start typing to Search"
             prepend-icon="mdi-mixed-martial-arts"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="data.item.imgUrl"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="data.item.imgUrl" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.description">
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
         </v-col>
         <v-col>
           <v-autocomplete
-            :items="deckList"
-            item-text="Feet"
+            v-model="selFeet"
+            :items="feetList"
+            item-text="name"
+            item-value="name"
             label="Feet"
             placeholder="Start typing to Search"
             prepend-icon="mdi-shoe-cleat"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="data.item.imgUrl"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="data.item.imgUrl" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.description">
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
           <v-autocomplete
-            :items="deckList"
-            item-text="Accessory 1"
+            v-model="selAccessory1"
+            :items="accessoryList"
+            item-text="name"
+            item-value="name"
             label="Accessory 1"
             placeholder="Start typing to Search"
             prepend-icon="mdi-ring"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="data.item.imgUrl"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="data.item.imgUrl" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.description">
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
         </v-col>
         <v-col>
           <v-autocomplete
-            :items="deckList"
-            item-text="Accessory 2"
+            v-model="selAccessory2"
+            :items="accessoryList"
+            item-text="name"
+            item-value="name"
             label="Accessory 2"
             placeholder="Start typing to Search"
             prepend-icon="mdi-ring"
             return-object
           >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                @click="data.select"
+              >
+                <v-avatar left>
+                  <v-img :src="data.item.imgUrl"></v-img>
+                </v-avatar>
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <template>
+                <v-list-item-avatar>
+                  <img :src="data.item.imgUrl" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.description">
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
           </v-autocomplete>
         </v-col>
       </v-row>
@@ -568,16 +736,16 @@ export default {
     }),
   },
   methods: {
-    updateLoadoutArtifact(newVal, oldVal) {
+    updateLoadout(type, newVal, oldVal) {
       if (oldVal !== null) {
-        let index = this.loadout.artifacts.findIndex(
+        let index = this.loadout[type].findIndex(
           (element) => element.id === oldVal.id
         );
         if (index > -1) {
-          this.loadout.artifacts.splice(index, 1);
+          this.loadout[type].splice(index, 1);
         }
       }
-      this.loadout.artifacts.push(newVal);
+      this.loadout[type].push(newVal);
     },
   },
   watch: {
@@ -623,34 +791,75 @@ export default {
         }
       });
     },
+    equipments() {
+      this.headList = [];
+      this.bodyList = [];
+      this.armsList = [];
+      this.feetList = [];
+      this.accessoryList = [];
+      this.equipments.forEach((equipment) => {
+        if (equipment.slot) {
+          let slot = equipment.slot.toLowerCase();
+          switch (slot) {
+            case "head":
+              this.headList.push(equipment);
+              break;
+            case "body":
+              this.bodyList.push(equipment);
+              break;
+            case "arms":
+              this.armsList.push(equipment);
+              break;
+            case "feet":
+              this.feetList.push(equipment);
+              break;
+            case "accessory":
+              this.accessoryList.push(equipment);
+              break;
+          }
+        }
+      });
+    },
 
     selDeck: function (newVal) {
       this.loadout.deck = newVal;
     },
     selLgArtifact: function (newVal, oldVal) {
-      this.updateLoadoutArtifact(newVal, oldVal);
+      this.updateLoadout("artifacts", newVal, oldVal);
     },
     selGr1Artifact: function (newVal, oldVal) {
-      this.updateLoadoutArtifact(newVal, oldVal);
+      this.updateLoadout("artifacts", newVal, oldVal);
     },
     selGr2Artifact: function (newVal, oldVal) {
-      this.updateLoadoutArtifact(newVal, oldVal);
+      this.updateLoadout("artifacts", newVal, oldVal);
     },
     selLs1Artifact: function (newVal, oldVal) {
-      this.updateLoadoutArtifact(newVal, oldVal);
+      this.updateLoadout("artifacts", newVal, oldVal);
     },
     selLs2Artifact: function (newVal, oldVal) {
-      this.updateLoadoutArtifact(newVal, oldVal);
+      this.updateLoadout("artifacts", newVal, oldVal);
     },
     selLs3Artifact: function (newVal, oldVal) {
-      this.updateLoadoutArtifact(newVal, oldVal);
+      this.updateLoadout("artifacts", newVal, oldVal);
     },
-    selHead: null,
-    selBody: null,
-    selArms: null,
-    selFeet: null,
-    selAccessory1: null,
-    selAccessory2: null,
+    selHead: function (newVal, oldVal) {
+      this.updateLoadout("equipments", newVal, oldVal);
+    },
+    selBody: function (newVal, oldVal) {
+      this.updateLoadout("equipments", newVal, oldVal);
+    },
+    selArms: function (newVal, oldVal) {
+      this.updateLoadout("equipments", newVal, oldVal);
+    },
+    selFeet: function (newVal, oldVal) {
+      this.updateLoadout("equipments", newVal, oldVal);
+    },
+    selAccessory1: function (newVal, oldVal) {
+      this.updateLoadout("equipments", newVal, oldVal);
+    },
+    selAccessory2: function (newVal, oldVal) {
+      this.updateLoadout("equipments", newVal, oldVal);
+    },
   },
 };
 </script>
