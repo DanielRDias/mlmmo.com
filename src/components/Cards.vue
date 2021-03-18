@@ -163,7 +163,7 @@
                           </v-list-item-content>
                           <v-list-item-content
                             class="align-end"
-                            v-if="item['type'].toLowerCase() === 'creature'"
+                            v-if="parseInt(item['points']) > 0"
                           >
                             Points: {{ item["points"] }}
                           </v-list-item-content>
