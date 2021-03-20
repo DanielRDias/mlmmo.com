@@ -52,6 +52,28 @@
     <v-card-text>
       <v-row>
         <v-col cols="6">
+          <v-text-field
+            v-model="loadout.type"
+            label="Loadout type"
+            placeholder="Example: combo, control, aggro/dps or difficulty/map specific"
+          >
+          </v-text-field>
+        </v-col>
+        <v-col cols="6"> </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-card-text>
+      <v-row align="center">
+        <v-col>
+          <v-text-field
+            v-model="loadout.youtubeUrl"
+            label="Loadout Youtube URL"
+            placeholder="Enter the link to your loadout youtube video (optional)"
+            @input="getYoutubeInfo"
+          >
+          </v-text-field>
+          <br />
           <v-autocomplete
             v-model="loadout.class"
             :items="classList"
@@ -64,13 +86,19 @@
           >
           </v-autocomplete>
         </v-col>
-        <v-col cols="6">
-          <v-text-field
-            v-model="loadout.type"
-            label="Loadout type"
-            placeholder="Example: combo, control, aggro/dps or difficulty/map specific"
+        <v-col>
+          <youtube
+            v-if="(videoId !== null) & (videoId !== '')"
+            :video-id="videoId"
+          ></youtube>
+          <v-skeleton-loader
+            v-else
+            class="mx-auto"
+            max-width="300"
+            max-height="300"
+            type="image"
           >
-          </v-text-field>
+          </v-skeleton-loader>
         </v-col>
       </v-row>
     </v-card-text>
@@ -655,6 +683,7 @@
 <script>
 import { mapGetters } from "vuex";
 import Deck from "@/components/Deck.vue";
+import { getIdFromURL, getTimeFromURL } from "vue-youtube-embed";
 
 export default {
   components: {
@@ -662,6 +691,9 @@ export default {
   },
   data() {
     return {
+      videoId: null,
+      startTime: null,
+
       selDeck: null,
       selLgArtifact: null,
       selGr1Artifact: null,
@@ -682,6 +714,7 @@ export default {
       loadout: {
         name: null,
         imgUrl: null,
+        youtubeUrl: null,
         type: null,
         shortDescription: "",
         longDescription: "",
@@ -736,6 +769,11 @@ export default {
     }),
   },
   methods: {
+    getYoutubeInfo(url) {
+      console.log("url", url);
+      this.videoId = getIdFromURL(url);
+      this.startTime = getTimeFromURL(url);
+    },
     updateLoadout(type, newVal, oldVal) {
       if (oldVal !== null) {
         let index = this.loadout[type].findIndex(

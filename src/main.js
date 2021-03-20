@@ -9,6 +9,7 @@ import "@aws-amplify/ui-vue";
 import { AmplifyPlugin } from "aws-amplify-vue";
 import awsconfig from "./aws-exports";
 import VueSocialSharing from "vue-social-sharing";
+import VueYouTubeEmbed from "vue-youtube-embed";
 
 Amplify.configure(awsconfig);
 
@@ -16,6 +17,7 @@ Vue.config.productionTip = false;
 
 Vue.use(AmplifyPlugin, AmplifyModules);
 Vue.use(VueSocialSharing);
+Vue.use(VueYouTubeEmbed);
 
 new Vue({
   router,
