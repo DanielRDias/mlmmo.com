@@ -508,3 +508,88 @@ export const listEquipmentVersions = /* GraphQL */ `
     }
   }
 `;
+export const getLoadout = /* GraphQL */ `
+  query GetLoadout($id: ID!) {
+    getLoadout(id: $id) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+          id
+          name
+          imgUrl
+          imgTmogUrl
+          rarity
+          slot
+          description
+          mods
+          updatedBy
+          updatedById
+          createdAt
+          updatedAt
+          version
+        }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const listLoadouts = /* GraphQL */ `
+  query ListLoadouts(
+    $filter: ModelLoadoutFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLoadouts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        owner
+        ownerId
+        name
+        imgUrl
+        type
+        shortDescription
+        longDescription
+        class
+        deck
+        createdAt
+        updatedAt
+        version
+      }
+      nextToken
+    }
+  }
+`;
