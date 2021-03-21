@@ -760,3 +760,180 @@ export const onDeleteEquipmentVersion = /* GraphQL */ `
     }
   }
 `;
+export const onCreateLoadout = /* GraphQL */ `
+  subscription OnCreateLoadout($owner: String) {
+    onCreateLoadout(owner: $owner) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onUpdateLoadout = /* GraphQL */ `
+  subscription OnUpdateLoadout($owner: String) {
+    onUpdateLoadout(owner: $owner) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const onDeleteLoadout = /* GraphQL */ `
+  subscription OnDeleteLoadout($owner: String) {
+    onDeleteLoadout(owner: $owner) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;

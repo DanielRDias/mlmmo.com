@@ -52,6 +52,28 @@
     <v-card-text>
       <v-row>
         <v-col cols="6">
+          <v-text-field
+            v-model="loadout.type"
+            label="Loadout type"
+            placeholder="Example: combo, control, aggro/dps or difficulty/map specific"
+          >
+          </v-text-field>
+        </v-col>
+        <v-col cols="6"> </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-card-text>
+      <v-row align="center">
+        <v-col>
+          <v-text-field
+            v-model="loadout.youtubeUrl"
+            label="Loadout Youtube URL"
+            placeholder="Enter the link to your loadout youtube video (optional)"
+            @input="getYoutubeInfo"
+          >
+          </v-text-field>
+          <br />
           <v-autocomplete
             v-model="loadout.class"
             :items="classList"
@@ -64,18 +86,31 @@
           >
           </v-autocomplete>
         </v-col>
-        <v-col cols="6">
-          <v-text-field
-            v-model="loadout.type"
-            label="Loadout type"
-            placeholder="Example: combo, control, aggro/dps or difficulty/map specific"
+        <v-col>
+          <youtube
+            v-if="(videoId !== null) & (videoId !== '')"
+            :video-id="videoId"
+          ></youtube>
+          <v-skeleton-loader
+            v-else
+            class="mx-auto"
+            max-width="300"
+            max-height="300"
+            type="image"
           >
-          </v-text-field>
+          </v-skeleton-loader>
         </v-col>
       </v-row>
     </v-card-text>
 
     <v-card-text>
+      <v-progress-linear
+        v-if="loadingDeck"
+        indeterminate
+        color="deep-purple accent-4"
+        height="6"
+      >
+      </v-progress-linear>
       <v-autocomplete
         v-model="loadout.deck"
         :items="deckList"
@@ -86,6 +121,7 @@
         placeholder="Start typing to Search"
         prepend-icon="mdi-cards"
         return-object
+        :disabled="loadingDeck"
       >
         <template v-slot:selection="data">
           <v-chip
@@ -130,6 +166,13 @@
           <v-row>
             <v-col cols="4"> </v-col>
             <v-col cols="4">
+              <v-progress-linear
+                v-if="loadingArtifacts"
+                indeterminate
+                color="deep-purple accent-4"
+                height="6"
+              >
+              </v-progress-linear>
               <v-autocomplete
                 v-model="selLgArtifact"
                 :items="artifactLegendaryList"
@@ -139,6 +182,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-dots-triangle"
                 return-object
+                :disabled="loadingArtifacts"
               >
                 <template v-slot:selection="data">
                   <v-chip
@@ -186,6 +230,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-dots-triangle"
                 return-object
+                :disabled="loadingArtifacts"
               >
                 <template v-slot:selection="data">
                   <v-chip
@@ -229,6 +274,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-dots-triangle"
                 return-object
+                :disabled="loadingArtifacts"
               >
                 <template v-slot:selection="data">
                   <v-chip
@@ -275,6 +321,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-dots-triangle"
                 return-object
+                :disabled="loadingArtifacts"
               >
                 <template v-slot:selection="data">
                   <v-chip
@@ -318,6 +365,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-dots-triangle"
                 return-object
+                :disabled="loadingArtifacts"
               >
                 <template v-slot:selection="data">
                   <v-chip
@@ -361,6 +409,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-dots-triangle"
                 return-object
+                :disabled="loadingArtifacts"
               >
                 <template v-slot:selection="data">
                   <v-chip
@@ -400,6 +449,13 @@
     </v-card-text>
 
     <v-card-text>
+      <v-progress-linear
+        v-if="loadingEquipments"
+        indeterminate
+        color="deep-purple accent-4"
+        height="6"
+      >
+      </v-progress-linear>
       <v-row>
         <v-col>
           <v-autocomplete
@@ -411,6 +467,7 @@
             placeholder="Start typing to Search"
             prepend-icon="mdi-redhat"
             return-object
+            :disabled="loadingEquipments"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -450,6 +507,7 @@
             placeholder="Start typing to Search"
             prepend-icon="mdi-tshirt-crew"
             return-object
+            :disabled="loadingEquipments"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -491,6 +549,7 @@
             placeholder="Start typing to Search"
             prepend-icon="mdi-mixed-martial-arts"
             return-object
+            :disabled="loadingEquipments"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -530,6 +589,7 @@
             placeholder="Start typing to Search"
             prepend-icon="mdi-shoe-cleat"
             return-object
+            :disabled="loadingEquipments"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -571,6 +631,7 @@
             placeholder="Start typing to Search"
             prepend-icon="mdi-ring"
             return-object
+            :disabled="loadingEquipments"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -610,6 +671,7 @@
             placeholder="Start typing to Search"
             prepend-icon="mdi-ring"
             return-object
+            :disabled="loadingEquipments"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -649,12 +711,24 @@
         placeholder="Write a guide to explain how your loadout works"
       />
     </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="primary"
+        min-width="150"
+        @click="submit"
+        :disabled="loading"
+      >
+        {{ loading ? "Add all required information before submit" : "Submit" }}
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import Deck from "@/components/Deck.vue";
+import { getIdFromURL, getTimeFromURL } from "vue-youtube-embed";
 
 export default {
   components: {
@@ -662,6 +736,14 @@ export default {
   },
   data() {
     return {
+      loading: true,
+      loadingDeck: true,
+      loadingEquipments: true,
+      loadingArtifacts: true,
+
+      videoId: null,
+      startTime: null,
+
       selDeck: null,
       selLgArtifact: null,
       selGr1Artifact: null,
@@ -682,6 +764,7 @@ export default {
       loadout: {
         name: null,
         imgUrl: null,
+        youtubeUrl: null,
         type: null,
         shortDescription: "",
         longDescription: "",
@@ -709,15 +792,6 @@ export default {
       armsList: [],
       feetList: [],
       accessoryList: [],
-
-      mtgSlot: [
-        { name: "Head", image: "img/slot/head.svg" },
-        { name: "Body", image: "img/slot/body.svg" },
-        { name: "Arms", image: "img/slot/arms.svg" },
-        { name: "Feet", image: "img/slot/feet.svg" },
-        { name: "Accessory", image: "img/slot/accessory.svg" },
-        { name: "All", image: "img/mana/C.svg" },
-      ],
     };
   },
   async mounted() {
@@ -736,7 +810,19 @@ export default {
     }),
   },
   methods: {
+    submit() {
+      console.log(this.loadout);
+    },
+    getYoutubeInfo(url) {
+      console.log("url", url);
+      this.videoId = getIdFromURL(url);
+      this.startTime = getTimeFromURL(url);
+    },
     updateLoadout(type, newVal, oldVal) {
+      this.loadingDeck = true;
+      this.loadingEquipments = true;
+      this.loadingArtifacts = true;
+
       if (oldVal !== null) {
         let index = this.loadout[type].findIndex(
           (element) => element.id === oldVal.id
@@ -746,9 +832,32 @@ export default {
         }
       }
       this.loadout[type].push(newVal);
+
+      this.loadingDeck = false;
+      this.loadingEquipments = false;
+      this.loadingArtifacts = false;
     },
   },
   watch: {
+    loadout: {
+      handler(val) {
+        if (
+          val.name &&
+          val.type &&
+          val.shortDescription &&
+          val.longDescription &&
+          val.class &&
+          val.deck &&
+          val.equipments.length == 6 &&
+          val.artifacts.length == 6
+        ) {
+          this.loading = false;
+        } else {
+          this.loading = true;
+        }
+      },
+      deep: true,
+    },
     decks() {
       this.deckList = this.decks;
     },
@@ -769,6 +878,7 @@ export default {
         });
         this.deckImgs = newDeckImgs;
       }
+      this.loadingDeck = false;
     },
     artifacts() {
       this.artifactLegendaryList = [];
@@ -790,6 +900,7 @@ export default {
           }
         }
       });
+      this.loadingArtifacts = false;
     },
     equipments() {
       this.headList = [];
@@ -819,6 +930,7 @@ export default {
           }
         }
       });
+      this.loadingEquipments = false;
     },
 
     selDeck: function (newVal) {
