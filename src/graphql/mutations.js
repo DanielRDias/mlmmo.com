@@ -844,6 +844,7 @@ export const createLoadout = /* GraphQL */ `
         bucket
         key
       }
+      youtubeUrl
       type
       shortDescription
       longDescription
@@ -906,6 +907,7 @@ export const updateLoadout = /* GraphQL */ `
         bucket
         key
       }
+      youtubeUrl
       type
       shortDescription
       longDescription
@@ -968,6 +970,7 @@ export const deleteLoadout = /* GraphQL */ `
         bucket
         key
       }
+      youtubeUrl
       type
       shortDescription
       longDescription
