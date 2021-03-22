@@ -845,13 +845,14 @@ export default {
           loadoutData: this.loadout,
         });
         this.sucessMsg = "Loadout Added";
+        console.log(result);
+        this.$router.push("/loadout?loadoutId=" + result.data.createLoadout.id);
       } catch (error) {
         this.errorMsg = error.errors[0].message;
         console.log("error adding the loadout", error);
       }
     },
     getYoutubeInfo(url) {
-      console.log("url", url);
       this.videoId = getIdFromURL(url);
       this.startTime = getTimeFromURL(url);
     },
