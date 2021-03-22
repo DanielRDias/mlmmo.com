@@ -32,6 +32,11 @@ import { updateEquipmentVersion as updateVersionsEquipmentMutation } from "@/gra
 import { getEquipmentVersion as getEquipmentVersionQuery } from "@/graphql/queries";
 import { listEquipmentVersions as listEquipmentVersionsQuery } from "@/graphql/queries";
 
+import { getLoadout as getLoadoutQuery } from "@/graphql/queries";
+import { listLoadouts as listLoadoutsQuery } from "@/graphql/queries";
+import { createLoadout as createLoadoutMutation } from "@/graphql/mutations";
+import { updateLoadout as updateLoadoutMutation } from "@/graphql/mutations";
+
 import { v4 as uuid } from "uuid";
 import awsconfig from "@/aws-exports";
 
@@ -922,12 +927,11 @@ export const cardInfo = {
         return Promise.reject(error);
       }
     },
-  },
 
-      /**
+     /**
      * Loadouts
      */
-       async getLoadout(_, loadoutId) {
+      async getLoadout(_, loadoutId) {
         return await API.graphql({
           query: getLoadoutQuery,
           variables: { id: loadoutId },
@@ -975,13 +979,16 @@ export const cardInfo = {
         const { file, loadoutData } = data;
         const loadoutId = uuid();
         try {
-          await API.graphql(
+          let result = await API.graphql(
             graphqlOperation(createLoadoutMutation, { input: loadoutData })
           );
-          return Promise.resolve("success");
+          return Promise.resolve("success", result);
         } catch (error) {
           console.log("createLoadout error", error);
           return Promise.reject(error);
         }
       },
+  },
+
+     
 };

@@ -1,5 +1,15 @@
 <template>
   <v-card>
+    <v-overlay :value="loading ? true : false">
+      <v-progress-circular
+        indeterminate
+        size="64"
+        v-if="loading && !sucessMsg && errorMsg ? true : false"
+      ></v-progress-circular>
+      <v-alert type="success" v-if="sucessMsg">{{ sucessMsg }}</v-alert>
+      <v-alert type="error" v-if="errorMsg">{{ errorMsg }}</v-alert>
+      <v-btn text @click="loading = false"> Close </v-btn>
+    </v-overlay>
     <v-card-title> Loadout </v-card-title>
     <v-card-text>
       <v-row>
@@ -112,7 +122,7 @@
       >
       </v-progress-linear>
       <v-autocomplete
-        v-model="loadout.deck"
+        v-model="selDeck"
         :items="deckList"
         :search-input.sync="searchDeck"
         item-text="name"
@@ -158,7 +168,7 @@
         type="card-avatar"
       >
       </v-skeleton-loader>
-      <Deck v-else :deck-id="loadout.deck.id" :key="loadout.deck.id" />
+      <Deck v-else :deck-id="loadout.deck" :key="loadout.deck" />
     </v-card-text>
     <v-card-text>
       <v-row>
@@ -717,9 +727,13 @@
         color="primary"
         min-width="150"
         @click="submit"
-        :disabled="loading"
+        :disabled="loadingSubmit"
       >
-        {{ loading ? "Add all required information before submit" : "Submit" }}
+        {{
+          loadingSubmit
+            ? "Add all required information before submit"
+            : "Submit"
+        }}
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -736,7 +750,11 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      loading: false,
+      sucessMsg: "",
+      errorMsg: "",
+
+      loadingSubmit: true,
       loadingDeck: true,
       loadingEquipments: true,
       loadingArtifacts: true,
@@ -763,6 +781,8 @@ export default {
       rulesShortDesc: [(v) => v.length <= 250 || "Max 250 characters"],
       loadout: {
         name: null,
+        owner: "anonymous",
+        ownerId: "anonymous",
         imgUrl: null,
         youtubeUrl: null,
         type: null,
@@ -810,8 +830,27 @@ export default {
     }),
   },
   methods: {
-    submit() {
-      console.log(this.loadout);
+    async submit() {
+      try {
+        this.loading = true;
+        this.sucessMsg = "";
+        this.errorMsg = "";
+
+        if (this.user) {
+          this.loadout.owner = this.user.username;
+          this.loadout.ownerId = this.user.id;
+        }
+        let result = await this.$store.dispatch("cardInfo/createLoadout", {
+          file: "",
+          loadoutData: this.loadout,
+        });
+        this.sucessMsg = "Loadout Added";
+        console.log(result);
+        console.log(this.loadout);
+      } catch (error) {
+        this.errorMsg = error.errors[0].message;
+        console.log("error adding the loadout", error);
+      }
     },
     getYoutubeInfo(url) {
       console.log("url", url);
@@ -851,9 +890,9 @@ export default {
           val.equipments.length == 6 &&
           val.artifacts.length == 6
         ) {
-          this.loading = false;
+          this.loadingSubmit = false;
         } else {
-          this.loading = true;
+          this.loadingSubmit = true;
         }
       },
       deep: true,
@@ -934,7 +973,7 @@ export default {
     },
 
     selDeck: function (newVal) {
-      this.loadout.deck = newVal;
+      this.loadout.deck = newVal.id;
     },
     selLgArtifact: function (newVal, oldVal) {
       this.updateLoadout("artifacts", newVal, oldVal);
