@@ -114,8 +114,14 @@ export default {
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Create New Deck", icon: "mdi-newspaper-plus", to: "/adddeck" },
-      { title: "Decks", icon: "mdi-newspaper", to: "/decks" },
+      { title: "Decks", icon: "mdi-playlist-check", to: "/decks" },
+      { title: "Deck Builder", icon: "mdi-playlist-edit", to: "/adddeck" },
+      { title: "Loadout List", icon: "mdi-newspaper", to: "/loadouts" },
+      {
+        title: "Loadout Builder",
+        icon: "mdi-newspaper-plus",
+        to: "/loadoutbuilder",
+      },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
