@@ -513,6 +513,16 @@ const routes = [
     component: () => import("../views/LoadoutBuilder.vue"),
   },
   {
+    path: "/loadout",
+    name: "Loadout",
+    component: () => import("../views/Loadout.vue"),
+  },
+  {
+    path: "/loadouts",
+    name: "Loadouts",
+    component: () => import("../views/Loadouts.vue"),
+  },
+  {
     path: "/beta",
     name: "Beta",
     component: () => import("../views/Beta.vue"),

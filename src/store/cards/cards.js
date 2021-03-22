@@ -106,6 +106,12 @@ export const cardInfo = {
     appendArtifacts(state, payload) {
       state.artifacts = state.artifacts.concat(payload);
     },
+    setLoadouts(state, payload) {
+      state.loadouts = payload;
+    },
+    appendLoadouts(state, payload) {
+      state.loadouts = state.loadout.concat(payload);
+    },
     setArtifactVersions(state, payload) {
       state.artifactVersions = payload;
     },
