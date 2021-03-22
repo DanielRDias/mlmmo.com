@@ -508,9 +508,9 @@ const routes = [
     component: () => import("../views/CookieDeclaration.vue"),
   },
   {
-    path: "/loadout",
-    name: "Loadout",
-    component: () => import("../views/Loadout.vue"),
+    path: "/loadoutbuilder",
+    name: "LoadoutBuilder",
+    component: () => import("../views/LoadoutBuilder.vue"),
   },
   {
     path: "/beta",

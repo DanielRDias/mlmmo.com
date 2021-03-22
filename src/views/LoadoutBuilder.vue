@@ -10,7 +10,7 @@
       <v-alert type="error" v-if="errorMsg">{{ errorMsg }}</v-alert>
       <v-btn text @click="loading = false"> Close </v-btn>
     </v-overlay>
-    <v-card-title> Loadout </v-card-title>
+    <v-card-title> Loadout Builder </v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="6">
