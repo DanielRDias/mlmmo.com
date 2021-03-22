@@ -526,6 +526,7 @@ export const getLoadout = /* GraphQL */ `
         bucket
         key
       }
+      youtubeUrl
       type
       shortDescription
       longDescription
@@ -580,11 +581,10 @@ export const listLoadouts = /* GraphQL */ `
         ownerId
         name
         imgUrl
+        youtubeUrl
         type
         shortDescription
-        longDescription
         class
-        deck
         createdAt
         updatedAt
         version

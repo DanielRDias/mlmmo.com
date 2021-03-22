@@ -106,6 +106,12 @@ export const cardInfo = {
     appendArtifacts(state, payload) {
       state.artifacts = state.artifacts.concat(payload);
     },
+    setLoadouts(state, payload) {
+      state.loadouts = payload;
+    },
+    appendLoadouts(state, payload) {
+      state.loadouts = state.loadout.concat(payload);
+    },
     setArtifactVersions(state, payload) {
       state.artifactVersions = payload;
     },
@@ -982,7 +988,7 @@ export const cardInfo = {
           let result = await API.graphql(
             graphqlOperation(createLoadoutMutation, { input: loadoutData })
           );
-          return Promise.resolve("success", result);
+          return Promise.resolve(result);
         } catch (error) {
           console.log("createLoadout error", error);
           return Promise.reject(error);
