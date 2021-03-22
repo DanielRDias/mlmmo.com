@@ -845,8 +845,6 @@ export default {
           loadoutData: this.loadout,
         });
         this.sucessMsg = "Loadout Added";
-        console.log(result);
-        console.log(this.loadout);
       } catch (error) {
         this.errorMsg = error.errors[0].message;
         console.log("error adding the loadout", error);

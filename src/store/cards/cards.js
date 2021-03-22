@@ -982,7 +982,7 @@ export const cardInfo = {
           let result = await API.graphql(
             graphqlOperation(createLoadoutMutation, { input: loadoutData })
           );
-          return Promise.resolve("success", result);
+          return Promise.resolve(result);
         } catch (error) {
           console.log("createLoadout error", error);
           return Promise.reject(error);
