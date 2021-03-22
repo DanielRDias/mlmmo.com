@@ -20,6 +20,15 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
+        <v-list-item key="Wiki" href="https://wiki.mlarpg.com" link>
+          <v-list-item-icon>
+            <v-icon>mdi-wikipedia</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Wiki</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
         <v-list-item v-if="!user" key="Login" to="/login" link>
           <v-list-item-icon>
             <v-icon>mdi-login</v-icon>
