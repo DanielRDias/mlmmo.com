@@ -1,13 +1,15 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
-      <v-img
-        v-if="$vuetify.breakpoint.height < 700"
-        src="mlarpg-mobile-logo.png"
-        width="270"
-        height="135"
-      />
-      <v-img v-else src="mlarpg-logo.png" width="270" height="270" />
+      <router-link to="/">
+        <v-img
+          v-if="$vuetify.breakpoint.height < 700"
+          src="mlarpg-mobile-logo.png"
+          width="270"
+          height="135"
+        />
+        <v-img v-else src="mlarpg-logo.png" width="270" height="270" />
+      </router-link>
       <v-divider></v-divider>
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
