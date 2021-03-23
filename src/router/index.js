@@ -600,33 +600,6 @@ const routes = [
       ],
     },
   },
-  {
-    path: "/beta",
-    name: "Beta",
-    component: () => import("../views/Beta.vue"),
-    meta: {
-      requiresAuth: false,
-      title: "Magic: Legends Open Beta release date | Magic: Legends ARPG",
-    },
-    metaTags: [
-      {
-        name: "og:title",
-        content: "Magic: Legends Open Beta release date | Magic: Legends ARPG",
-      },
-      {
-        name: "og:image",
-        content: "/logo.png",
-      },
-      {
-        name: "description",
-        content: "Magic: Legends Open Beta release date count down.",
-      },
-      {
-        property: "og:description",
-        content: "Magic: Legends Open Beta release date count down.",
-      },
-    ],
-  },
 ];
 
 const router = new VueRouter({
