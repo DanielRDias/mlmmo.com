@@ -223,8 +223,10 @@ type Loadout
   imgUrl: String
   imgFullSize: S3Object
   imgThumbnail: S3Object
+  youtubeUrl: String
   type: String
   shortDescription: String
+  longDescription: String
   class: String
   deck: String
   equipments: [EquipmentItem]

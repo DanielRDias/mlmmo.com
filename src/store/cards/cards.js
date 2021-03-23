@@ -1,4 +1,4 @@
-import { API, graphqlOperation, Storage } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { listDecks as listDecksQuery } from "@/graphql/queries";
@@ -32,6 +32,11 @@ import { updateEquipmentVersion as updateVersionsEquipmentMutation } from "@/gra
 import { getEquipmentVersion as getEquipmentVersionQuery } from "@/graphql/queries";
 import { listEquipmentVersions as listEquipmentVersionsQuery } from "@/graphql/queries";
 
+import { getLoadout as getLoadoutQuery } from "@/graphql/queries";
+import { listLoadouts as listLoadoutsQuery } from "@/graphql/queries";
+import { createLoadout as createLoadoutMutation } from "@/graphql/mutations";
+import { updateLoadout as updateLoadoutMutation } from "@/graphql/mutations";
+
 import { v4 as uuid } from "uuid";
 import awsconfig from "@/aws-exports";
 
@@ -47,7 +52,22 @@ export const cardInfo = {
     equipmentVersions: null,
     newDeck: null,
     newDeckCards: [],
+    loadouts: null,
   },
+
+  getters: {
+    cards: (state) => state.cards,
+    cardVersions: (state) => state.cardVersions,
+    decks: (state) => state.decks,
+    artifacts: (state) => state.artifacts,
+    artifactVersions: (state) => state.artifactVersions,
+    equipments: (state) => state.equipments,
+    equipmentVersions: (state) => state.equipmentVersions,
+    newDeck: (state) => state.newDeck,
+    newDeckCards: (state) => state.newDeckCards,
+    loadouts: (state) => state.loadouts,
+  },
+
   mutations: {
     setNewDeck(state, payload) {
       state.newDeck = payload;
@@ -85,6 +105,12 @@ export const cardInfo = {
     },
     appendArtifacts(state, payload) {
       state.artifacts = state.artifacts.concat(payload);
+    },
+    setLoadouts(state, payload) {
+      state.loadouts = payload;
+    },
+    appendLoadouts(state, payload) {
+      state.loadouts = state.loadout.concat(payload);
     },
     setArtifactVersions(state, payload) {
       state.artifactVersions = payload;
@@ -907,16 +933,68 @@ export const cardInfo = {
         return Promise.reject(error);
       }
     },
+
+     /**
+     * Loadouts
+     */
+      async getLoadout(_, loadoutId) {
+        return await API.graphql({
+          query: getLoadoutQuery,
+          variables: { id: loadoutId },
+          authMode: "API_KEY",
+        });
+      },
+  
+      async updateLoadout(_, data) {
+        let { file, loadoutData } = data;
+        
+        // remove old updatedAt to use the most recent date
+        delete loadoutData.updatedAt;
+        try {
+          await API.graphql(
+            graphqlOperation(updateLoadoutMutation, {
+              input: loadoutData,
+            })
+          );
+          return Promise.resolve("success");
+        } catch (error) {
+          console.log("updateLoadoutMutation error", error);
+          return Promise.reject(error);
+        }
+      },
+  
+      async getLoadoutsData({ commit }) {
+        var loadoutsData = await API.graphql({
+          query: listLoadoutsQuery,
+          authMode: "API_KEY",
+        });
+        commit("setLoadouts", loadoutsData.data.listLoadouts.items);
+        while (loadoutsData.data.listLoadouts.nextToken) {
+          loadoutsData = await API.graphql({
+            query: listLoadoutsQuery,
+            variables: {
+              nextToken: loadoutsData.data.listLoadouts.nextToken,
+            },
+            authMode: "API_KEY",
+          });
+          commit("appendLoadouts", loadoutsData.data.listloadouts.items);
+        }
+      },
+
+      async createLoadout(_, data) {
+        const { file, loadoutData } = data;
+        const loadoutId = uuid();
+        try {
+          let result = await API.graphql(
+            graphqlOperation(createLoadoutMutation, { input: loadoutData })
+          );
+          return Promise.resolve(result);
+        } catch (error) {
+          console.log("createLoadout error", error);
+          return Promise.reject(error);
+        }
+      },
   },
-  getters: {
-    cards: (state) => state.cards,
-    cardVersions: (state) => state.cardVersions,
-    decks: (state) => state.decks,
-    artifacts: (state) => state.artifacts,
-    artifactVersions: (state) => state.artifactVersions,
-    equipments: (state) => state.equipments,
-    equipmentVersions: (state) => state.equipmentVersions,
-    newDeck: (state) => state.newDeck,
-    newDeckCards: (state) => state.newDeckCards,
-  },
+
+     
 };

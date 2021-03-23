@@ -20,6 +20,15 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
+        <v-list-item key="Wiki" href="https://wiki.mlarpg.com" link>
+          <v-list-item-icon>
+            <v-icon>mdi-wikipedia</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Wiki</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
         <v-list-item v-if="!user" key="Login" to="/login" link>
           <v-list-item-icon>
             <v-icon>mdi-login</v-icon>
@@ -68,8 +77,8 @@
       >
       </v-switch>
     </v-navigation-drawer>
-    <v-app-bar app src="./assets/other/book-1769625_640-min.png">
-      <template v-slot:img="{ props }">
+    <v-app-bar app src="./assets/img/header.jpg">
+      <template v-slot:img="{ props }" v-if="!$vuetify.theme.dark">
         <v-img
           v-bind="props"
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
@@ -77,8 +86,6 @@
       </template>
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-app-bar-title>MLaRPG.com</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
@@ -105,8 +112,14 @@ export default {
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Create New Deck", icon: "mdi-newspaper-plus", to: "/adddeck" },
-      { title: "Decks", icon: "mdi-newspaper", to: "/decks" },
+      { title: "Decks", icon: "mdi-playlist-check", to: "/decks" },
+      { title: "Deck Builder", icon: "mdi-playlist-edit", to: "/adddeck" },
+      { title: "Loadout List", icon: "mdi-newspaper", to: "/loadouts" },
+      {
+        title: "Loadout Builder",
+        icon: "mdi-newspaper-plus",
+        to: "/loadoutbuilder",
+      },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Cards", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },

@@ -7,7 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "^0.3.2",
+    "@aws-amplify/auth": "^3.4.28",
+    "@aws-amplify/cache": "^3.1.53",
+    "@aws-amplify/core": "^3.8.20",
+    "@aws-amplify/interactions": "^3.3.28",
+    "@aws-amplify/storage": "^3.3.28",
+    "@aws-amplify/ui-vue": "^1.0.5",
     "aws-amplify": "^3.3.18",
     "aws-amplify-vue": "^2.1.5",
     "core-js": "^3.8.3",
@@ -17,6 +22,7 @@
     "vue-recaptcha": "^1.3.0",
     "vue-router": "^3.5.1",
     "vue-social-sharing": "^3.0.5",
+    "vue-youtube-embed": "^2.2.2",
     "vuetify": "^2.4.4",
     "vuex": "^3.6.2"
   },
@@ -28,7 +34,8 @@
     "@vue/cli-service": "~4.5.11",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-vuetify": "~2.1.0",
+    "vue-cli-plugin-vuetify": "~2.3.1",
+    "vue-cli-plugin-webpack-bundle-analyzer": "~4.0.0",
     "vue-template-compiler": "^2.6.12",
     "vuetify-loader": "^1.7.2"
   }

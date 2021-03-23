@@ -823,3 +823,192 @@ export const deleteEquipmentVersion = /* GraphQL */ `
     }
   }
 `;
+export const createLoadout = /* GraphQL */ `
+  mutation CreateLoadout(
+    $input: CreateLoadoutInput!
+    $condition: ModelLoadoutConditionInput
+  ) {
+    createLoadout(input: $input, condition: $condition) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      youtubeUrl
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const updateLoadout = /* GraphQL */ `
+  mutation UpdateLoadout(
+    $input: UpdateLoadoutInput!
+    $condition: ModelLoadoutConditionInput
+  ) {
+    updateLoadout(input: $input, condition: $condition) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      youtubeUrl
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
+export const deleteLoadout = /* GraphQL */ `
+  mutation DeleteLoadout(
+    $input: DeleteLoadoutInput!
+    $condition: ModelLoadoutConditionInput
+  ) {
+    deleteLoadout(input: $input, condition: $condition) {
+      id
+      owner
+      ownerId
+      name
+      imgUrl
+      imgFullSize {
+        region
+        bucket
+        key
+      }
+      imgThumbnail {
+        region
+        bucket
+        key
+      }
+      youtubeUrl
+      type
+      shortDescription
+      longDescription
+      class
+      deck
+      equipments {
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      artifacts {
+        id
+        name
+        imgUrl
+        rarity
+        tier
+        description
+        bonusR10
+        bonusR20
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
+      createdAt
+      updatedAt
+      version
+    }
+  }
+`;
