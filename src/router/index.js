@@ -36,6 +36,37 @@ const routes = [
       ],
     },
   },
+  
+  {
+    path: "/preview",
+    name: "Preview",
+    component: () => import("../views/Preview.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Magic: Legends ARPG - Best deck, class, cards and artifacts",
+      metaTags: [
+        {
+          name: "og:title",
+          content:
+            "Magic: Legends ARPG - Best deck, class, cards and artifacts",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
+    },
+  },
   {
     path: "/login",
     name: "Login",

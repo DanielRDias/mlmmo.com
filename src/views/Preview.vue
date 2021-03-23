@@ -56,7 +56,7 @@ export default {
         page: 1, // Current page of the collection.
         //_embed: ["wp:featuredmedia"], //Response should include embedded resources.
         _fields: ["date", "excerpt", "title", "jetpack_featured_media_url"],
-        categories: [19],
+        categories: [19, 20],
       },
       // Returned Posts in an Array
       posts: [],
