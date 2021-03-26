@@ -90,4 +90,8 @@ export default {
 #app {
   padding: 100px;
 }
+.v-card__text,
+.v-card__title {
+  word-break: normal !important; /* maybe !important  */
+}
 </style>
