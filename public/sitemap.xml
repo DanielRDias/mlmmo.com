@@ -10,10 +10,6 @@
         <lastmod>2021-02-17T23:03:02+00:00</lastmod>
     </url>
     <url>
-        <loc>https://www.mlarpg.com/beta</loc>
-        <lastmod>2021-03-04T23:03:02+00:00</lastmod>
-    </url>
-    <url>
         <loc>https://www.mlarpg.com/cookiedeclaration</loc>
         <lastmod>2021-02-18T19:03:02+00:00</lastmod>
     </url>
@@ -64,5 +60,25 @@
     <url>
         <loc>https://www.mlarpg.com/geomancerlore</loc>
         <lastmod>2021-02-16T14:53:02+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://wiki.mlarpg.com/wiki/Main_Page</loc>
+        <lastmod>2021-03-23T14:53:02+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://wiki.mlarpg.com/wiki/Magic_Legends</loc>
+        <lastmod>2021-03-23T14:53:02+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.mlarpg.com/</loc>
+        <lastmod>2021-03-23T14:53:02+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://www.mlarpg.com/loadouts</loc>
+        <lastmod>2021-03-23T14:53:02+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://www.mlarpg.com/loadoutbuilder</loc>
+        <lastmod>2021-03-23T14:53:02+00:00</lastmod>
     </url>
 </urlset>
