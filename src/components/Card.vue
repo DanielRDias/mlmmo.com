@@ -144,8 +144,8 @@
       </v-row>
     </v-list>
 
-    <v-card-text class="mt-n3 mb-n3"
-      ><strong>Description:</strong> {{ this.currentCard.description }}
+    <v-card-text class="mt-n3 mb-n3">
+      <strong>Description:</strong> {{ cardDescription }}
     </v-card-text>
   </v-card>
 </template>
@@ -164,7 +164,7 @@ export default {
       default: null,
     },
   },
-  async mounted() {
+  async created() {
     if (this.$props.currentCardInput !== null) {
       this.currentCard = this.$props.currentCardInput;
     } else if (this.$props.currentCardId !== null) {
@@ -174,6 +174,23 @@ export default {
       );
       this.currentCard = this.getCardData.data.getCard;
     }
+  },
+  computed: {
+    cardDescription: function () {
+      let p = this.currentCard.properties;
+      let s = this.currentCard.description;
+      let rank = this.cardRank;
+      console.log(p, "s", s, "rank", rank);
+      let description = s.replace(/\{(.*?)}/g, function (key, value) {
+        console.log(key, value);
+        if (p[rank][value]) {
+          return p[rank][value];
+        } else {
+          return key;
+        }
+      });
+      return description;
+    },
   },
   methods: {
     copyText() {
@@ -242,7 +259,7 @@ export default {
         ],
         description: "?",
       },
-      cardRank: 9,
+      cardRank: 0,
       getCardData: null,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       rank: 0,
