@@ -69,8 +69,6 @@ export default {
         .get(this.postsUrl, { params: this.queryOptions })
         .then((response) => {
           this.posts = response.data;
-          console.log("Posts retrieved!");
-          console.log(this.posts);
         })
         .catch((error) => {
           console.log(error);
