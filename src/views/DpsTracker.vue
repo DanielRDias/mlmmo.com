@@ -1,8 +1,9 @@
 <template>
-  <div class="home">
+  <div class="keldon">
     <div
+      class="pa-5"
       v-html="posts[0].content.rendered"
-      style="width: 800px; margin: 0 auto"
+      style="max-width: 800px; margin: 0 auto"
     ></div>
     <div id="CookieDeclarationUserStatusPanel">
       <p align="right">
@@ -52,5 +53,10 @@ export default {
 <style>
 #app {
   padding: 100px;
+}
+
+.keldon {
+  color: #ccc !important;
+  background: #123 !important;
 }
 </style>
