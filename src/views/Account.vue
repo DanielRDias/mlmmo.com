@@ -1,5 +1,8 @@
 <template>
-  <div class="account pa-1">
+  <div class="account pa-5">
+    <div style="float: right">
+      <v-btn @click="logout"> <v-icon>mdi-logout</v-icon> Logout </v-btn>
+    </div>
     <h1>{{ user ? user.username : "My" }} account</h1>
     <br />
     <div v-if="mod">
@@ -54,7 +57,7 @@
 
 <script>
 import Decks from "@/components/Decks.vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -86,6 +89,13 @@ export default {
     ...mapGetters({
       user: "auth/user",
     }),
+  },
+  methods: {
+    ...mapActions("auth", ["authAction"]),
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
   },
 };
 </script>
