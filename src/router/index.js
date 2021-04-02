@@ -36,7 +36,7 @@ const routes = [
       ],
     },
   },
-  
+
   {
     path: "/preview",
     name: "Preview",
@@ -480,6 +480,33 @@ const routes = [
           property: "og:description",
           content:
             "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
+    },
+  },
+  {
+    path: "/dpstracker",
+    name: "DpsTracker",
+    component: () => import("../views/DpsTracker.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "DPS Tracker - Magic: Legends DPS Tracker",
+      metaTags: [
+        {
+          name: "og:title",
+          content: "DPS Tracker - Magic: Legends DPS Tracker",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content: "Track your DPS in Magic: Legends",
+        },
+        {
+          property: "og:description",
+          content: "Track your DPS in Magic: Legends",
         },
       ],
     },
