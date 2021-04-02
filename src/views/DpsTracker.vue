@@ -59,4 +59,7 @@ export default {
   color: #ccc !important;
   background: #123 !important;
 }
+figcaption {
+  text-align: center;
+}
 </style>
