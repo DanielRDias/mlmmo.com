@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
@@ -147,6 +147,7 @@ export default {
     themeToggleEvent(event) {
       localStorage.setItem("darktheme", event);
     },
+    ...mapActions("auth", ["authAction"]),
   },
   computed: {
     ...mapGetters({
