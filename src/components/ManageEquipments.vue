@@ -153,7 +153,7 @@ export default {
       this.equipment = getEquipmentData.data.getEquipment;
     } else {
       if (!(this.admin | this.mod)) {
-        this.$router.push("/equipments");
+        this.$router.push("/equipment");
       }
     }
 

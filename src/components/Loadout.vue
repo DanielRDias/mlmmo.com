@@ -136,7 +136,7 @@
       </v-row>
     </v-card>
     <v-card>
-      <v-card-title>Equipments</v-card-title>
+      <v-card-title>Equipment</v-card-title>
       <v-row>
         <v-col cols="12" md="4" sm="12">
           <Equipment v-if="headList[0]" :currentEquipmentInput="headList[0]" />

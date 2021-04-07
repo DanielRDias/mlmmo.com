@@ -123,9 +123,9 @@ export default {
         to: "/loadoutbuilder",
       },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
-      { title: "Cards", icon: "mdi-cards", to: "/cards" },
-      { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
-      { title: "Equipments", icon: "mdi-tshirt-crew", to: "/equipments" },
+      { title: "Spells", icon: "mdi-cards", to: "/cards" },
+      { title: "Artifact", icon: "mdi-dots-triangle", to: "/artifacts" },
+      { title: "Equipment", icon: "mdi-tshirt-crew", to: "/equipment" },
       {
         title: "Collection Checklist",
         icon: "mdi-format-list-checks",
