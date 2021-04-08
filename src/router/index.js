@@ -307,8 +307,8 @@ const routes = [
     },
   },
   {
-    path: "/equipment",
-    name: "Equipment",
+    path: "/equipments",
+    name: "Equipments",
     component: () => import("../views/Equipments.vue"),
     meta: {
       requiresAuth: false,
