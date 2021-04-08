@@ -128,16 +128,30 @@
       </v-col>
     </v-row>
     <v-list class="mt-n3 mb-n3">
-      <v-row>
-        <v-col
-          cols="6"
-          v-for="(value, name, index) in currentCard.properties[cardRank]"
-          :key="index"
-        >
+      <v-row
+        v-if="
+          (this.currentCard.type.toLowerCase() === 'creature') &
+          ((typeof this.currentCard.power !== 'undefined') &
+            (this.currentCard.power !== null) &
+            (this.currentCard.power !== '')) &
+          ((typeof this.currentCard.toughness !== 'undefined') &
+            (this.currentCard.toughness !== null) &
+            (this.currentCard.toughness !== ''))
+        "
+      >
+        <v-col cols="6">
           <v-list-item dense class="mt-n3 mb-n3">
-            <v-list-item-title>{{ name }}</v-list-item-title>
+            <v-list-item-title>DPS</v-list-item-title>
             <v-list-item-subtitle class="text-right">
-              {{ value }}
+              {{ dps }}
+            </v-list-item-subtitle>
+          </v-list-item>
+        </v-col>
+        <v-col cols="6">
+          <v-list-item dense class="mt-n3 mb-n3">
+            <v-list-item-title>Health</v-list-item-title>
+            <v-list-item-subtitle class="text-right">
+              {{ health }}
             </v-list-item-subtitle>
           </v-list-item>
         </v-col>
@@ -180,9 +194,7 @@ export default {
       let p = this.currentCard.properties;
       let s = this.currentCard.description;
       let rank = this.cardRank;
-      console.log(p, "s", s, "rank", rank);
       let description = s.replace(/\{(.*?)}/g, function (key, value) {
-        console.log(key, value);
         if (p[rank][value]) {
           return p[rank][value];
         } else {
@@ -190,6 +202,24 @@ export default {
         }
       });
       return description;
+    },
+    dps: function () {
+      let dps = 152.5;
+
+      dps = dps * this.currentCard.power;
+
+      for (var i = 0; i < this.cardRank; i++) {
+        dps += dps * this.dpsChange[i];
+      }
+
+      return Math.round(dps);
+    },
+    health: function () {
+      let hp = 5545.75;
+      for (var i = 0; i < this.cardRank; i++) {
+        hp += hp * this.hpChange[i];
+      }
+      return Math.round(hp);
     },
   },
   methods: {
@@ -257,9 +287,33 @@ export default {
             rank: 10,
           },
         ],
+        KeyValue: [{ key: "DPS", value: "152.5", type: "DPS" }],
+        cardValues: [],
         description: "?",
       },
       cardRank: 0,
+      dpsChange: [
+        0.1639,
+        0.1549,
+        0.1415,
+        0.1346,
+        0.1243,
+        0.1156,
+        0.1111,
+        0.1081,
+        0.1024,
+      ],
+      hpChange: [
+        0.1653,
+        0.1532,
+        0.1427,
+        0.1335,
+        0.1254,
+        0.1227,
+        0.1151,
+        0.1029,
+        0.0957,
+      ],
       getCardData: null,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       rank: 0,

@@ -118,7 +118,6 @@ export default {
         to: "/loadoutbuilder",
       },
       { title: "DPS Tracker", icon: "mdi-sword-cross", to: "/dpstracker" },
-
       {
         title: "Collection Checklist",
         icon: "mdi-format-list-checks",
