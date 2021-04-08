@@ -96,6 +96,11 @@ export const createCard = /* GraphQL */ `
         range
         area
       }
+      cardValues {
+        key
+        value
+        type
+      }
       description
       updatedBy
       updatedById
@@ -143,6 +148,11 @@ export const updateCard = /* GraphQL */ `
         range
         area
       }
+      cardValues {
+        key
+        value
+        type
+      }
       description
       updatedBy
       updatedById
@@ -189,6 +199,11 @@ export const deleteCard = /* GraphQL */ `
         duration
         range
         area
+      }
+      cardValues {
+        key
+        value
+        type
       }
       description
       updatedBy
