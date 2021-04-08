@@ -119,7 +119,7 @@
                             <v-btn
                               small
                               :to="{
-                                name: 'ManageEquipments',
+                                name: 'ManageEquipment',
                                 query: { equipmentId: item.id },
                               }"
                               target="_blank"

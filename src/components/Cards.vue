@@ -364,16 +364,6 @@ export default {
       keysSort: ["Name", "CMC", "Color", "Type", "Points"],
       keysShow: ["CMC", "Type", "Points"],
       ranks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      properties: [
-        "Rank",
-        "Damage",
-        "Health",
-        "DPS",
-        "Role",
-        "Duration",
-        "Range",
-        "Area",
-      ],
       colorFilterSelect: "All",
       mtgcolors: [
         { name: "White", image: "img/mana/W.svg" },

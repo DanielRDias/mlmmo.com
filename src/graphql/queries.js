@@ -75,6 +75,11 @@ export const getCard = /* GraphQL */ `
         range
         area
       }
+      cardValues {
+        key
+        value
+        type
+      }
       description
       updatedBy
       updatedById
@@ -533,20 +538,20 @@ export const getLoadout = /* GraphQL */ `
       class
       deck
       equipments {
-          id
-          name
-          imgUrl
-          imgTmogUrl
-          rarity
-          slot
-          description
-          mods
-          updatedBy
-          updatedById
-          createdAt
-          updatedAt
-          version
-        }
+        id
+        name
+        imgUrl
+        imgTmogUrl
+        rarity
+        slot
+        description
+        mods
+        updatedBy
+        updatedById
+        createdAt
+        updatedAt
+        version
+      }
       artifacts {
         id
         name

@@ -37,7 +37,7 @@
 
       <v-row>
         <v-col cols="2">
-          <v-btn to="manageequipments" elevation="6">
+          <v-btn to="manageequipment" elevation="6">
             <v-icon>mdi-tshirt-crew</v-icon> Add Equipment
           </v-btn>
         </v-col>
