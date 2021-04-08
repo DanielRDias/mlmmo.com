@@ -485,6 +485,33 @@ const routes = [
     },
   },
   {
+    path: "/dpstracker",
+    name: "DpsTracker",
+    component: () => import("../views/DpsTracker.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "DPS Tracker - Magic: Legends DPS Tracker",
+      metaTags: [
+        {
+          name: "og:title",
+          content: "DPS Tracker - Magic: Legends DPS Tracker",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content: "Track your DPS in Magic: Legends",
+        },
+        {
+          property: "og:description",
+          content: "Track your DPS in Magic: Legends",
+        },
+      ],
+    },
+  },
+  {
     path: "/geomancerlore",
     name: "GeomancerLore",
     component: () => import("../views/GeomancerLore.vue"),

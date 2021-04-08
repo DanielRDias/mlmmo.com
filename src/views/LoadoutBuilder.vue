@@ -799,6 +799,7 @@ export default {
         "Necromancer",
         "Geomancer",
         "Beast Caller",
+        "Dimir Assassin",
       ],
       deckList: [],
       deckImgs: {},

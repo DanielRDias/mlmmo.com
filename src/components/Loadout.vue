@@ -93,8 +93,8 @@
       <v-row>
         <v-col cols="12" md="4" sm="12">
           <Artifact
-            v-if="artifactLesserList[2]"
-            :currentArtifactInput="artifactLesserList[2]"
+            v-if="artifactLesserList[0]"
+            :currentArtifactInput="artifactLesserList[0]"
           />
           <v-skeleton-loader
             v-else

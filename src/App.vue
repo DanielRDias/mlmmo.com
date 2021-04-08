@@ -12,6 +12,32 @@
       </router-link>
       <v-divider></v-divider>
       <v-list dense nav>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header class="justify-self-start">
+              <div>
+                <v-icon class="mr-5">mdi-tools</v-icon>
+                <span>Tools</span>
+              </div>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-list-item
+                v-for="item in tools"
+                :key="item.title"
+                :to="item.to"
+                link
+              >
+                <v-list-item-icon>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
         <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -31,40 +57,12 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item v-if="!user" key="Login" to="/login" link>
-          <v-list-item-icon>
-            <v-icon>mdi-login</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Login</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-if="!user" key="Register" to="/register" link>
-          <v-list-item-icon>
-            <v-icon>mdi-account-plus</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Register</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-if="user" key="account" to="/account" link>
+        <v-list-item key="account" to="/account" link>
           <v-list-item-icon>
             <v-icon>mdi-account</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>My Account</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-if="user">
-          <v-list-item-icon> </v-list-item-icon>
-          <v-list-item-content> </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-if="user" key="Logout" @click="logout" link>
-          <v-list-item-icon>
-            <v-icon>mdi-logout</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -112,25 +110,27 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
-    items: [
-      { title: "Home", icon: "mdi-home", to: "/" },
-      { title: "Decks", icon: "mdi-playlist-check", to: "/decks" },
+    tools: [
       { title: "Deck Builder", icon: "mdi-playlist-edit", to: "/adddeck" },
-      { title: "Loadout List", icon: "mdi-newspaper", to: "/loadouts" },
       {
         title: "Loadout Builder",
         icon: "mdi-newspaper-plus",
         to: "/loadoutbuilder",
       },
-      { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
-      { title: "Spells", icon: "mdi-cards", to: "/cards" },
-      { title: "Artifact", icon: "mdi-dots-triangle", to: "/artifacts" },
-      { title: "Equipment", icon: "mdi-tshirt-crew", to: "/equipments" },
+      { title: "DPS Tracker", icon: "mdi-sword-cross", to: "/dpstracker" },
       {
         title: "Collection Checklist",
         icon: "mdi-format-list-checks",
         to: "/collectionchecklist",
       },
+    ],
+    items: [
+      { title: "Decks", icon: "mdi-playlist-check", to: "/decks" },
+      { title: "Loadout List", icon: "mdi-newspaper", to: "/loadouts" },
+      { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
+      { title: "Cards", icon: "mdi-cards", to: "/cards" },
+      { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
+      { title: "Equipments", icon: "mdi-tshirt-crew", to: "/equipments" },
       {
         title: "Content Creators",
         icon: "mdi-video-vintage",
@@ -147,10 +147,6 @@ export default {
       localStorage.setItem("darktheme", event);
     },
     ...mapActions("auth", ["authAction"]),
-    async logout() {
-      await this.$store.dispatch("auth/logout");
-      this.$router.push("/");
-    },
   },
   computed: {
     ...mapGetters({

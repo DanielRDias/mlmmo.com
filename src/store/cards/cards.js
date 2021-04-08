@@ -894,7 +894,7 @@ export const cardInfo = {
           },
           authMode: "API_KEY",
         });
-        commit("appendEquipments", equipmentsData.data.listequipments.items);
+        commit("appendEquipments", equipmentsData.data.listEquipments.items);
       }
     },
     async createEquipment(_, data) {
@@ -934,67 +934,65 @@ export const cardInfo = {
       }
     },
 
-     /**
+    /**
      * Loadouts
      */
-      async getLoadout(_, loadoutId) {
-        return await API.graphql({
-          query: getLoadoutQuery,
-          variables: { id: loadoutId },
-          authMode: "API_KEY",
-        });
-      },
-  
-      async updateLoadout(_, data) {
-        let { file, loadoutData } = data;
-        
-        // remove old updatedAt to use the most recent date
-        delete loadoutData.updatedAt;
-        try {
-          await API.graphql(
-            graphqlOperation(updateLoadoutMutation, {
-              input: loadoutData,
-            })
-          );
-          return Promise.resolve("success");
-        } catch (error) {
-          console.log("updateLoadoutMutation error", error);
-          return Promise.reject(error);
-        }
-      },
-  
-      async getLoadoutsData({ commit }) {
-        var loadoutsData = await API.graphql({
+    async getLoadout(_, loadoutId) {
+      return await API.graphql({
+        query: getLoadoutQuery,
+        variables: { id: loadoutId },
+        authMode: "API_KEY",
+      });
+    },
+
+    async updateLoadout(_, data) {
+      let { file, loadoutData } = data;
+
+      // remove old updatedAt to use the most recent date
+      delete loadoutData.updatedAt;
+      try {
+        await API.graphql(
+          graphqlOperation(updateLoadoutMutation, {
+            input: loadoutData,
+          })
+        );
+        return Promise.resolve("success");
+      } catch (error) {
+        console.log("updateLoadoutMutation error", error);
+        return Promise.reject(error);
+      }
+    },
+
+    async getLoadoutsData({ commit }) {
+      var loadoutsData = await API.graphql({
+        query: listLoadoutsQuery,
+        authMode: "API_KEY",
+      });
+      commit("setLoadouts", loadoutsData.data.listLoadouts.items);
+      while (loadoutsData.data.listLoadouts.nextToken) {
+        loadoutsData = await API.graphql({
           query: listLoadoutsQuery,
+          variables: {
+            nextToken: loadoutsData.data.listLoadouts.nextToken,
+          },
           authMode: "API_KEY",
         });
-        commit("setLoadouts", loadoutsData.data.listLoadouts.items);
-        while (loadoutsData.data.listLoadouts.nextToken) {
-          loadoutsData = await API.graphql({
-            query: listLoadoutsQuery,
-            variables: {
-              nextToken: loadoutsData.data.listLoadouts.nextToken,
-            },
-            authMode: "API_KEY",
-          });
-          commit("appendLoadouts", loadoutsData.data.listloadouts.items);
-        }
-      },
+        commit("appendLoadouts", loadoutsData.data.listloadouts.items);
+      }
+    },
 
-      async createLoadout(_, data) {
-        const { file, loadoutData } = data;
-        const loadoutId = uuid();
-        try {
-          let result = await API.graphql(
-            graphqlOperation(createLoadoutMutation, { input: loadoutData })
-          );
-          return Promise.resolve(result);
-        } catch (error) {
-          console.log("createLoadout error", error);
-          return Promise.reject(error);
-        }
-      },
+    async createLoadout(_, data) {
+      const { file, loadoutData } = data;
+      const loadoutId = uuid();
+      try {
+        let result = await API.graphql(
+          graphqlOperation(createLoadoutMutation, { input: loadoutData })
+        );
+        return Promise.resolve(result);
+      } catch (error) {
+        console.log("createLoadout error", error);
+        return Promise.reject(error);
+      }
+    },
   },
-
-     
 };
