@@ -87,6 +87,7 @@ type CardItem {
   toughness: String
   rarity: String
   properties: [CardProperties]
+  cardValues: [KeyValue]
   description: String
   updatedBy: String
   updatedById: String

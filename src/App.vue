@@ -128,9 +128,9 @@ export default {
       { title: "Decks", icon: "mdi-playlist-check", to: "/decks" },
       { title: "Loadout List", icon: "mdi-newspaper", to: "/loadouts" },
       { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
-      { title: "Cards", icon: "mdi-cards", to: "/cards" },
+      { title: "Spells", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
-      { title: "Equipments", icon: "mdi-tshirt-crew", to: "/equipments" },
+      { title: "Equipment", icon: "mdi-tshirt-crew", to: "/equipments" },
       {
         title: "Content Creators",
         icon: "mdi-video-vintage",
