@@ -176,7 +176,7 @@ export const cardInfo = {
       });
     },
     async getDecksData({ commit }) {
-      const decksData = await API.graphql({
+      var decksData = await API.graphql({
         query: listDecksQuery,
         authMode: "API_KEY",
       });
