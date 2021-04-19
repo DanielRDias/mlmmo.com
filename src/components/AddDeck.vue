@@ -1,5 +1,12 @@
 <template>
   <v-card class="mx-auto" max-width="500">
+    <v-overlay :value="loading ? true : false">
+      <v-progress-circular
+        indeterminate
+        size="64"
+        v-if="loading ? true : false"
+      ></v-progress-circular>
+    </v-overlay>
     <v-toolbar color="blue-grey lighten-1">
       <v-toolbar-title>
         <v-text-field
@@ -112,6 +119,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       errorMsg: "",
       successMsg: "",
       myNewDeckCards: [],
@@ -206,28 +214,38 @@ export default {
     },
     async addDeck() {
       try {
+        this.loading = true;
+        var result;
         if (!/\S/.test(this.deck.name)) {
           this.errorMsg = "Deck Name can't be empty";
+          this.loading = false;
           return -1;
         }
         if (this.deck.cards.length != 12) {
           this.errorMsg = "A Deck must contain 12 cards";
+          this.loading = false;
           return -1;
         }
         if (this.user) {
           this.deck.owner = this.user.username;
           this.deck.ownerId = this.user.id;
-          await this.$store.dispatch("cardInfo/createDeck", this.deck);
+          result = await this.$store.dispatch("cardInfo/createDeck", this.deck);
         } else {
           console.log("create anonymous user deck");
-          await this.$store.dispatch("cardInfo/createAnonymousDeck", this.deck);
+          result = await this.$store.dispatch(
+            "cardInfo/createAnonymousDeck",
+            this.deck
+          );
         }
         this.errorMsg = "";
-        this.successMsg = "Deck created!";
+        this.$router.push("/deck?deckId=" + result.data.createDeck.id);
+        this.loading = false;
       } catch (error) {
         console.log("error adding the deck", error);
         this.errorMsg = error;
+        this.loading = false;
       }
+      this.loading = false;
     },
   },
 };
