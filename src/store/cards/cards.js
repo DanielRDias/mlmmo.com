@@ -138,11 +138,13 @@ export const cardInfo = {
      */
     async createDeck(_, data) {
       try {
-        await API.graphql(
+        let result = await API.graphql(
           graphqlOperation(createDeckMutation, { input: data })
         );
+        return Promise.resolve(result);
       } catch (error) {
         console.error("create deck", error);
+        return Promise.reject(error);
       }
     },
     async deleteDeck(_, deckId) {
@@ -179,7 +181,16 @@ export const cardInfo = {
         authMode: "API_KEY",
       });
       commit("setDecks", decksData.data.listDecks.items);
+      while (decksData.data.listDecks.nextToken) {
+        decksData = await API.graphql({
+          query: listDecksQuery,
+          variables: { nextToken: decksData.data.listDecks.nextToken },
+          authMode: "API_KEY",
+        });
+        commit("appendDecks", decksData.data.listDecks.items);
+      }
     },
+
     async getUserDecksData({ commit }) {
       const decksData = await API.graphql(graphqlOperation(listDecksQuery));
       commit("setDecks", decksData.data.listDecks.items);
