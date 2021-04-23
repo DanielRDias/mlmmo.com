@@ -1,49 +1,61 @@
----
-title: Getting Started
----
+# Getting Started
 
-# Goal
+## Goal
 
 This document will take you through the steps of getting [mlarpg.com](https://www.mlarpg.com/) running on your own machine.
 
-# Prerequisite
+## Prerequisite
 
-This document assumes you are working on a Mac and that you have a working knowledge of Git, Vue, Node, Yarn, and AWS Amplify. 
+This document assumes you are working on a Mac and that you have a working knowledge of Git, Vue, Node, NPM or Yarn, and AWS Amplify.
 
 If you don't, you are still encouraged to follow the document until you get stuck. At which point, it is recommended to find additional reference material to help yourself get unstuck. Or to ask for help in the discord.
 
-# Get the project code
+### Get the project code
 
 Open up the terminal and git clone the project.
 
-### ./
 ```bash
 git clone https://github.com/DanielRDias/mlmmo.com.git
 ```
 
 Change your terminal directory to the project root.
 
-### ./
 ```bash
 cd mlmmo.com
 ```
 
-# Project Setup
+## Project Setup
 
 ---
 
-## Run yarn install
+### Run npm or yarn install
 
-### ./
+```shell
+npm install
+```
+
+or
+
 ```shell
 yarn install
 ```
 
----
+### Run amplify mock
 
-## Configure Amplify.
+```shell
+amplify mock
+```
 
-### ./
+### Run amplify start
+
+```shell
+amplify run start
+```
+
+## Optional - Setup AWS project
+
+### Configure Amplify
+
 ```shell
 amplify configure
 ```
@@ -58,9 +70,8 @@ You *can* remove amplify from your local copy to be able to build the project wi
 
 ---
 
-## Initialize the AWS Amplify project
+### Initialize the AWS Amplify project
 
-### ./
 ```shell
 amplify init
 ```
@@ -69,8 +80,8 @@ You can just enter through all the options presented.
 
 For the options that force an input, provide any value and move on.
 
-```
-# Output example
+```shell
+## Output example
 
 ...
 
@@ -106,15 +117,14 @@ Your project has been successfully initialized and connected to the cloud!
 
 **Facebook App ID and Google Web Client ID?**
 
-You may have noticed Facebook and Google API keys and tokens as required values. 
+You may have noticed Facebook and Google API keys and tokens as required values.
 
 These are only for Oauth login methods. You could go onto the Facebook and Google developer dashboards and create app projects to get these values for your testing, but that is out of the scope of this document and not needed for getting started.
 
 ---
 
-## Push Amplify project
+### Push Amplify project
 
-### ./
 ```shell
 amplify push
 ```
@@ -123,15 +133,13 @@ Select **Y**(Yes) for all given options.
 
 ---
 
+### Run the mock API
 
-## Run the mock API.
-
-### ./
 ```shell
  amplify mock api
 ```
 
-Open the [mock API](http://localhost:20002/). 
+Open the [mock API](http://localhost:20002/).
 
 Select **[Auth - User Pool]** and **[Updated Auth]**.
 
@@ -141,12 +149,12 @@ Click **[Generate Token]**.
 
 Your future mock GraphQL calls will use this created auth instance automatically.
 
-
-## Create the Mock Data
+### Create the Mock Data
 
 Enter the following text into the GraphiQL Editor.
 
-### http://localhost:20002/
+### Local mock api @ localhost:20002
+
 ```graphql
 mutation CreateCard {
   createWhiteCreature: createCard(
@@ -254,8 +262,6 @@ You can check the [production website's](https://www.mlarpg.com/) network respon
 
 In a new terminal under the project root, run the project.
 
-
-### ./
 ```shell
 cd mlmmo.com
 yarn run serve
@@ -280,4 +286,3 @@ Head over to the [Create New Deck](http://localhost:8080/adddeck) page, and buil
 You are at an excellent point to start making your own additions to the website. Where you go from here is up to you!
 
 Contact people on the discord for ideas.
-

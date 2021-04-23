@@ -1,23 +1,32 @@
-# mlarpg.com
+# MLaRPG.com
 
-## Project setup
+## Project Setup
 
-```bash
+### Run npm or yarn install
+
+```shell
 npm install
 ```
 
-### Compiles and hot-reloads for development
+or
 
-```bash
-npm run serve
+```shell
+yarn install
 ```
 
-### Compiles and minifies for production
+### Run amplify mock
 
-```bash
-npm run build
+```shell
+amplify mock
 ```
 
-### Customize configuration
+### Run amplify start
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```shell
+amplify run start
+```
+
+### Add mock data
+
+Open the [mock API](http://localhost:20002/)
+[Create the Mock Data as described in docks/getting-started.md](docs/getting-started.md#create-the-mock-data)
