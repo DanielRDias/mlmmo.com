@@ -1,23 +1,10 @@
-# mlarpg.com
+# MLaRPG.com
+
+MLaRPG Open-source project.
+[Click here to view our project stack](docs/stack.md)
 
 ## Project setup
 
-```bash
-npm install
-```
+[Check our getting started guide](docs/getting-started.md)
 
-### Compiles and hot-reloads for development
-
-```bash
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```bash
-npm run build
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Thanks to @JonathanMcCaffrey for the git setup documentation.
