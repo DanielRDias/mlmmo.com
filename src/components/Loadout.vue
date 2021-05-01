@@ -7,7 +7,7 @@
         <v-img :src="currentLoadout.imgUrl" max-height="400" max-width="400">
         </v-img>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="6" style="white-space: pre-line">
         {{ currentLoadout.shortDescription }}
       </v-col>
     </v-row>
@@ -22,7 +22,13 @@
     <v-card>
       <v-card-title> Class: {{ currentLoadout.class }} </v-card-title>
       <v-row>
-        <v-col cols="12" md="6" sm="12" class="pa-10">
+        <v-col
+          cols="12"
+          md="6"
+          sm="12"
+          class="pa-10"
+          style="white-space: pre-line"
+        >
           {{ currentLoadout.longDescription }}
         </v-col>
         <v-col cols="12" md="6" sm="12">
