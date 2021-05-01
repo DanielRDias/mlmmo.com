@@ -7,4 +7,4 @@ MLaRPG Open-source project.
 
 [Check our getting started guide](docs/getting-started.md)
 
-Thanks to @JonathanMcCaffrey for the git setup documentation.
+Thanks to [@JonathanMcCaffrey](https://github.com/JonathanMcCaffrey) for the git setup documentation.
