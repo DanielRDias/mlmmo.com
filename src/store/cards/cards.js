@@ -159,13 +159,15 @@ export const cardInfo = {
     },
     async createAnonymousDeck(_, data) {
       try {
-        await API.graphql({
+        let result = await API.graphql({
           query: createDeckMutation,
           variables: { input: data },
           authMode: "API_KEY",
         });
+        return Promise.resolve(result);
       } catch (error) {
         console.error("createdeck", error);
+        return Promise.reject(error);
       }
     },
     async getDeck(_, deckId) {

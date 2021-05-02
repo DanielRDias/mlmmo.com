@@ -238,6 +238,7 @@ export default {
           );
         }
         this.errorMsg = "";
+        console.log(result);
         this.$router.push("/deck?deckId=" + result.data.createDeck.id);
         this.loading = false;
       } catch (error) {
