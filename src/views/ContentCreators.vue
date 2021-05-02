@@ -61,10 +61,10 @@ export default {
           url: "https://blog.mlarpg.com/wp-json/wp/v2/posts",
           categories: [21],
         },
-        {
-          url: "https://www.mmorpgtips.com/wp-json/wp/v2/posts",
-          categories: [897],
-        },
+        // {
+        //   url: "https://www.mmorpgtips.com/wp-json/wp/v2/posts",
+        //   categories: [897],
+        // },
       ],
       queryOptions: {
         per_page: 10, // Only retrieve the 2 most recent blog posts.
