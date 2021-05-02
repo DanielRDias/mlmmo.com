@@ -21,10 +21,14 @@
           <strong>Published: {{ getPostDate(post.date) }}</strong>
         </p>
 
-        <p v-if="post['_embedded']['author'][0]['avatar_urls']['24']">
+        <p v-if="post['_embedded']['author']">
           By
-          <v-avatar size="24px">
+          <v-avatar
+            v-if="post['_embedded']['author'][0]['avatar_urls']"
+            size="24px"
+          >
             <img
+              v-if="post['_embedded']['author'][0]['avatar_urls']['24']"
               :alt="post['_embedded']['author'][0]['name']"
               :src="post['_embedded']['author'][0]['avatar_urls']['24']"
             />
@@ -52,7 +56,16 @@ export default {
   data() {
     return {
       // Wordpress Posts Endpoint
-      postsUrl: "https://blog.mlarpg.com/wp-json/wp/v2/posts",
+      postsUrl: [
+        {
+          url: "https://blog.mlarpg.com/wp-json/wp/v2/posts",
+          categories: [21],
+        },
+        // {
+        //   url: "https://www.mmorpgtips.com/wp-json/wp/v2/posts",
+        //   categories: [897],
+        // },
+      ],
       queryOptions: {
         per_page: 10, // Only retrieve the 2 most recent blog posts.
         page: 1, // Current page of the collection.
@@ -64,7 +77,6 @@ export default {
           "jetpack_featured_media_url",
           "_links.author",
         ],
-        categories: [21],
       },
       // Returned Posts in an Array
       posts: [],
@@ -73,16 +85,20 @@ export default {
   methods: {
     // Get Recent Posts From WordPress Site
     getRecentMessages() {
-      axios
-        .get(this.postsUrl, { params: this.queryOptions })
-        .then((response) => {
-          this.posts = response.data;
-          console.log("Posts retrieved!");
-          console.log(this.posts);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      for (var i = 0; i < this.postsUrl.length; i++) {
+        this.queryOptions.categories = this.postsUrl[i].categories;
+
+        axios
+          .get(this.postsUrl[i].url, {
+            params: this.queryOptions,
+          })
+          .then((response) => {
+            this.posts = this.posts.concat(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
     getPostDate(date) {
       return moment(date).format("lll");
