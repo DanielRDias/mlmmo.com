@@ -1,6 +1,11 @@
 <template>
-  <div class="module-border-wrap">
-    <v-card class="mx-auto pa-1" max-width="350">
+  <div class="module-border-wrap" :style="cardBorder">
+    <v-card
+      class="mx-auto pa-1"
+      width="350px"
+      height="700px"
+      style="border-radius: 5px"
+    >
       <v-row class="pa-1">
         <v-col cols="9">
           <h2>{{ this.currentCard.name }}</h2>
@@ -195,6 +200,42 @@ export default {
     }
   },
   computed: {
+    cardBorder: function () {
+      var cardColor = this.currentCard.color
+        ? this.currentCard.color.toLowerCase()
+        : "white";
+
+      var cardRarity = this.currentCard.rarity
+        ? this.currentCard.rarity.toLowerCase()
+        : "common";
+
+      var rarityColor = "white";
+
+      switch (cardRarity) {
+        case "common":
+          rarityColor = "darkgray";
+          break;
+        case "uncommon":
+          rarityColor = "steelblue";
+          break;
+        case "rare":
+          rarityColor = "gold";
+          break;
+        case "mythic":
+          rarityColor = "darkorange";
+          break;
+        default:
+          rarityColor = "gray";
+      }
+
+      return (
+        "background: linear-gradient(to bottom, " +
+        cardColor +
+        ", " +
+        rarityColor +
+        ");"
+      );
+    },
     cardFooter: function () {
       let rarity = this.currentCard.rarity;
       let type = this.currentCard.type;
@@ -303,7 +344,8 @@ export default {
         imgUrl: "logo.png",
         cost: "0",
         cmc: 0,
-        color: "?",
+        color: "White",
+        rarity: "Common",
         type: "?",
         points: 0,
         properties: [
@@ -401,6 +443,20 @@ export default {
 </script>
 
 <style scoped>
+html {
+  overflow: hidden !important;
+}
+
+.v-card {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.v-card__text {
+  flex-grow: 1;
+  overflow: auto;
+}
+
 .creatureStats {
   background: #1e1e1e;
   color: white;
@@ -414,7 +470,7 @@ a:link {
   max-width: 350px;
   padding: 1rem;
   position: relative;
-  background: linear-gradient(to bottom, black, silver);
+  border-radius: 5px;
   padding: 3px;
   margin: auto;
 }
