@@ -89,7 +89,7 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:default="{ items, isExpanded, expand }">
+      <template v-slot:default="{ items }">
         <v-row>
           <v-col
             v-for="item in items"
@@ -99,161 +99,53 @@
             md="4"
             lg="3"
           >
-            <v-card>
-              <div class="font-weight-bold text-no-wrap secondary white--text">
-                <v-tooltip right>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon
-                      v-if="deckEdit"
-                      color="green"
-                      v-bind="attrs"
-                      v-on="on"
-                      @click="addCardToDeck(item.id)"
-                    >
-                      mdi-plus-box
-                    </v-icon>
-                  </template>
-                  <span>Add Card</span>
-                </v-tooltip>
-                {{ item.name }}
-              </div>
-
-              <v-hover>
-                <template v-slot:default="{ hover }">
-                  <v-card class="mx-auto">
-                    <v-img
-                      class="white--text align-top"
-                      height="200px"
-                      :src="item.imgUrl ? item.imgUrl : `logo.png`"
-                    >
-                      <v-btn
-                        small
-                        text
-                        elevation="6"
-                        class="creatureStats float-right"
-                        v-if="
-                          (item.type.toLowerCase() === 'creature') &
-                          ((typeof item.power !== 'undefined') &
-                            (item.power !== null) &
-                            (item.power !== '')) &
-                          ((typeof item.toughness !== 'undefined') &
-                            (item.toughness !== null) &
-                            (item.toughness !== ''))
-                        "
-                      >
-                        {{ item.power }}/{{ item.toughness }}
-                      </v-btn>
-                      <v-list
-                        dense
-                        height="100%"
-                        v-bind:style="{ opacity: 0.5 }"
-                      >
-                        <v-list-item
-                          class="mt-n4 font-weight-bold"
-                          v-html="
-                            convertManaString(item.cost) +
-                            '(CMC:' +
-                            item['cmc'] +
-                            ')'
-                          "
-                        ></v-list-item>
-                        <v-list-item class="mb-n4 mt-n4">
-                          <v-list-item-content class="ml-n3">
-                            Type: {{ item["type"] }}
-                          </v-list-item-content>
-                          <v-list-item-content
-                            class="align-end"
-                            v-if="parseInt(item['points']) > 0"
-                          >
-                            Points: {{ item["points"] }}
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-list>
-                    </v-img>
-
-                    <v-fade-transition>
-                      <v-overlay v-if="hover" absolute color="#036358">
-                        <v-row align-content="center">
-                          <v-col>
-                            <v-btn small @click="getCardOverlay(item)">
-                              Preview
-                            </v-btn>
-                          </v-col>
-                          <v-col>
-                            <v-btn
-                              small
-                              :to="{
-                                name: 'Card',
-                                query: { cardId: item.id },
-                              }"
-                              target="_blank"
-                            >
-                              Open
-                            </v-btn>
-                          </v-col>
-                          <v-col>
-                            <v-btn
-                              small
-                              :to="{
-                                name: 'ManageCards',
-                                query: { cardId: item.id },
-                              }"
-                              target="_blank"
-                            >
-                              Edit
-                            </v-btn>
-                          </v-col>
-                        </v-row>
-                      </v-overlay>
-                    </v-fade-transition>
-                  </v-card>
+            <div
+              class="font-weight-bold text-no-wrap secondary white--text"
+              v-if="deckEdit"
+              @click="addCardToDeck(item.id)"
+            >
+              <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  Click to add the spell to the deck
+                  <v-icon color="green" v-bind="attrs" v-on="on">
+                    mdi-plus-box
+                  </v-icon>
                 </template>
-              </v-hover>
-
-              <v-card-actions>
-                <v-btn text color="teal accent-4" @click="expand(item, true)">
-                  Show Description
-                </v-btn>
-              </v-card-actions>
-
-              <v-expand-transition>
-                <v-card
-                  v-if="isExpanded(item)"
-                  class="transition-fast-in-fast-out v-card--reveal"
-                  style="height: 100%"
-                >
-                  <v-tooltip right>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon
-                        v-if="deckEdit"
-                        color="green"
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="addCardToDeck(item.id)"
-                      >
-                        mdi-plus-box
-                      </v-icon>
-                    </template>
-                    <span>Add Card</span>
-                  </v-tooltip>
-                  <div class="font-weight-bold text-no-wrap secondary">
-                    Description:
-                  </div>
-                  <div>
-                    {{ item["description"] }}
-                  </div>
-                  <v-card-actions class="pt-0">
-                    <v-btn
-                      text
-                      color="teal accent-4"
-                      @click="expand(item, false)"
-                    >
-                      Close
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-expand-transition>
-            </v-card>
+                <span>Add Card</span>
+              </v-tooltip>
+            </div>
+            <div v-else class="ml-10">
+              <v-row align-content="center">
+                <v-col>
+                  <v-btn small @click="getCardOverlay(item)"> Preview </v-btn>
+                </v-col>
+                <v-col>
+                  <v-btn
+                    small
+                    :to="{
+                      name: 'Card',
+                      query: { cardId: item.id },
+                    }"
+                    target="_blank"
+                  >
+                    Open
+                  </v-btn>
+                </v-col>
+                <v-col>
+                  <v-btn
+                    small
+                    :to="{
+                      name: 'ManageCards',
+                      query: { cardId: item.id },
+                    }"
+                    target="_blank"
+                  >
+                    Edit
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </div>
+            <Card :current-card-id="currentCardId" :currentCardInput="item" />
           </v-col>
         </v-row>
       </template>
@@ -357,7 +249,7 @@ export default {
       filter: {},
       sortDesc: false,
       page: 1,
-      itemsPerPage: 8,
+      itemsPerPage: 4,
       sortBy: "color",
       cardRank: "1",
       keys: ["Name", "CMC", "Color", "Type", "Points", "Description"],
@@ -471,24 +363,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 0.9 !important;
-  position: absolute;
-  width: 100%;
-}
-.v-card--over {
-  bottom: 0;
-  opacity: 0.5 !important;
-  position: absolute;
-  width: 100%;
-}
-.creatureStats {
-  background: #1e1e1e !important;
-  color: white !important;
-  margin-top: 2px;
-  margin-right: 2px;
-}
-</style>

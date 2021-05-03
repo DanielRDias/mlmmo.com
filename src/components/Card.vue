@@ -1,167 +1,177 @@
 <template>
-  <v-card class="mx-auto pa-1" max-width="350">
-    <v-row class="pa-1">
-      <v-col cols="9">
-        <h2>{{ this.currentCard.name }}</h2>
-      </v-col>
-      <v-col>
-        <h3 v-html="convertManaString(this.currentCard.cost)"></h3>
-      </v-col>
-    </v-row>
-    <v-img
-      :src="this.currentCard.imgUrl"
-      :alt="this.currentCard.name"
-      height="300"
+  <div class="module-border-wrap" :style="cardBorder">
+    <v-card
+      class="mx-auto pa-1"
+      width="350px"
+      height="700px"
+      style="border-radius: 5px"
     >
-      <v-speed-dial
-        v-model="dialShare"
-        absolute
-        left
-        top
-        direction="bottom"
-        open-on-hover
-      >
-        <template v-slot:activator>
-          <v-btn fab top right x-small color="primary">
-            <v-icon v-if="dialShare">mdi-close</v-icon>
-            <v-icon v-else>mdi-share-variant</v-icon>
-          </v-btn>
-        </template>
-        <ShareNetwork
-          network="Facebook"
-          :url="shareInfo.url"
-          :title="shareInfo.title"
-          :description="shareInfo.description"
-          :quote="shareInfo.quote"
-          :hashtags="shareInfo.hashtags"
-        >
-          <v-btn
-            style="text-decoration: none"
-            dark
-            fab
-            bottom
-            color="blue"
-            x-small
-            class="ma-1 mt-n2"
-          >
-            <v-icon>mdi-facebook</v-icon>
-          </v-btn>
-        </ShareNetwork>
-        <ShareNetwork
-          network="Twitter"
-          :url="shareInfo.url"
-          :title="shareInfo.title"
-          :description="shareInfo.description"
-          :hashtags="shareInfo.hashtags"
-          :twitter-user="shareInfo.twitteruser"
-        >
-          <v-btn dark fab bottom color="blue" x-small class="ma-1">
-            <v-icon>mdi-twitter</v-icon>
-          </v-btn>
-        </ShareNetwork>
-        <ShareNetwork
-          network="Reddit"
-          :url="shareInfo.url"
-          :title="shareInfo.title"
-          :description="shareInfo.description"
-          :hashtags="shareInfo.hashtags"
-        >
-          <v-btn dark fab bottom color="red" x-small class="ma-1">
-            <v-icon>mdi-reddit</v-icon>
-          </v-btn>
-        </ShareNetwork>
-        <ShareNetwork
-          network="WhatsApp"
-          :url="shareInfo.url"
-          :title="shareInfo.title"
-          :description="shareInfo.description"
-          :hashtags="shareInfo.hashtags"
-        >
-          <v-btn dark fab bottom color="green" x-small class="ma-1">
-            <v-icon>mdi-whatsapp</v-icon>
-          </v-btn>
-        </ShareNetwork>
-        <ShareNetwork
-          network="Email"
-          :url="shareInfo.url"
-          :title="shareInfo.title"
-          :description="shareInfo.description"
-          :hashtags="shareInfo.hashtags"
-        >
-          <v-btn dark fab bottom x-small class="ma-1">
-            <v-icon>mdi-email</v-icon>
-          </v-btn>
-        </ShareNetwork>
-        <v-btn dark fab bottom x-small @click="copyText()">
-          <v-icon>mdi-content-copy</v-icon>
-        </v-btn>
-      </v-speed-dial>
-      <div
-        v-if="
-          (this.currentCard.type.toLowerCase() === 'creature') &
-          ((typeof this.currentCard.power !== 'undefined') &
-            (this.currentCard.power !== null) &
-            (this.currentCard.power !== '')) &
-          ((typeof this.currentCard.toughness !== 'undefined') &
-            (this.currentCard.toughness !== null) &
-            (this.currentCard.toughness !== ''))
-        "
-        class="text-right"
-      >
-        <v-btn text elevation="6" class="creatureStats">
-          {{ this.currentCard.power }}/{{ this.currentCard.toughness }}
-        </v-btn>
-      </div>
-    </v-img>
-    <v-row>
-      <v-col align-self="center" class="text-right text-caption" cols="2">
-        Rank:
-      </v-col>
-      <v-col>
-        <v-slider
-          v-model="cardRank"
-          :max="9"
-          :tick-labels="labels"
-          class="mx-1"
-          ticks
-        ></v-slider>
-      </v-col>
-    </v-row>
-    <v-list class="mt-n3 mb-n3">
-      <v-row
-        v-if="
-          (this.currentCard.type.toLowerCase() === 'creature') &
-          ((typeof this.currentCard.power !== 'undefined') &
-            (this.currentCard.power !== null) &
-            (this.currentCard.power !== '')) &
-          ((typeof this.currentCard.toughness !== 'undefined') &
-            (this.currentCard.toughness !== null) &
-            (this.currentCard.toughness !== ''))
-        "
-      >
-        <v-col cols="6">
-          <v-list-item dense class="mt-n3 mb-n3">
-            <v-list-item-title>DPS</v-list-item-title>
-            <v-list-item-subtitle class="text-right">
-              {{ dps }}
-            </v-list-item-subtitle>
-          </v-list-item>
+      <v-row class="pa-1">
+        <v-col cols="9">
+          <h2>{{ this.currentCard.name }}</h2>
         </v-col>
-        <v-col cols="6">
-          <v-list-item dense class="mt-n3 mb-n3">
-            <v-list-item-title>Health</v-list-item-title>
-            <v-list-item-subtitle class="text-right">
-              {{ health }}
-            </v-list-item-subtitle>
-          </v-list-item>
+        <v-col>
+          <h3 v-html="convertManaString(this.currentCard.cost)"></h3>
         </v-col>
       </v-row>
-    </v-list>
+      <v-img
+        :src="this.currentCard.imgUrl"
+        :alt="this.currentCard.name"
+        height="300"
+      >
+        <v-speed-dial
+          v-model="dialShare"
+          absolute
+          left
+          top
+          direction="bottom"
+          open-on-hover
+        >
+          <template v-slot:activator>
+            <v-btn fab top right x-small color="primary">
+              <v-icon v-if="dialShare">mdi-close</v-icon>
+              <v-icon v-else>mdi-share-variant</v-icon>
+            </v-btn>
+          </template>
+          <ShareNetwork
+            network="Facebook"
+            :url="shareInfo.url"
+            :title="shareInfo.title"
+            :description="shareInfo.description"
+            :quote="shareInfo.quote"
+            :hashtags="shareInfo.hashtags"
+          >
+            <v-btn
+              style="text-decoration: none"
+              dark
+              fab
+              bottom
+              color="blue"
+              x-small
+              class="ma-1 mt-n2"
+            >
+              <v-icon>mdi-facebook</v-icon>
+            </v-btn>
+          </ShareNetwork>
+          <ShareNetwork
+            network="Twitter"
+            :url="shareInfo.url"
+            :title="shareInfo.title"
+            :description="shareInfo.description"
+            :hashtags="shareInfo.hashtags"
+            :twitter-user="shareInfo.twitteruser"
+          >
+            <v-btn dark fab bottom color="blue" x-small class="ma-1">
+              <v-icon>mdi-twitter</v-icon>
+            </v-btn>
+          </ShareNetwork>
+          <ShareNetwork
+            network="Reddit"
+            :url="shareInfo.url"
+            :title="shareInfo.title"
+            :description="shareInfo.description"
+            :hashtags="shareInfo.hashtags"
+          >
+            <v-btn dark fab bottom color="red" x-small class="ma-1">
+              <v-icon>mdi-reddit</v-icon>
+            </v-btn>
+          </ShareNetwork>
+          <ShareNetwork
+            network="WhatsApp"
+            :url="shareInfo.url"
+            :title="shareInfo.title"
+            :description="shareInfo.description"
+            :hashtags="shareInfo.hashtags"
+          >
+            <v-btn dark fab bottom color="green" x-small class="ma-1">
+              <v-icon>mdi-whatsapp</v-icon>
+            </v-btn>
+          </ShareNetwork>
+          <ShareNetwork
+            network="Email"
+            :url="shareInfo.url"
+            :title="shareInfo.title"
+            :description="shareInfo.description"
+            :hashtags="shareInfo.hashtags"
+          >
+            <v-btn dark fab bottom x-small class="ma-1">
+              <v-icon>mdi-email</v-icon>
+            </v-btn>
+          </ShareNetwork>
+          <v-btn dark fab bottom x-small @click="copyText()">
+            <v-icon>mdi-content-copy</v-icon>
+          </v-btn>
+        </v-speed-dial>
+        <div
+          v-if="
+            (this.currentCard.type.toLowerCase() === 'creature') &
+            ((typeof this.currentCard.power !== 'undefined') &
+              (this.currentCard.power !== null) &
+              (this.currentCard.power !== '')) &
+            ((typeof this.currentCard.toughness !== 'undefined') &
+              (this.currentCard.toughness !== null) &
+              (this.currentCard.toughness !== ''))
+          "
+          class="text-right"
+        >
+          <v-btn text elevation="6" class="creatureStats">
+            {{ this.currentCard.power }}/{{ this.currentCard.toughness }}
+          </v-btn>
+        </div>
+      </v-img>
+      <v-row>
+        <v-col align-self="center" class="text-right text-caption" cols="2">
+          Rank:
+        </v-col>
+        <v-col>
+          <v-slider
+            v-model="cardRank"
+            :max="9"
+            :tick-labels="labels"
+            class="mx-1"
+            ticks
+          ></v-slider>
+        </v-col>
+      </v-row>
+      <v-list class="mt-n3 mb-n3">
+        <v-row
+          v-if="
+            (this.currentCard.type.toLowerCase() === 'creature') &
+            ((typeof this.currentCard.power !== 'undefined') &
+              (this.currentCard.power !== null) &
+              (this.currentCard.power !== '')) &
+            ((typeof this.currentCard.toughness !== 'undefined') &
+              (this.currentCard.toughness !== null) &
+              (this.currentCard.toughness !== ''))
+          "
+        >
+          <v-col cols="6">
+            <v-list-item dense class="mt-n3 mb-n3">
+              <v-list-item-title>DPS</v-list-item-title>
+              <v-list-item-subtitle class="text-right">
+                {{ dps }}
+              </v-list-item-subtitle>
+            </v-list-item>
+          </v-col>
+          <v-col cols="6">
+            <v-list-item dense class="mt-n3 mb-n3">
+              <v-list-item-title>Health</v-list-item-title>
+              <v-list-item-subtitle class="text-right">
+                {{ health }}
+              </v-list-item-subtitle>
+            </v-list-item>
+          </v-col>
+        </v-row>
+      </v-list>
 
-    <v-card-text class="mt-n3 mb-n3">
-      <strong>Description:</strong> {{ cardDescription }}
-    </v-card-text>
-  </v-card>
+      <v-card-text class="mt-n3 mb-n3" style="white-space: pre-line">
+        {{ cardDescription }}
+      </v-card-text>
+      <v-card-subtitle class="text-center" v-html="cardFooter">
+      </v-card-subtitle>
+    </v-card>
+    <!-- <div id="uncommon-shield">&nbsp;</div> -->
+  </div>
 </template>
 
 <script>
@@ -190,6 +200,88 @@ export default {
     }
   },
   computed: {
+    cardBorder: function () {
+      var cardColor = this.currentCard.color
+        ? this.currentCard.color.toLowerCase()
+        : "white";
+
+      var cardRarity = this.currentCard.rarity
+        ? this.currentCard.rarity.toLowerCase()
+        : "common";
+
+      var rarityColor = "white";
+
+      switch (cardRarity) {
+        case "common":
+          rarityColor = "darkgray";
+          break;
+        case "uncommon":
+          rarityColor = "steelblue";
+          break;
+        case "rare":
+          rarityColor = "gold";
+          break;
+        case "mythic":
+          rarityColor = "darkorange";
+          break;
+        default:
+          rarityColor = "gray";
+      }
+
+      return (
+        "background: linear-gradient(to bottom, " +
+        cardColor +
+        ", " +
+        rarityColor +
+        ");"
+      );
+    },
+    cardFooter: function () {
+      let rarity = this.currentCard.rarity;
+      let type = this.currentCard.type;
+      let points = this.currentCard.points;
+      var footer = "";
+
+      switch (type.toLowerCase()) {
+        case "creature":
+          footer +=
+            "<img src='img/type/creature.png' width='16' height='16' /> ";
+          if (rarity) {
+            footer += rarity.charAt(0).toUpperCase() + rarity.slice(1);
+          }
+          footer += " Creature";
+          if (parseInt(points) > 0) {
+            footer += " / " + points + " Points";
+          }
+          break;
+        case "enchantment":
+          footer +=
+            "<img src='img/type/enchantment.png' width='16' height='16' /> ";
+          if (rarity) {
+            footer += rarity.charAt(0).toUpperCase() + rarity.slice(1);
+          }
+          footer += " Enchantment";
+          if (parseInt(points) > 0) {
+            footer += " / " + points + " Points";
+          }
+          break;
+        case "sorcery":
+          footer +=
+            "<img src='img/type/sorcery.png' width='16' height='16' /> ";
+          if (rarity) {
+            footer += rarity.charAt(0).toUpperCase() + rarity.slice(1);
+          }
+          footer += " Sorcery";
+          if (parseInt(points) > 0) {
+            footer += " / " + points + " Points";
+          }
+          break;
+        default:
+        // unknown
+      }
+
+      return footer;
+    },
     cardDescription: function () {
       let p = this.currentCard.properties;
       let s = this.currentCard.description;
@@ -252,7 +344,8 @@ export default {
         imgUrl: "logo.png",
         cost: "0",
         cmc: 0,
-        color: "?",
+        color: "White",
+        rarity: "Common",
         type: "?",
         points: 0,
         properties: [
@@ -291,7 +384,7 @@ export default {
         cardValues: [],
         description: "?",
       },
-      cardRank: 0,
+      cardRank: 9,
       dpsChange: [
         0.1639,
         0.1549,
@@ -316,7 +409,6 @@ export default {
       ],
       getCardData: null,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-      rank: 0,
       dialShare: false,
       shareInfo: {
         url:
@@ -351,6 +443,20 @@ export default {
 </script>
 
 <style scoped>
+html {
+  overflow: hidden !important;
+}
+
+.v-card {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.v-card__text {
+  flex-grow: 1;
+  overflow: auto;
+}
+
 .creatureStats {
   background: #1e1e1e;
   color: white;
@@ -359,5 +465,33 @@ export default {
 }
 a:link {
   text-decoration: none;
+}
+.module-border-wrap {
+  max-width: 350px;
+  padding: 1rem;
+  position: relative;
+  border-radius: 5px;
+  padding: 3px;
+  margin: auto;
+}
+
+#uncommon-shield {
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom: 10px solid #6e80b0;
+  position: relative;
+  top: -5px;
+  margin: auto;
+}
+#uncommon-shield:after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 10px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top: 5px solid #6e80b0;
 }
 </style>
