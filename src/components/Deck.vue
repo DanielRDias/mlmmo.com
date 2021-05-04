@@ -1,11 +1,11 @@
 <template>
-  <v-card class="mx-auto" max-width="350">
+  <v-card class="mx-auto">
     <v-speed-dial
       v-model="dialShare"
       absolute
-      right
+      left
       top
-      direction="bottom"
+      direction="right"
       open-on-hover
     >
       <template v-slot:activator>
@@ -75,64 +75,50 @@
         <v-icon>mdi-content-copy</v-icon>
       </v-btn>
     </v-speed-dial>
-    <v-card-title>{{ this.deck.name }}</v-card-title>
-    <v-card-subtitle>Created by {{ this.deck.owner }}</v-card-subtitle>
-    <v-list>
-      <v-list-group
+    <v-card-title class="justify-center">{{ this.deck.name }}</v-card-title>
+    <v-card-subtitle class="text-center">
+      Created by {{ this.deck.owner }}
+    </v-card-subtitle>
+    <v-row class="ml-2 mr-2">
+      <v-col
+        cols="3"
+        xs="3"
+        sm="2"
+        md="2"
+        lg="1"
+        xl="1"
         v-for="card in deckCards"
         :key="card.id"
         v-model="card.active"
-        no-action
       >
-        <template v-slot:activator>
-          <v-list-item-content>
-            <v-img :src="card.imgUrl" height="50px">
-              <v-container>
-                <v-row>
-                  <v-col cols="8">
-                    <v-card color="rgba(0, 0, 0, 0.3)">
-                      {{ card.name }}
-                    </v-card>
-                  </v-col>
-                  <v-col cols="4">
-                    <v-card color="rgba(0, 0, 0, 0.3)">
-                      <div
-                        class="font-weight-bold"
-                        v-html="convertManaString(card.cost)"
-                      />
-                    </v-card>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-img>
-          </v-list-item-content>
-        </template>
-        <v-list-item-content class="v-text--bg">
-          <v-img :src="card.imgUrl">
-            <div class="v-text--bg">
-              <v-list color="rgba(0, 0, 0, 0.3)">
-                <v-list-item v-for="(key, index) in keys" :key="index">
-                  <v-list-item-content>
-                    {{ key }}:
-                    {{ card[key.toLowerCase()] }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </div>
-          </v-img>
-        </v-list-item-content>
-      </v-list-group>
-    </v-list>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">
+              <v-img :src="card.imgUrl" max-width="100%" max-height="100%" />
+              <div
+                class="font-weight-bold"
+                v-html="convertManaString(card.cost)"
+              />
+            </span>
+          </template>
+          <span><Card :current-card-id="card.id" /></span>
+        </v-tooltip>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script>
+import Card from "@/components/Card.vue";
 export default {
   props: {
     deckId: {
       type: String,
       required: true,
     },
+  },
+  components: {
+    Card,
   },
   data() {
     return {
