@@ -397,19 +397,22 @@ export const cardInfo = {
 
       return cardList;
     },
-    async getCardsData({ commit }) {
-      var cardsData = await API.graphql({
-        query: listCardsQuery,
-        authMode: "API_KEY",
-      });
-      commit("setCards", cardsData.data.listCards.items);
-      while (cardsData.data.listCards.nextToken) {
-        cardsData = await API.graphql({
+    async getCardsData({ commit, state }) {
+      // Only call the API if do not have state data yet
+      if (!state.cards) {
+        var cardsData = await API.graphql({
           query: listCardsQuery,
-          variables: { nextToken: cardsData.data.listCards.nextToken },
           authMode: "API_KEY",
         });
-        commit("appendCards", cardsData.data.listCards.items);
+        commit("setCards", cardsData.data.listCards.items);
+        while (cardsData.data.listCards.nextToken) {
+          cardsData = await API.graphql({
+            query: listCardsQuery,
+            variables: { nextToken: cardsData.data.listCards.nextToken },
+            authMode: "API_KEY",
+          });
+          commit("appendCards", cardsData.data.listCards.items);
+        }
       }
     },
     async createCard(_, data) {

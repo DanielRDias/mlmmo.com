@@ -106,7 +106,7 @@
             >
               <v-tooltip right>
                 <template v-slot:activator="{ on, attrs }">
-                  Click to add the spell to the deck
+                  Add to the deck
                   <v-icon color="green" v-bind="attrs" v-on="on">
                     mdi-plus-box
                   </v-icon>
