@@ -109,7 +109,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Card from "@/components/Card.vue";
+import { ConsoleLogger } from "@aws-amplify/core";
+
 export default {
   props: {
     deckId: {
@@ -147,17 +150,28 @@ export default {
     cards() {
       return this.deck.cards;
     },
+    ...mapGetters({
+      allCards: "cardInfo/cards",
+    }),
   },
   watch: {
-    async cards() {
-      var getCardData = await this.$store.dispatch(
-        "cardInfo/getCardList",
-        this.deck.cards
-      );
-      this.deckCards = getCardData;
+    cards() {
+      if (this.allCards) {
+        this.processDeckCards();
+      } else {
+        // will be proccessed once allCards is loaded
+      }
+    },
+    allCards() {
+      if (this.deck.cards) {
+        this.processDeckCards();
+      } else {
+        // will be proccessed once deckCards is loaded
+      }
     },
   },
   async mounted() {
+    this.$store.dispatch("cardInfo/getCardsData");
     try {
       this.deckData = await this.$store.dispatch(
         "cardInfo/getDeck",
@@ -170,6 +184,15 @@ export default {
     }
   },
   methods: {
+    processDeckCards() {
+      var cardList = [];
+      for (var i = 0; i < this.allCards.length; i++) {
+        if (this.deck.cards.includes(this.allCards[i].id)) {
+          cardList.push(this.allCards[i]);
+        }
+      }
+      this.deckCards = cardList;
+    },
     copyText() {
       let textToCopy =
         this.shareInfo.title +
@@ -180,16 +203,20 @@ export default {
       navigator.clipboard.writeText(textToCopy);
     },
     convertManaString(manaStr) {
-      var manaConvert = {
-        R: "<img src='img/mana/R.svg' width='14' height='14' />",
-        W: "<img src='img/mana/W.svg' width='14' height='14' />",
-        B: "<img src='img/mana/B.svg' width='14' height='14' />",
-        U: "<img src='img/mana/U.svg' width='14' height='14' />",
-        G: "<img src='img/mana/G.svg' width='14' height='14' />",
-      };
-      return manaStr.replace(/R|W|B|U|G/gi, function (matched) {
-        return manaConvert[matched];
-      });
+      if (manaStr) {
+        var manaConvert = {
+          R: "<img src='img/mana/R.svg' width='14' height='14' />",
+          W: "<img src='img/mana/W.svg' width='14' height='14' />",
+          B: "<img src='img/mana/B.svg' width='14' height='14' />",
+          U: "<img src='img/mana/U.svg' width='14' height='14' />",
+          G: "<img src='img/mana/G.svg' width='14' height='14' />",
+        };
+        return manaStr.replace(/R|W|B|U|G/gi, function (matched) {
+          return manaConvert[matched];
+        });
+      } else {
+        return "";
+      }
     },
   },
 };

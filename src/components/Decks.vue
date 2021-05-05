@@ -117,6 +117,9 @@ export default {
     Deck,
   },
   async mounted() {
+    // Wait for cards to be loaded to avoid deck component to load the cards again
+    await this.$store.dispatch("cardInfo/getCardsData");
+
     if (this.$props.userDecks) {
       this.$store.dispatch("cardInfo/getUserDecksData");
     } else {
@@ -125,15 +128,16 @@ export default {
   },
   data() {
     return {
+      loading: true,
       deckOverlay: false,
       allowEdit: false,
       nodecks: [],
       deckImgs: {},
-      itemsPerPageArray: [6, 12, 18, 30, 60, 90, 180],
+      itemsPerPageArray: [1, 3, 6, 12, 18, 30, 60, 90, 180],
       search: "",
       sortDesc: true,
       page: 1,
-      itemsPerPage: 12,
+      itemsPerPage: 3,
       sortBy: "updatedAt",
       deleteCheck: [],
     };
@@ -147,6 +151,8 @@ export default {
     ...mapGetters({
       user: "auth/user",
       decks: "cardInfo/decks",
+      // load cards to cache it and reduce the deck component API calls
+      cards: "cardInfo/cards",
     }),
   },
   watch: {
