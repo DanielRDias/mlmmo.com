@@ -91,7 +91,7 @@
         :key="card.id"
         v-model="card.active"
       >
-        <v-tooltip bottom>
+        <v-tooltip open-delay="500" transition="none">
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">
               <v-img :src="card.imgUrl" max-width="100%" max-height="100%" />
