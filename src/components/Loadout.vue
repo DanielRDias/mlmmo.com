@@ -12,7 +12,7 @@
       <Deck v-else :deck-id="currentLoadout.deck" :key="currentLoadout.deck" />
     </div>
     <v-row>
-      <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+      <v-col cols="12" xs="12" sm="12" md="4" lg="4">
         <div class="loadoutequip">
           <br /><br />
           <br /><br />
@@ -59,7 +59,84 @@
           </v-row>
         </div>
       </v-col>
-      <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+      <v-col cols="12" xs="12" sm="12" md="1" lg="1">
+        <div class="artifact-loadout-wapper">
+          <v-row>
+            <div class="artifact-wrapper">
+              <img
+                class="artifact-image"
+                :src="artifactLegendaryList[0].imgUrl"
+              />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-legendary.svg"
+              />
+            </div>
+          </v-row>
+          <v-row>
+            <div class="artifact-wrapper">
+              <img
+                class="artifact-image"
+                :src="artifactGreaterList[0].imgUrl"
+              />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-greater.svg"
+              />
+            </div>
+          </v-row>
+          <v-row>
+            <div class="artifact-wrapper">
+              <img
+                class="artifact-image"
+                :src="artifactGreaterList[1].imgUrl"
+              />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-greater.svg"
+              />
+            </div>
+          </v-row>
+          <v-row>
+            <div class="artifact-wrapper">
+              <img class="artifact-image" :src="artifactLesserList[0].imgUrl" />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-lesser.svg"
+              />
+            </div>
+          </v-row>
+          <v-row>
+            <div class="artifact-wrapper">
+              <img class="artifact-image" :src="artifactLesserList[1].imgUrl" />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-lesser.svg"
+              />
+            </div>
+          </v-row>
+          <v-row>
+            <div class="artifact-wrapper">
+              <img class="artifact-image" :src="artifactLesserList[2].imgUrl" />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-lesser.svg"
+              />
+            </div>
+          </v-row>
+        </div>
+      </v-col>
+      <v-col
+        cols="12"
+        xs="12"
+        sm="12"
+        md="7"
+        lg="7"
+        style="white-space: pre-line"
+      >
+        {{ currentLoadout.longDescription }}
+      </v-col>
+      <!-- <v-col cols="12" xs="12" sm="12" md="6" lg="6">
         <v-row>
           <v-col cols="1"> </v-col>
           <v-col cols="3"> </v-col>
@@ -140,7 +217,7 @@
             <v-col cols="2"> </v-col>
           </v-col>
         </v-row>
-      </v-col>
+      </v-col> -->
     </v-row>
     <br /><br />
     <!-- <div class="deckloadlout">
@@ -567,13 +644,6 @@ export default {
   background-image: url("/img/loadout/overlay.png");
 }
 
-.deckscale {
-  transform: scale(0.55);
-  position: absolute;
-  left: -50px;
-  top: -185px;
-}
-
 .deckloadlout {
   position: relative;
 }
@@ -584,7 +654,6 @@ export default {
   background-position: center center;
   background-size: cover;
   margin: auto;
-  max-width: 600px;
 }
 
 .necroloadout {
@@ -592,6 +661,13 @@ export default {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+}
+
+.artifact-loadout-wapper > * {
+  display: block;
+  max-width: 120px;
+  margin: auto;
+  padding: 10px;
 }
 
 .artifact-wrapper {
