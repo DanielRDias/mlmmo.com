@@ -11,105 +11,135 @@
       </v-skeleton-loader>
       <Deck v-else :deck-id="currentLoadout.deck" :key="currentLoadout.deck" />
     </div>
-    <div class="loadoutequip">
-      <br /><br />
-      <br /><br />
-      <br /><br />
-      <v-row>
-        <v-col cols="1"> </v-col>
-        <v-col cols="3"> </v-col>
-        <v-col cols="4">
-          <img :src="headList[0].imgUrl" class="artifact-image" />
-        </v-col>
-        <v-col cols="3"> </v-col>
-        <v-col cols="1"> </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="1"> </v-col>
-        <v-col cols="4">
-          <img :src="bodyList[0].imgUrl" class="artifact-image" />
-        </v-col>
-        <v-col cols="2"> </v-col>
-        <v-col cols="4">
-          <img :src="armsList[0].imgUrl" class="artifact-image" />
-        </v-col>
-        <v-col cols="1"> </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="1"> </v-col>
-        <v-col cols="4">
-          <img :src="accessoryList[0].imgUrl" class="artifact-image" />
-        </v-col>
-        <v-col cols="2"> </v-col>
-        <v-col cols="4">
-          <img :src="accessoryList[1].imgUrl" class="artifact-image"
-        /></v-col>
-        <v-col cols="1"> </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="1"> </v-col>
-        <v-col cols="3"> </v-col>
-        <v-col cols="4">
-          <img :src="feetList[0].imgUrl" class="artifact-image" />
-        </v-col>
-        <v-col cols="3"> </v-col>
-        <v-col cols="1"> </v-col>
-      </v-row>
-    </div>
     <v-row>
-      <v-col cols="2">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLegendaryList[0].imgUrl" />
-          <img
-            class="artifact-frame"
-            src="/img/tier/artifact-builder-legendary.svg"
-          />
+      <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+        <div class="loadoutequip">
+          <br /><br />
+          <br /><br />
+          <br /><br />
+          <v-row>
+            <v-col cols="1"> </v-col>
+            <v-col cols="3"> </v-col>
+            <v-col cols="4">
+              <img :src="headList[0].imgUrl" class="artifact-image" />
+            </v-col>
+            <v-col cols="3"> </v-col>
+            <v-col cols="1"> </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="1"> </v-col>
+            <v-col cols="4">
+              <img :src="bodyList[0].imgUrl" class="artifact-image" />
+            </v-col>
+            <v-col cols="2"> </v-col>
+            <v-col cols="4">
+              <img :src="armsList[0].imgUrl" class="artifact-image" />
+            </v-col>
+            <v-col cols="1"> </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="1"> </v-col>
+            <v-col cols="4">
+              <img :src="accessoryList[0].imgUrl" class="artifact-image" />
+            </v-col>
+            <v-col cols="2"> </v-col>
+            <v-col cols="4">
+              <img :src="accessoryList[1].imgUrl" class="artifact-image"
+            /></v-col>
+            <v-col cols="1"> </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="1"> </v-col>
+            <v-col cols="3"> </v-col>
+            <v-col cols="4">
+              <img :src="feetList[0].imgUrl" class="artifact-image" />
+            </v-col>
+            <v-col cols="3"> </v-col>
+            <v-col cols="1"> </v-col>
+          </v-row>
         </div>
       </v-col>
-      <v-col cols="2">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactGreaterList[0].imgUrl" />
-          <img
-            class="artifact-frame"
-            src="/img/tier/artifact-builder-greater.svg"
-          />
-        </div>
-      </v-col>
-      <v-col cols="2">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactGreaterList[1].imgUrl" />
-          <img
-            class="artifact-frame"
-            src="/img/tier/artifact-builder-greater.svg"
-          />
-        </div>
-      </v-col>
-      <v-col cols="2">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLesserList[0].imgUrl" />
-          <img
-            class="artifact-frame"
-            src="/img/tier/artifact-builder-lesser.svg"
-          />
-        </div>
-      </v-col>
-      <v-col cols="2">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLesserList[1].imgUrl" />
-          <img
-            class="artifact-frame"
-            src="/img/tier/artifact-builder-lesser.svg"
-          />
-        </div>
-      </v-col>
-      <v-col cols="2">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLesserList[2].imgUrl" />
-          <img
-            class="artifact-frame"
-            src="/img/tier/artifact-builder-lesser.svg"
-          />
-        </div>
+      <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+        <v-row>
+          <v-col cols="1"> </v-col>
+          <v-col cols="3"> </v-col>
+          <v-col cols="4">
+            <div class="artifact-wrapper">
+              <img
+                class="artifact-image"
+                :src="artifactLegendaryList[0].imgUrl"
+              />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-legendary.svg"
+              />
+            </div>
+          </v-col>
+          <v-col cols="1"> </v-col>
+          <v-col cols="3"> </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="2"> </v-col>
+          <v-col cols="3">
+            <div class="artifact-wrapper">
+              <img
+                class="artifact-image"
+                :src="artifactGreaterList[0].imgUrl"
+              />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-greater.svg"
+              />
+            </div>
+          </v-col>
+          <v-col cols="2"> </v-col>
+          <v-col cols="3">
+            <div class="artifact-wrapper">
+              <img
+                class="artifact-image"
+                :src="artifactGreaterList[1].imgUrl"
+              />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-greater.svg"
+              />
+            </div>
+          </v-col>
+          <v-col cols="2"> </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="2"> </v-col>
+          <v-col cols="2">
+            <div class="artifact-wrapper">
+              <img class="artifact-image" :src="artifactLesserList[0].imgUrl" />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-lesser.svg"
+              />
+            </div>
+          </v-col>
+          <v-col cols="1"> </v-col>
+          <v-col cols="2">
+            <div class="artifact-wrapper">
+              <img class="artifact-image" :src="artifactLesserList[1].imgUrl" />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-lesser.svg"
+              />
+            </div>
+          </v-col>
+          <v-col cols="1"> </v-col>
+          <v-col cols="2">
+            <div class="artifact-wrapper">
+              <img class="artifact-image" :src="artifactLesserList[2].imgUrl" />
+              <img
+                class="artifact-frame"
+                src="/img/tier/artifact-builder-lesser.svg"
+              />
+            </div>
+            <v-col cols="2"> </v-col>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <br /><br />
@@ -553,8 +583,8 @@ export default {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  max-width: 600px;
   margin: auto;
+  max-width: 600px;
 }
 
 .necroloadout {
