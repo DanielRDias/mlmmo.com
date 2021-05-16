@@ -1,84 +1,93 @@
 <template>
   <v-card class="mx-auto">
-    <v-speed-dial
-      v-model="dialShare"
-      absolute
-      left
-      top
-      direction="right"
-      open-on-hover
-    >
-      <template v-slot:activator>
-        <v-btn fab top right small color="primary">
-          <v-icon v-if="dialShare">mdi-close</v-icon>
-          <v-icon v-else>mdi-share-variant</v-icon>
-        </v-btn>
-      </template>
-      <ShareNetwork
-        network="Facebook"
-        :url="shareInfo.url"
-        :title="shareInfo.title"
-        :description="shareInfo.description"
-        :quote="shareInfo.quote"
-        :hashtags="shareInfo.hashtags"
+    <div class="deckheader" v-if="showheader">
+      <v-speed-dial
+        v-model="dialShare"
+        absolute
+        left
+        top
+        direction="right"
+        open-on-hover
       >
-        <v-btn style="text-decoration: none" dark fab bottom color="blue" small>
-          <v-icon>mdi-facebook</v-icon>
+        <template v-slot:activator>
+          <v-btn fab top right small color="primary">
+            <v-icon v-if="dialShare">mdi-close</v-icon>
+            <v-icon v-else>mdi-share-variant</v-icon>
+          </v-btn>
+        </template>
+        <ShareNetwork
+          network="Facebook"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :quote="shareInfo.quote"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn
+            style="text-decoration: none"
+            dark
+            fab
+            bottom
+            color="blue"
+            small
+          >
+            <v-icon>mdi-facebook</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="Twitter"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+          :twitter-user="shareInfo.twitteruser"
+        >
+          <v-btn dark fab bottom color="blue" small>
+            <v-icon>mdi-twitter</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="Reddit"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn dark fab bottom color="red" small>
+            <v-icon>mdi-reddit</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="WhatsApp"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn dark fab bottom color="green" small>
+            <v-icon>mdi-whatsapp</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <ShareNetwork
+          network="Email"
+          :url="shareInfo.url"
+          :title="shareInfo.title"
+          :description="shareInfo.description"
+          :hashtags="shareInfo.hashtags"
+        >
+          <v-btn dark fab bottom small>
+            <v-icon>mdi-email</v-icon>
+          </v-btn>
+        </ShareNetwork>
+        <v-btn dark fab bottom small @click="copyText()">
+          <v-icon>mdi-content-copy</v-icon>
         </v-btn>
-      </ShareNetwork>
-      <ShareNetwork
-        network="Twitter"
-        :url="shareInfo.url"
-        :title="shareInfo.title"
-        :description="shareInfo.description"
-        :hashtags="shareInfo.hashtags"
-        :twitter-user="shareInfo.twitteruser"
-      >
-        <v-btn dark fab bottom color="blue" small>
-          <v-icon>mdi-twitter</v-icon>
-        </v-btn>
-      </ShareNetwork>
-      <ShareNetwork
-        network="Reddit"
-        :url="shareInfo.url"
-        :title="shareInfo.title"
-        :description="shareInfo.description"
-        :hashtags="shareInfo.hashtags"
-      >
-        <v-btn dark fab bottom color="red" small>
-          <v-icon>mdi-reddit</v-icon>
-        </v-btn>
-      </ShareNetwork>
-      <ShareNetwork
-        network="WhatsApp"
-        :url="shareInfo.url"
-        :title="shareInfo.title"
-        :description="shareInfo.description"
-        :hashtags="shareInfo.hashtags"
-      >
-        <v-btn dark fab bottom color="green" small>
-          <v-icon>mdi-whatsapp</v-icon>
-        </v-btn>
-      </ShareNetwork>
-      <ShareNetwork
-        network="Email"
-        :url="shareInfo.url"
-        :title="shareInfo.title"
-        :description="shareInfo.description"
-        :hashtags="shareInfo.hashtags"
-      >
-        <v-btn dark fab bottom small>
-          <v-icon>mdi-email</v-icon>
-        </v-btn>
-      </ShareNetwork>
-      <v-btn dark fab bottom small @click="copyText()">
-        <v-icon>mdi-content-copy</v-icon>
-      </v-btn>
-    </v-speed-dial>
-    <v-card-title class="justify-center">{{ this.deck.name }}</v-card-title>
-    <v-card-subtitle class="text-center">
-      Created by {{ this.deck.owner }}
-    </v-card-subtitle>
+      </v-speed-dial>
+      <v-card-title class="justify-center">{{ this.deck.name }}</v-card-title>
+      <v-card-subtitle class="text-center">
+        Created by {{ this.deck.owner }}
+      </v-card-subtitle>
+    </div>
     <v-row class="ml-2 mr-2">
       <v-col
         cols="3"
@@ -118,6 +127,11 @@ export default {
     deckId: {
       type: String,
       required: true,
+    },
+    showheader: {
+      type: Boolean,
+      default: true,
+      required: false,
     },
   },
   components: {

@@ -1,58 +1,172 @@
 <template>
   <div>
-    <div class="deckloadlout">
-      <v-skeleton-loader
-        v-if="currentLoadout.deck == null"
-        class="mx-auto"
-        max-width="300"
-        max-height="300"
-        type="card-avatar"
-      >
-      </v-skeleton-loader>
-      <Deck v-else :deck-id="currentLoadout.deck" :key="currentLoadout.deck" />
-    </div>
-    <v-row>
-      <v-col cols="12" xs="12" sm="12" md="4" lg="4">
-        <div class="loadoutequip">
+    <v-skeleton-loader
+      v-if="currentLoadout.deck == null"
+      class="mx-auto"
+      max-width="300"
+      max-height="300"
+      type="card-avatar"
+    >
+    </v-skeleton-loader>
+    <v-row v-else class="mt-1">
+      <v-col cols="12" xs="12" sm="12" md="4" lg="4" class="ml-1">
+        <v-card>
+          <v-card-title>{{ currentLoadout.name }}</v-card-title>
+          <v-card-subtitle>Made by {{ currentLoadout.owner }}</v-card-subtitle>
+        </v-card>
+      </v-col>
+      <v-col cols="12" xs="12" sm="12" md="8" lg="8" class="ml-n1">
+        <div class="deckloadlout">
+          <Deck
+            :deck-id="currentLoadout.deck"
+            :key="currentLoadout.deck"
+            :showheader="false"
+          />
+        </div>
+      </v-col>
+    </v-row>
+    <v-skeleton-loader
+      v-if="loadingEquipments"
+      class="mx-auto"
+      type="table-row: table-cell@7"
+    >
+    </v-skeleton-loader>
+    <v-row v-else>
+      <v-col cols="12" xs="12" sm="12" md="4" lg="4" class="ml-1">
+        <div :class="classBg" class="loadoutequip">
           <br /><br />
           <br /><br />
           <br /><br />
           <v-row>
+            <v-col cols="12">
+              <div class="equip-text-line">
+                {{ headList[0].name }}
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="1"> </v-col>
             <v-col cols="3"> </v-col>
             <v-col cols="4">
-              <img :src="headList[0].imgUrl" class="artifact-image" />
+              <v-tooltip bottom open-delay="500" transition="none">
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">
+                    <img :src="headList[0].imgUrl" class="equip-image" />
+                  </span>
+                </template>
+                <span>
+                  <Equipment :currentEquipmentInput="headList[0]" />
+                </span>
+              </v-tooltip>
             </v-col>
             <v-col cols="3"> </v-col>
             <v-col cols="1"> </v-col>
           </v-row>
           <v-row>
+            <v-col cols="6">
+              <div class="equip-text-line">
+                {{ bodyList[0].name }}
+              </div>
+            </v-col>
+            <v-col cols="6">
+              <div class="equip-text-line">
+                {{ armsList[0].name }}
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="1"> </v-col>
             <v-col cols="4">
-              <img :src="bodyList[0].imgUrl" class="artifact-image" />
+              <v-tooltip bottom open-delay="500" transition="none">
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">
+                    <img :src="bodyList[0].imgUrl" class="equip-image" />
+                  </span>
+                </template>
+                <span>
+                  <Equipment :currentEquipmentInput="bodyList[0]" />
+                </span>
+              </v-tooltip>
             </v-col>
             <v-col cols="2"> </v-col>
             <v-col cols="4">
-              <img :src="armsList[0].imgUrl" class="artifact-image" />
+              <v-tooltip bottom open-delay="500" transition="none">
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">
+                    <img :src="armsList[0].imgUrl" class="equip-image" />
+                  </span>
+                </template>
+                <span>
+                  <Equipment :currentEquipmentInput="armsList[0]" />
+                </span>
+              </v-tooltip>
             </v-col>
             <v-col cols="1"> </v-col>
           </v-row>
           <v-row>
+            <v-col cols="6">
+              <div class="equip-text-line">
+                {{ accessoryList[0].name }}
+              </div>
+            </v-col>
+            <v-col cols="6">
+              <div class="equip-text-line">
+                {{ accessoryList[1].name }}
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="1"> </v-col>
             <v-col cols="4">
-              <img :src="accessoryList[0].imgUrl" class="artifact-image" />
+              <v-tooltip bottom open-delay="500" transition="none">
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">
+                    <img :src="accessoryList[0].imgUrl" class="equip-image" />
+                  </span>
+                </template>
+                <span>
+                  <Equipment :currentEquipmentInput="accessoryList[0]" />
+                </span>
+              </v-tooltip>
             </v-col>
             <v-col cols="2"> </v-col>
             <v-col cols="4">
-              <img :src="accessoryList[1].imgUrl" class="artifact-image"
-            /></v-col>
+              <v-tooltip bottom open-delay="500" transition="none">
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">
+                    <img :src="accessoryList[1].imgUrl" class="equip-image" />
+                  </span>
+                </template>
+                <span>
+                  <Equipment :currentEquipmentInput="accessoryList[1]" />
+                </span>
+              </v-tooltip>
+            </v-col>
             <v-col cols="1"> </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <div class="equip-text-line">
+                {{ feetList[0].name }}
+              </div>
+            </v-col>
           </v-row>
           <v-row>
             <v-col cols="1"> </v-col>
             <v-col cols="3"> </v-col>
             <v-col cols="4">
-              <img :src="feetList[0].imgUrl" class="artifact-image" />
+              <div class="equip-container">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <img :src="feetList[0].imgUrl" class="equip-image" />
+                    </span>
+                  </template>
+                  <span>
+                    <Equipment :currentEquipmentInput="feetList[0]" />
+                  </span>
+                </v-tooltip>
+              </div>
             </v-col>
             <v-col cols="3"> </v-col>
             <v-col cols="1"> </v-col>
@@ -60,454 +174,323 @@
         </div>
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="1" lg="1">
-        <div class="artifact-loadout-wapper">
+        <div v-if="mobile" class="artifact-loadout-wapper-mobile">
+          <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+            <v-row>
+              <v-col cols="1"> </v-col>
+              <v-col cols="3"> </v-col>
+              <v-col cols="4">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <div class="artifact-wrapper">
+                        <img
+                          class="artifact-image"
+                          :src="artifactLegendaryList[0].imgUrl"
+                        />
+                        <img
+                          class="artifact-frame"
+                          src="/img/tier/artifact-builder-legendary.svg"
+                        />
+                      </div>
+                    </span>
+                  </template>
+                  <span>
+                    <Artifact
+                      :currentArtifactInput="artifactLegendaryList[0]"
+                    />
+                  </span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="1"> </v-col>
+              <v-col cols="3"> </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2"> </v-col>
+              <v-col cols="3">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <div class="artifact-wrapper">
+                        <img
+                          class="artifact-image"
+                          :src="artifactGreaterList[0].imgUrl"
+                        />
+                        <img
+                          class="artifact-frame"
+                          src="/img/tier/artifact-builder-greater.svg"
+                        />
+                      </div>
+                    </span>
+                  </template>
+                  <span>
+                    <Artifact :currentArtifactInput="artifactGreaterList[0]" />
+                  </span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="2"> </v-col>
+              <v-col cols="3">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <div class="artifact-wrapper">
+                        <img
+                          class="artifact-image"
+                          :src="artifactGreaterList[1].imgUrl"
+                        />
+                        <img
+                          class="artifact-frame"
+                          src="/img/tier/artifact-builder-greater.svg"
+                        />
+                      </div>
+                    </span>
+                  </template>
+                  <span>
+                    <Artifact :currentArtifactInput="artifactGreaterList[1]" />
+                  </span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="2"> </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="3">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <div class="artifact-wrapper">
+                        <img
+                          class="artifact-image"
+                          :src="artifactLesserList[0].imgUrl"
+                        />
+                        <img
+                          class="artifact-frame"
+                          src="/img/tier/artifact-builder-lesser.svg"
+                        />
+                      </div>
+                    </span>
+                  </template>
+                  <span>
+                    <Artifact :currentArtifactInput="artifactLesserList[0]" />
+                  </span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="1"> </v-col>
+              <v-col cols="3">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <div class="artifact-wrapper">
+                        <img
+                          class="artifact-image"
+                          :src="artifactLesserList[1].imgUrl"
+                        />
+                        <img
+                          class="artifact-frame"
+                          src="/img/tier/artifact-builder-lesser.svg"
+                        />
+                      </div>
+                    </span>
+                  </template>
+                  <span>
+                    <Artifact :currentArtifactInput="artifactLesserList[1]" />
+                  </span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="1"> </v-col>
+              <v-col cols="3">
+                <v-tooltip bottom open-delay="500" transition="none">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                      <div class="artifact-wrapper">
+                        <img
+                          class="artifact-image"
+                          :src="artifactLesserList[2].imgUrl"
+                        />
+                        <img
+                          class="artifact-frame"
+                          src="/img/tier/artifact-builder-lesser.svg"
+                        />
+                      </div>
+                    </span>
+                  </template>
+                  <span>
+                    <Artifact :currentArtifactInput="artifactLesserList[2]" />
+                  </span>
+                </v-tooltip>
+              </v-col>
+            </v-row>
+          </v-col>
+        </div>
+        <div v-else class="artifact-loadout-wapper">
           <v-row>
-            <div class="artifact-wrapper">
-              <img
-                class="artifact-image"
-                :src="artifactLegendaryList[0].imgUrl"
-              />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-legendary.svg"
-              />
-            </div>
+            <v-tooltip bottom open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <div class="artifact-wrapper">
+                    <img
+                      class="artifact-image"
+                      :src="artifactLegendaryList[0].imgUrl"
+                    />
+                    <img
+                      class="artifact-frame"
+                      src="/img/tier/artifact-builder-legendary.svg"
+                    />
+                  </div>
+                </span>
+              </template>
+              <span>
+                <Artifact :currentArtifactInput="artifactLegendaryList[0]" />
+              </span>
+            </v-tooltip>
+          </v-row>
+          <br />
+          <v-row>
+            <v-tooltip bottom open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <div class="artifact-wrapper">
+                    <img
+                      class="artifact-image"
+                      :src="artifactGreaterList[0].imgUrl"
+                    />
+                    <img
+                      class="artifact-frame"
+                      src="/img/tier/artifact-builder-greater.svg"
+                    />
+                  </div>
+                </span>
+              </template>
+              <span>
+                <Artifact :currentArtifactInput="artifactGreaterList[0]" />
+              </span>
+            </v-tooltip>
           </v-row>
           <v-row>
-            <div class="artifact-wrapper">
-              <img
-                class="artifact-image"
-                :src="artifactGreaterList[0].imgUrl"
-              />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-greater.svg"
-              />
-            </div>
+            <v-tooltip bottom open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <div class="artifact-wrapper">
+                    <img
+                      class="artifact-image"
+                      :src="artifactGreaterList[1].imgUrl"
+                    />
+                    <img
+                      class="artifact-frame"
+                      src="/img/tier/artifact-builder-greater.svg"
+                    />
+                  </div>
+                </span>
+              </template>
+              <span>
+                <Artifact :currentArtifactInput="artifactGreaterList[1]" />
+              </span>
+            </v-tooltip>
+          </v-row>
+          <br />
+          <v-row>
+            <v-tooltip bottom open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <div class="artifact-wrapper">
+                    <img
+                      class="artifact-image"
+                      :src="artifactLesserList[0].imgUrl"
+                    />
+                    <img
+                      class="artifact-frame"
+                      src="/img/tier/artifact-builder-lesser.svg"
+                    />
+                  </div>
+                </span>
+              </template>
+              <span>
+                <Artifact :currentArtifactInput="artifactLesserList[0]" />
+              </span>
+            </v-tooltip>
           </v-row>
           <v-row>
-            <div class="artifact-wrapper">
-              <img
-                class="artifact-image"
-                :src="artifactGreaterList[1].imgUrl"
-              />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-greater.svg"
-              />
-            </div>
+            <v-tooltip bottom open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <div class="artifact-wrapper">
+                    <img
+                      class="artifact-image"
+                      :src="artifactLesserList[1].imgUrl"
+                    />
+                    <img
+                      class="artifact-frame"
+                      src="/img/tier/artifact-builder-lesser.svg"
+                    />
+                  </div>
+                </span>
+              </template>
+              <span>
+                <Artifact :currentArtifactInput="artifactLesserList[1]" />
+              </span>
+            </v-tooltip>
           </v-row>
           <v-row>
-            <div class="artifact-wrapper">
-              <img class="artifact-image" :src="artifactLesserList[0].imgUrl" />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-lesser.svg"
-              />
-            </div>
-          </v-row>
-          <v-row>
-            <div class="artifact-wrapper">
-              <img class="artifact-image" :src="artifactLesserList[1].imgUrl" />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-lesser.svg"
-              />
-            </div>
-          </v-row>
-          <v-row>
-            <div class="artifact-wrapper">
-              <img class="artifact-image" :src="artifactLesserList[2].imgUrl" />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-lesser.svg"
-              />
-            </div>
+            <v-tooltip bottom open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <div class="artifact-wrapper">
+                    <img
+                      class="artifact-image"
+                      :src="artifactLesserList[2].imgUrl"
+                    />
+                    <img
+                      class="artifact-frame"
+                      src="/img/tier/artifact-builder-lesser.svg"
+                    />
+                  </div>
+                </span>
+              </template>
+              <span>
+                <Artifact :currentArtifactInput="artifactLesserList[2]" />
+              </span>
+            </v-tooltip>
           </v-row>
         </div>
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        sm="12"
-        md="7"
-        lg="7"
-        style="white-space: pre-line"
-      >
-        {{ currentLoadout.longDescription }}
+      <v-col cols="12" xs="12" sm="12" md="7" lg="7" class="ml-n1">
+        <br />
+        <v-row style="white-space: pre-line" class="pa-5">
+          <strong> Intro: </strong> <br />
+          {{ currentLoadout.shortDescription }}
+        </v-row>
+        <br />
+        <br />
+        <v-row style="white-space: pre-line" class="pa-5">
+          <strong> Guide: </strong> <br />
+          {{ currentLoadout.longDescription }}
+        </v-row>
       </v-col>
-      <!-- <v-col cols="12" xs="12" sm="12" md="6" lg="6">
-        <v-row>
-          <v-col cols="1"> </v-col>
-          <v-col cols="3"> </v-col>
-          <v-col cols="4">
-            <div class="artifact-wrapper">
-              <img
-                class="artifact-image"
-                :src="artifactLegendaryList[0].imgUrl"
-              />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-legendary.svg"
-              />
-            </div>
-          </v-col>
-          <v-col cols="1"> </v-col>
-          <v-col cols="3"> </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="2"> </v-col>
-          <v-col cols="3">
-            <div class="artifact-wrapper">
-              <img
-                class="artifact-image"
-                :src="artifactGreaterList[0].imgUrl"
-              />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-greater.svg"
-              />
-            </div>
-          </v-col>
-          <v-col cols="2"> </v-col>
-          <v-col cols="3">
-            <div class="artifact-wrapper">
-              <img
-                class="artifact-image"
-                :src="artifactGreaterList[1].imgUrl"
-              />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-greater.svg"
-              />
-            </div>
-          </v-col>
-          <v-col cols="2"> </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="2"> </v-col>
-          <v-col cols="2">
-            <div class="artifact-wrapper">
-              <img class="artifact-image" :src="artifactLesserList[0].imgUrl" />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-lesser.svg"
-              />
-            </div>
-          </v-col>
-          <v-col cols="1"> </v-col>
-          <v-col cols="2">
-            <div class="artifact-wrapper">
-              <img class="artifact-image" :src="artifactLesserList[1].imgUrl" />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-lesser.svg"
-              />
-            </div>
-          </v-col>
-          <v-col cols="1"> </v-col>
-          <v-col cols="2">
-            <div class="artifact-wrapper">
-              <img class="artifact-image" :src="artifactLesserList[2].imgUrl" />
-              <img
-                class="artifact-frame"
-                src="/img/tier/artifact-builder-lesser.svg"
-              />
-            </div>
-            <v-col cols="2"> </v-col>
-          </v-col>
-        </v-row>
-      </v-col> -->
     </v-row>
     <br /><br />
-    <!-- <div class="deckloadlout">
-      <v-skeleton-loader
-        v-if="currentLoadout.deck == null"
-        class="mx-auto"
-        max-width="300"
-        max-height="300"
-        type="card-avatar"
+    <v-row align="center" justify="center">
+      <v-col
+        v-if="currentLoadout.imgUrl"
+        xs="12"
+        sm="12"
+        md="6"
+        lg="6"
+        class="pa-5"
       >
-      </v-skeleton-loader>
-      <Deck v-else :deck-id="currentLoadout.deck" :key="currentLoadout.deck" />
-    </div> -->
-    <!-- 
-      <v-row>
-      <v-col cols="3" md="1" sm="2"> </v-col>
-      <v-col cols="6" md="1" sm="8">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLegendaryList[0].imgUrl" />
-          <img class="artifact-frame" src="https://svgshare.com/i/X2m.svg" />
-        </div>
+        <v-img :src="currentLoadout.imgUrl" max-height="400" max-width="400">
+        </v-img>
       </v-col>
-      <v-col cols="3" md="1" sm="2"> </v-col>
-      <v-col cols="1" md="1" sm="1"> </v-col>
-      <v-col cols="5" md="1" sm="5">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactGreaterList[0].imgUrl" />
-          <img class="artifact-frame" src="https://svgshare.com/i/X2m.svg" />
-        </div>
-      </v-col>
-      <v-col cols="5" md="1" sm="5">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactGreaterList[1].imgUrl" />
-          <img class="artifact-frame" src="https://svgshare.com/i/X2m.svg" />
-        </div>
-      </v-col>
-      <v-col cols="1" md="1" sm="1"> </v-col>
-      <v-col cols="4" md="1" sm="4">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLesserList[0].imgUrl" />
-          <img class="artifact-frame" src="https://svgshare.com/i/X2m.svg" />
-        </div>
-      </v-col>
-      <v-col cols="4" md="1" sm="4">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLesserList[1].imgUrl" />
-          <img class="artifact-frame" src="https://svgshare.com/i/X2m.svg" />
-        </div>
-      </v-col>
-      <v-col cols="4" md="1 " sm="4">
-        <div class="artifact-wrapper">
-          <img class="artifact-image" :src="artifactLesserList[2].imgUrl" />
-          <img class="artifact-frame" src="https://svgshare.com/i/X2m.svg" />
-        </div>
+      <v-col
+        v-if="currentLoadout.youtubeUrl"
+        xs="12"
+        sm="12"
+        md="6"
+        lg="6"
+        class="pa-5"
+      >
+        <youtube :video-id="videoId"> </youtube>
       </v-col>
     </v-row>
-     -->
-    <!-- <div class="loadout">a</div>
-    <v-card>
-      <v-card-title>{{ currentLoadout.name }}</v-card-title>
-      <v-card-subtitle>Made by {{ currentLoadout.owner }}</v-card-subtitle>
-      <v-row>
-        <v-col v-if="currentLoadout.imgUrl" cols="6" align="center">
-          <v-img :src="currentLoadout.imgUrl" max-height="400" max-width="400">
-          </v-img>
-        </v-col>
-        <v-col cols="6" style="white-space: pre-line">
-          {{ currentLoadout.shortDescription }}
-        </v-col>
-      </v-row>
-      <v-row v-if="currentLoadout.youtubeUrl">
-        <v-col> </v-col>
-        <v-col>
-          <youtube :video-id="videoId"> </youtube>
-        </v-col>
-        <v-col> </v-col>
-      </v-row>
-
-      <v-card>
-        <v-card-title> Class: {{ currentLoadout.class }} </v-card-title>
-        <v-row>
-          <v-col
-            cols="12"
-            md="6"
-            sm="12"
-            class="pa-10"
-            style="white-space: pre-line"
-          >
-            {{ currentLoadout.longDescription }}
-          </v-col>
-          <v-col cols="12" md="6" sm="12">
-            <v-skeleton-loader
-              v-if="currentLoadout.deck == null"
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-            <Deck
-              v-else
-              :deck-id="currentLoadout.deck"
-              :key="currentLoadout.deck"
-            />
-          </v-col>
-        </v-row>
-      </v-card>
-      <v-card>
-        <v-card-title> Artifacts </v-card-title>
-        <v-row>
-          <v-col cols="12">
-            <Artifact
-              v-if="artifactLegendaryList[0]"
-              :currentArtifactInput="artifactLegendaryList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="6" sm="12">
-            <Artifact
-              v-if="artifactGreaterList[0]"
-              :currentArtifactInput="artifactGreaterList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="6" sm="12">
-            <Artifact
-              v-if="artifactGreaterList[1]"
-              :currentArtifactInput="artifactGreaterList[1]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="4" sm="12">
-            <Artifact
-              v-if="artifactLesserList[0]"
-              :currentArtifactInput="artifactLesserList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Artifact
-              v-if="artifactLesserList[1]"
-              :currentArtifactInput="artifactLesserList[1]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Artifact
-              v-if="artifactLesserList[2]"
-              :currentArtifactInput="artifactLesserList[2]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-        </v-row>
-      </v-card>
-      <v-card>
-        <v-card-title>Equipment</v-card-title>
-        <v-row>
-          <v-col cols="12" md="4" sm="12">
-            <Equipment
-              v-if="headList[0]"
-              :currentEquipmentInput="headList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Equipment
-              v-if="bodyList[0]"
-              :currentEquipmentInput="bodyList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Equipment
-              v-if="armsList[0]"
-              :currentEquipmentInput="armsList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Equipment
-              v-if="feetList[0]"
-              :currentEquipmentInput="feetList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Equipment
-              v-if="accessoryList[0]"
-              :currentEquipmentInput="accessoryList[0]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-          <v-col cols="12" md="4" sm="12">
-            <Equipment
-              v-if="accessoryList[1]"
-              :currentEquipmentInput="accessoryList[1]"
-            />
-            <v-skeleton-loader
-              v-else
-              class="mx-auto"
-              max-width="300"
-              max-height="300"
-              type="card-avatar"
-            >
-            </v-skeleton-loader>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-card> -->
+    <br /><br />
   </div>
 </template>
 
@@ -532,6 +515,8 @@ export default {
   },
   data() {
     return {
+      loadingEquipments: true,
+      classBg: "none",
       currentLoadout: {
         name: null,
         owner: "anonymous",
@@ -631,6 +616,43 @@ export default {
       }
       this.equipments = this.currentLoadout.equipments;
       this.artifacts = this.currentLoadout.artifacts;
+      switch (this.currentLoadout.class.toLowerCase()) {
+        case "sanctifier":
+          this.classBg = "sanctifier-bg";
+          break;
+        case "mind mage":
+          this.classBg = "mindmage-bg";
+          break;
+        case "necromancer":
+          this.classBg = "necromancer-bg";
+          break;
+        case "geomancer":
+          this.classBg = "geomancer-bg";
+          break;
+        case "beast caller":
+          this.classBg = "beastcaller-bg";
+          break;
+        case "dimir assassin":
+          this.classBg = "dimir-bg";
+          break;
+      }
+    },
+  },
+  computed: {
+    mobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return true;
+        case "sm":
+          return true;
+        case "md":
+          return false;
+        case "lg":
+          return false;
+        case "xl":
+          return false;
+      }
+      return false;
     },
   },
 };
@@ -648,8 +670,31 @@ export default {
   position: relative;
 }
 
+.sanctifier-bg {
+  background-image: url(/img/loadout/sanctifier-min.png);
+}
+
+.mindmage-bg {
+  background-image: url(/img/loadout/mindmage-min.png);
+}
+
+.necromancer-bg {
+  background-image: url(/img/loadout/necromancer-min.png);
+}
+
+.geomancer-bg {
+  background-image: url(/img/loadout/geomancer-min.png);
+}
+
+.beastcaller-bg {
+  background-image: url(/img/loadout/beastcaller-min.png);
+}
+
+.dimir-bg {
+  background-image: url(/img/loadout/dimir-min.png);
+}
+
 .loadoutequip {
-  background-image: url(/img/loadout/necromancer1.png);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -684,53 +729,20 @@ export default {
   position: relative;
 }
 
+.equip-text-line {
+  font-size: xx-small;
+  text-align: center;
+}
+
+.equip-image {
+  margin-top: -9%;
+  width: 100%;
+  clip-path: circle(50%);
+  position: relative;
+}
+
 .artifact-frame {
   width: 100%;
   position: absolute;
 }
-
-/*
-.artifact-legendary-wrapper {
-  background: transparent url("/img/tier/artifact-builder-legendary.svg")
-    no-repeat center center;
-  background-size: contain;
-  height: 130px;
-  width: 130px;
-  text-align: center;
-  padding-top: 16px;
-}
-
-.artifact-legendary-wrapper img {
-  width: 98px;
-  height: 98px;
-  clip-path: circle(50%);
-}
-
-.artifact-wrapper {
-  height: 132px;
-  width: 132px;
-  text-align: center;
-  background-size: 100px 100px;
-  background-clip: border-box;
-  border-radius: 200px 200px;
-  background-position-x: 20px;
-}
-
-.artifact-wrapper img {
-  width: 150px;
-  height: 150px;
-}
- .artifact-wrapper {
-  background: transparent url("https://i.imgur.com/Pf7Oi6I.png") no-repeat
-    center center;
-  height: 132px;
-  text-align: center;
-  padding-top: 27px;
-}
-
-.artifact-wrapper img {
-  width: 105px;
-  height: 105px;
-  clip-path: circle(50%);
-} */
 </style>
