@@ -38,13 +38,6 @@
           <br /><br />
           <br /><br />
           <v-row>
-            <v-col cols="12">
-              <div class="equip-text-line">
-                {{ headList[0].name }}
-              </div>
-            </v-col>
-          </v-row>
-          <v-row>
             <v-col cols="1"> </v-col>
             <v-col cols="3"> </v-col>
             <v-col cols="4">
@@ -61,18 +54,6 @@
             </v-col>
             <v-col cols="3"> </v-col>
             <v-col cols="1"> </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="6">
-              <div class="equip-text-line">
-                {{ bodyList[0].name }}
-              </div>
-            </v-col>
-            <v-col cols="6">
-              <div class="equip-text-line">
-                {{ armsList[0].name }}
-              </div>
-            </v-col>
           </v-row>
           <v-row>
             <v-col cols="1"> </v-col>
@@ -104,18 +85,6 @@
             <v-col cols="1"> </v-col>
           </v-row>
           <v-row>
-            <v-col cols="6">
-              <div class="equip-text-line">
-                {{ accessoryList[0].name }}
-              </div>
-            </v-col>
-            <v-col cols="6">
-              <div class="equip-text-line">
-                {{ accessoryList[1].name }}
-              </div>
-            </v-col>
-          </v-row>
-          <v-row>
             <v-col cols="1"> </v-col>
             <v-col cols="4">
               <v-tooltip bottom open-delay="500" transition="none">
@@ -143,13 +112,6 @@
               </v-tooltip>
             </v-col>
             <v-col cols="1"> </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <div class="equip-text-line">
-                {{ feetList[0].name }}
-              </div>
-            </v-col>
           </v-row>
           <v-row>
             <v-col cols="1"> </v-col>
@@ -701,11 +663,12 @@ export default {
   margin: auto;
 }
 
-.necroloadout {
-  background-image: url(https://i.imgur.com/GxTJA0w.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.equip-image {
+  margin-top: -9%;
+  width: 100%;
+  clip-path: circle(50%);
+  position: relative;
+  opacity: 0.9;
 }
 
 .artifact-loadout-wapper > * {
@@ -725,18 +688,6 @@ export default {
 .artifact-image {
   width: 90%;
   margin-top: 5%;
-  clip-path: circle(50%);
-  position: relative;
-}
-
-.equip-text-line {
-  font-size: xx-small;
-  text-align: center;
-}
-
-.equip-image {
-  margin-top: -9%;
-  width: 100%;
   clip-path: circle(50%);
   position: relative;
 }
