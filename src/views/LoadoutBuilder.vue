@@ -36,7 +36,7 @@
             counter="250"
             :rules="rulesShortDesc"
             v-model="loadout.shortDescription"
-            label="Loadout short description"
+            label="Loadout short intro"
             placeholder="Write a short description to introduce your loadout"
           />
         </v-col>
