@@ -33,106 +33,80 @@
     </v-skeleton-loader>
     <v-row v-else>
       <v-col cols="12" xs="12" sm="12" md="4" lg="4" class="ml-1">
-        <div :class="classBg" class="loadoutequip">
-          <br /><br />
-          <br /><br />
-          <br /><br />
-          <v-row>
-            <v-col cols="1"> </v-col>
-            <v-col cols="3"> </v-col>
-            <v-col cols="4">
-              <v-tooltip bottom open-delay="500" transition="none">
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on">
-                    <img :src="headList[0].imgUrl" class="equip-image" />
-                  </span>
-                </template>
-                <span>
-                  <Equipment :currentEquipmentInput="headList[0]" />
+        <div class="loadoutequip">
+          <div class="equip-container-class" :class="classBg"></div>
+          <div class="equip-container-head">
+            <v-tooltip right open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <img :src="headList[0].imgUrl" class="equip-image" />
                 </span>
-              </v-tooltip>
-            </v-col>
-            <v-col cols="3"> </v-col>
-            <v-col cols="1"> </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="1"> </v-col>
-            <v-col cols="4">
-              <v-tooltip bottom open-delay="500" transition="none">
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on">
-                    <img :src="bodyList[0].imgUrl" class="equip-image" />
-                  </span>
-                </template>
-                <span>
-                  <Equipment :currentEquipmentInput="bodyList[0]" />
+              </template>
+              <span>
+                <Equipment :currentEquipmentInput="headList[0]" />
+              </span>
+            </v-tooltip>
+          </div>
+          <div class="equip-container-body">
+            <v-tooltip right open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <img :src="bodyList[0].imgUrl" class="equip-image" />
                 </span>
-              </v-tooltip>
-            </v-col>
-            <v-col cols="2"> </v-col>
-            <v-col cols="4">
-              <v-tooltip bottom open-delay="500" transition="none">
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on">
-                    <img :src="armsList[0].imgUrl" class="equip-image" />
-                  </span>
-                </template>
-                <span>
-                  <Equipment :currentEquipmentInput="armsList[0]" />
+              </template>
+              <span>
+                <Equipment :currentEquipmentInput="bodyList[0]" />
+              </span>
+            </v-tooltip>
+          </div>
+          <div class="equip-container-arms">
+            <v-tooltip right open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <img :src="armsList[0].imgUrl" class="equip-image" />
                 </span>
-              </v-tooltip>
-            </v-col>
-            <v-col cols="1"> </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="1"> </v-col>
-            <v-col cols="4">
-              <v-tooltip bottom open-delay="500" transition="none">
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on">
-                    <img :src="accessoryList[0].imgUrl" class="equip-image" />
-                  </span>
-                </template>
-                <span>
-                  <Equipment :currentEquipmentInput="accessoryList[0]" />
+              </template>
+              <span>
+                <Equipment :currentEquipmentInput="armsList[0]" />
+              </span>
+            </v-tooltip>
+          </div>
+          <div class="equip-container-accessory1">
+            <v-tooltip right open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <img :src="accessoryList[0].imgUrl" class="equip-image" />
                 </span>
-              </v-tooltip>
-            </v-col>
-            <v-col cols="2"> </v-col>
-            <v-col cols="4">
-              <v-tooltip bottom open-delay="500" transition="none">
-                <template v-slot:activator="{ on, attrs }">
-                  <span v-bind="attrs" v-on="on">
-                    <img :src="accessoryList[1].imgUrl" class="equip-image" />
-                  </span>
-                </template>
-                <span>
-                  <Equipment :currentEquipmentInput="accessoryList[1]" />
+              </template>
+              <span>
+                <Equipment :currentEquipmentInput="accessoryList[0]" />
+              </span>
+            </v-tooltip>
+          </div>
+          <div class="equip-container-accessory2">
+            <v-tooltip right open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <img :src="accessoryList[1].imgUrl" class="equip-image" />
                 </span>
-              </v-tooltip>
-            </v-col>
-            <v-col cols="1"> </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="1"> </v-col>
-            <v-col cols="3"> </v-col>
-            <v-col cols="4">
-              <div class="equip-container">
-                <v-tooltip bottom open-delay="500" transition="none">
-                  <template v-slot:activator="{ on, attrs }">
-                    <span v-bind="attrs" v-on="on">
-                      <img :src="feetList[0].imgUrl" class="equip-image" />
-                    </span>
-                  </template>
-                  <span>
-                    <Equipment :currentEquipmentInput="feetList[0]" />
-                  </span>
-                </v-tooltip>
-              </div>
-            </v-col>
-            <v-col cols="3"> </v-col>
-            <v-col cols="1"> </v-col>
-          </v-row>
+              </template>
+              <span>
+                <Equipment :currentEquipmentInput="accessoryList[1]" />
+              </span>
+            </v-tooltip>
+          </div>
+          <div class="equip-container-feet">
+            <v-tooltip right open-delay="500" transition="none">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <img :src="feetList[0].imgUrl" class="equip-image" />
+                </span>
+              </template>
+              <span>
+                <Equipment :currentEquipmentInput="feetList[0]" />
+              </span>
+            </v-tooltip>
+          </div>
         </div>
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="1" lg="1">
@@ -142,7 +116,7 @@
               <v-col cols="1"> </v-col>
               <v-col cols="3"> </v-col>
               <v-col cols="4">
-                <v-tooltip bottom open-delay="500" transition="none">
+                <v-tooltip right open-delay="500" transition="none">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on">
                       <div class="artifact-wrapper">
@@ -170,7 +144,7 @@
             <v-row>
               <v-col cols="2"> </v-col>
               <v-col cols="3">
-                <v-tooltip bottom open-delay="500" transition="none">
+                <v-tooltip right open-delay="500" transition="none">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on">
                       <div class="artifact-wrapper">
@@ -192,7 +166,7 @@
               </v-col>
               <v-col cols="2"> </v-col>
               <v-col cols="3">
-                <v-tooltip bottom open-delay="500" transition="none">
+                <v-tooltip right open-delay="500" transition="none">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on">
                       <div class="artifact-wrapper">
@@ -216,7 +190,7 @@
             </v-row>
             <v-row>
               <v-col cols="3">
-                <v-tooltip bottom open-delay="500" transition="none">
+                <v-tooltip right open-delay="500" transition="none">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on">
                       <div class="artifact-wrapper">
@@ -238,7 +212,7 @@
               </v-col>
               <v-col cols="1"> </v-col>
               <v-col cols="3">
-                <v-tooltip bottom open-delay="500" transition="none">
+                <v-tooltip right open-delay="500" transition="none">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on">
                       <div class="artifact-wrapper">
@@ -260,7 +234,7 @@
               </v-col>
               <v-col cols="1"> </v-col>
               <v-col cols="3">
-                <v-tooltip bottom open-delay="500" transition="none">
+                <v-tooltip right open-delay="500" transition="none">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on">
                       <div class="artifact-wrapper">
@@ -285,7 +259,7 @@
         </div>
         <div v-else class="artifact-loadout-wapper">
           <v-row>
-            <v-tooltip bottom open-delay="500" transition="none">
+            <v-tooltip right open-delay="500" transition="none">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <div class="artifact-wrapper">
@@ -307,7 +281,7 @@
           </v-row>
           <br />
           <v-row>
-            <v-tooltip bottom open-delay="500" transition="none">
+            <v-tooltip right open-delay="500" transition="none">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <div class="artifact-wrapper">
@@ -328,7 +302,7 @@
             </v-tooltip>
           </v-row>
           <v-row>
-            <v-tooltip bottom open-delay="500" transition="none">
+            <v-tooltip right open-delay="500" transition="none">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <div class="artifact-wrapper">
@@ -350,7 +324,7 @@
           </v-row>
           <br />
           <v-row>
-            <v-tooltip bottom open-delay="500" transition="none">
+            <v-tooltip right open-delay="500" transition="none">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <div class="artifact-wrapper">
@@ -371,7 +345,7 @@
             </v-tooltip>
           </v-row>
           <v-row>
-            <v-tooltip bottom open-delay="500" transition="none">
+            <v-tooltip right open-delay="500" transition="none">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <div class="artifact-wrapper">
@@ -392,7 +366,7 @@
             </v-tooltip>
           </v-row>
           <v-row>
-            <v-tooltip bottom open-delay="500" transition="none">
+            <v-tooltip right open-delay="500" transition="none">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <div class="artifact-wrapper">
@@ -633,42 +607,103 @@ export default {
 }
 
 .sanctifier-bg {
-  background-image: url(/img/loadout/sanctifier-min.png);
+  background-image: url(/img/loadout/sanctifier-icon.png);
 }
 
 .mindmage-bg {
-  background-image: url(/img/loadout/mindmage-min.png);
+  background-image: url(/img/loadout/mindmage-icon.png);
 }
 
 .necromancer-bg {
-  background-image: url(/img/loadout/necromancer-min.png);
+  background-image: url(/img/loadout/necromancer-icon.png);
 }
 
 .geomancer-bg {
-  background-image: url(/img/loadout/geomancer-min.png);
+  background-image: url(/img/loadout/geomancer-icon.png);
 }
 
 .beastcaller-bg {
-  background-image: url(/img/loadout/beastcaller-min.png);
+  background-image: url(/img/loadout/beastcaller-icon.png);
 }
 
 .dimir-bg {
-  background-image: url(/img/loadout/dimir-min.png);
+  background-image: url(/img/loadout/dimir-icon.png);
 }
 
 .loadoutequip {
+  background-image: url(/img/loadout/loadout_blank-min.png);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+
   margin: auto;
+  width: 100%;
+  padding-bottom: 120%; /* 5:6  */
+  position: relative;
+}
+
+.equip-container-head {
+  width: 18%;
+  height: 18%;
+  position: absolute;
+  margin-left: 40.3%;
+  margin-top: 26.5%;
+}
+
+.equip-container-body {
+  width: 18%;
+  height: 18%;
+  position: absolute;
+  margin-left: 13.1%;
+  margin-top: 42.5%;
+}
+
+.equip-container-arms {
+  width: 18%;
+  height: 18%;
+  position: absolute;
+  margin-left: 67.9%;
+  margin-top: 42.5%;
+}
+
+.equip-container-accessory1 {
+  width: 18%;
+  height: 18%;
+  position: absolute;
+  margin-left: 13.1%;
+  margin-top: 74.5%;
+}
+
+.equip-container-accessory2 {
+  width: 18%;
+  height: 18%;
+  position: absolute;
+  margin-left: 67.9%;
+  margin-top: 74.5%;
+}
+
+.equip-container-feet {
+  width: 18%;
+  height: 18%;
+  position: absolute;
+  margin-left: 40.3%;
+  margin-top: 90.1%;
+}
+
+.equip-container-class {
+  width: 30%;
+  height: 25%;
+  position: absolute;
+  margin-left: 35%;
+  margin-top: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 .equip-image {
-  margin-top: -9%;
   width: 100%;
   clip-path: circle(50%);
-  position: relative;
-  opacity: 0.9;
 }
 
 .artifact-loadout-wapper > * {
