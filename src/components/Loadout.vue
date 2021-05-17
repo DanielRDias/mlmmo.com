@@ -595,13 +595,6 @@ export default {
 </script>
 
 <style scoped>
-.loadout {
-  width: 100%;
-  min-height: 601px;
-  margin: auto;
-  background-image: url("/img/loadout/overlay.png");
-}
-
 .deckloadlout {
   position: relative;
 }
@@ -722,6 +715,7 @@ export default {
 
 .artifact-image {
   width: 90%;
+  height: 90%;
   margin-top: 5%;
   clip-path: circle(50%);
   position: relative;
@@ -729,6 +723,7 @@ export default {
 
 .artifact-frame {
   width: 100%;
+  height: 100%;
   position: absolute;
 }
 </style>
