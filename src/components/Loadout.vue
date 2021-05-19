@@ -565,6 +565,9 @@ export default {
         case "geomancer":
           this.classBg = "geomancer-bg";
           break;
+        case "pyromancer":
+          this.classBg = "pyromancer-bg";
+          break;
         case "beast caller":
           this.classBg = "beastcaller-bg";
           break;
@@ -613,6 +616,10 @@ export default {
 
 .geomancer-bg {
   background-image: url(/img/loadout/geomancer-icon.png);
+}
+
+.pyromancer-bg {
+  background-image: url(/img/loadout/pyromancer-icon.png);
 }
 
 .beastcaller-bg {
