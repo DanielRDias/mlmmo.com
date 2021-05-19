@@ -47,8 +47,20 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          key="ClassWiki"
+          href="https://wiki.mlarpg.com/wiki/Class"
+          link
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-badge-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Classes Wiki</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-divider></v-divider>
-        <v-list-item key="Wiki" href="https://wiki.mlarpg.com" link>
+        <v-list-item key="Wiki" href="https://wiki.mlarpg.com/" link>
           <v-list-item-icon>
             <v-icon>mdi-wikipedia</v-icon>
           </v-list-item-icon>
@@ -127,7 +139,6 @@ export default {
     items: [
       { title: "Decks", icon: "mdi-playlist-check", to: "/decks" },
       { title: "Loadout List", icon: "mdi-newspaper", to: "/loadouts" },
-      { title: "Classes", icon: "mdi-badge-account", to: "/classes" },
       { title: "Spells", icon: "mdi-cards", to: "/cards" },
       { title: "Artifacts", icon: "mdi-dots-triangle", to: "/artifacts" },
       { title: "Equipment", icon: "mdi-tshirt-crew", to: "/equipments" },
