@@ -800,6 +800,7 @@ export default {
         "Geomancer",
         "Beast Caller",
         "Dimir Assassin",
+        "Pyromancer",
       ],
       deckList: [],
       deckImgs: {},
