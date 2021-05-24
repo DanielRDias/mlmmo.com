@@ -116,7 +116,7 @@ export default {
   components: {
     Deck,
   },
-  async mounted() {
+  async beforeMount() {
     // Wait for cards to be loaded to avoid deck component to load the cards again
     await this.$store.dispatch("cardInfo/getCardsData");
 

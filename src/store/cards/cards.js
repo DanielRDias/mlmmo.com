@@ -362,6 +362,7 @@ export const cardInfo = {
       }
     },
 
+    // Not used anymore
     async getCardList(_, cardIdList) {
       let filterId = [];
       let cardList = [];
