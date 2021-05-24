@@ -842,7 +842,7 @@ export default {
           this.loadout.owner = this.user.username;
           this.loadout.ownerId = this.user.id;
         }
-        let result = await this.$store.dispatch("cardInfo/createLoadout", {
+        let result = await this.$store.dispatch("loadout/createLoadout", {
           file: "",
           loadoutData: this.loadout,
         });

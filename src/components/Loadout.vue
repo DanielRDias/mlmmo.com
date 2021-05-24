@@ -485,7 +485,7 @@ export default {
   },
   async mounted() {
     this.getLoadoutData = await this.$store.dispatch(
-      "cardInfo/getLoadout",
+      "loadout/getLoadout",
       this.$props.currentLoadoutId
     );
     await this.$store.dispatch("cardInfo/getCardsData");
