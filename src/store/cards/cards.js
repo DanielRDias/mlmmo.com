@@ -38,6 +38,7 @@ import awsconfig from "@/aws-exports";
 export const cardInfo = {
   namespaced: true,
   state: {
+    promise: null,
     decks: null,
     cards: null,
     cardVersions: null,
@@ -50,6 +51,7 @@ export const cardInfo = {
   },
 
   getters: {
+    getPromise: (state) => state.promise,
     cards: (state) => state.cards,
     cardVersions: (state) => state.cardVersions,
     decks: (state) => state.decks,
@@ -62,6 +64,9 @@ export const cardInfo = {
   },
 
   mutations: {
+    SET_PROMISE(state, payload) {
+      state.promise = payload;
+    },
     setNewDeck(state, payload) {
       state.newDeck = payload;
     },
@@ -83,9 +88,6 @@ export const cardInfo = {
     },
     setCards(state, payload) {
       state.cards = payload;
-    },
-    appendCards(state, payload) {
-      state.cards = state.cards.concat(payload);
     },
     setCardVersions(state, payload) {
       state.cardVersions = payload;
@@ -383,24 +385,39 @@ export const cardInfo = {
 
       return cardList;
     },
+
     async getCardsData({ commit, state }) {
       // Only call the API if do not have state data yet
-      if (!state.cards) {
-        var cardsData = await API.graphql({
-          query: listCardsQuery,
-          authMode: "API_KEY",
-        });
-        commit("setCards", cardsData.data.listCards.items);
-        while (cardsData.data.listCards.nextToken) {
+      if (state.cards) {
+        return state.cards;
+      }
+
+      if (state.getPromise) {
+        return state.getPromise;
+      }
+
+      let promise = API.graphql({
+        query: listCardsQuery,
+        authMode: "API_KEY",
+      }).then(async (response) => {
+        let cardsData = response;
+        let cardItems = cardsData.data.listCards.items;
+        let nextToken = cardsData.data.listCards.nextToken;
+        while (nextToken) {
           cardsData = await API.graphql({
             query: listCardsQuery,
-            variables: { nextToken: cardsData.data.listCards.nextToken },
+            variables: { nextToken: nextToken },
             authMode: "API_KEY",
           });
-          commit("appendCards", cardsData.data.listCards.items);
+          cardItems = cardItems.concat(cardsData.data.listCards.items);
+          nextToken = cardsData.data.listCards.nextToken;
         }
-      }
+        commit("setCards", cardItems);
+      });
+      commit("SET_PROMISE", promise);
+      return promise;
     },
+
     async createCard(_, data) {
       const {
         aws_user_files_s3_bucket_region: region,
