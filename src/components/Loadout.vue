@@ -443,6 +443,11 @@ export default {
       required: false,
       default: null,
     },
+    currentLoadoutInput: {
+      type: Object,
+      required: false,
+      default: null,
+    },
   },
   components: {
     Deck,
@@ -484,12 +489,16 @@ export default {
     };
   },
   async mounted() {
-    this.getLoadoutData = await this.$store.dispatch(
-      "cardInfo/getLoadout",
-      this.$props.currentLoadoutId
-    );
     await this.$store.dispatch("cardInfo/getCardsData");
-    this.currentLoadout = this.getLoadoutData.data.getLoadout;
+    if (this.$props.currentLoadoutInput !== null) {
+      this.currentLoadout = this.$props.currentLoadoutInput;
+    } else if (this.$props.currentLoadoutId !== null) {
+      this.getLoadoutData = await this.$store.dispatch(
+        "loadout/getLoadout",
+        this.$props.currentLoadoutId
+      );
+      this.currentLoadout = this.getLoadoutData.data.getLoadout;
+    }
   },
   methods: {},
   watch: {
@@ -545,36 +554,39 @@ export default {
       });
       this.loadingEquipments = false;
     },
-    currentLoadout() {
-      if (this.currentLoadout.youtubeUrl) {
-        this.videoId = getIdFromURL(this.currentLoadout.youtubeUrl);
-        this.startTime = getTimeFromURL(this.currentLoadout.youtubeUrl);
-      }
-      this.equipments = this.currentLoadout.equipments;
-      this.artifacts = this.currentLoadout.artifacts;
-      switch (this.currentLoadout.class.toLowerCase()) {
-        case "sanctifier":
-          this.classBg = "sanctifier-bg";
-          break;
-        case "mind mage":
-          this.classBg = "mindmage-bg";
-          break;
-        case "necromancer":
-          this.classBg = "necromancer-bg";
-          break;
-        case "geomancer":
-          this.classBg = "geomancer-bg";
-          break;
-        case "pyromancer":
-          this.classBg = "pyromancer-bg";
-          break;
-        case "beast caller":
-          this.classBg = "beastcaller-bg";
-          break;
-        case "dimir assassin":
-          this.classBg = "dimir-bg";
-          break;
-      }
+    currentLoadout: {
+      handler(currentLoadout) {
+        if (this.currentLoadout.youtubeUrl) {
+          this.videoId = getIdFromURL(this.currentLoadout.youtubeUrl);
+          this.startTime = getTimeFromURL(this.currentLoadout.youtubeUrl);
+        }
+        this.equipments = this.currentLoadout.equipments;
+        this.artifacts = this.currentLoadout.artifacts;
+        switch (this.currentLoadout.class.toLowerCase()) {
+          case "sanctifier":
+            this.classBg = "sanctifier-bg";
+            break;
+          case "mind mage":
+            this.classBg = "mindmage-bg";
+            break;
+          case "necromancer":
+            this.classBg = "necromancer-bg";
+            break;
+          case "geomancer":
+            this.classBg = "geomancer-bg";
+            break;
+          case "pyromancer":
+            this.classBg = "pyromancer-bg";
+            break;
+          case "beast caller":
+            this.classBg = "beastcaller-bg";
+            break;
+          case "dimir assassin":
+            this.classBg = "dimir-bg";
+            break;
+        }
+      },
+      deep: true,
     },
   },
   computed: {

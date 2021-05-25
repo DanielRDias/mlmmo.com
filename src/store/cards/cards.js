@@ -32,17 +32,13 @@ import { updateEquipmentVersion as updateVersionsEquipmentMutation } from "@/gra
 import { getEquipmentVersion as getEquipmentVersionQuery } from "@/graphql/queries";
 import { listEquipmentVersions as listEquipmentVersionsQuery } from "@/graphql/queries";
 
-import { getLoadout as getLoadoutQuery } from "@/graphql/queries";
-import { listLoadouts as listLoadoutsQuery } from "@/graphql/queries";
-import { createLoadout as createLoadoutMutation } from "@/graphql/mutations";
-import { updateLoadout as updateLoadoutMutation } from "@/graphql/mutations";
-
 import { v4 as uuid } from "uuid";
 import awsconfig from "@/aws-exports";
 
 export const cardInfo = {
   namespaced: true,
   state: {
+    promise: null,
     decks: null,
     cards: null,
     cardVersions: null,
@@ -52,10 +48,10 @@ export const cardInfo = {
     equipmentVersions: null,
     newDeck: null,
     newDeckCards: [],
-    loadouts: null,
   },
 
   getters: {
+    getPromise: (state) => state.promise,
     cards: (state) => state.cards,
     cardVersions: (state) => state.cardVersions,
     decks: (state) => state.decks,
@@ -65,10 +61,12 @@ export const cardInfo = {
     equipmentVersions: (state) => state.equipmentVersions,
     newDeck: (state) => state.newDeck,
     newDeckCards: (state) => state.newDeckCards,
-    loadouts: (state) => state.loadouts,
   },
 
   mutations: {
+    SET_PROMISE(state, payload) {
+      state.promise = payload;
+    },
     setNewDeck(state, payload) {
       state.newDeck = payload;
     },
@@ -91,9 +89,6 @@ export const cardInfo = {
     setCards(state, payload) {
       state.cards = payload;
     },
-    appendCards(state, payload) {
-      state.cards = state.cards.concat(payload);
-    },
     setCardVersions(state, payload) {
       state.cardVersions = payload;
     },
@@ -106,19 +101,12 @@ export const cardInfo = {
     appendArtifacts(state, payload) {
       state.artifacts = state.artifacts.concat(payload);
     },
-    setLoadouts(state, payload) {
-      state.loadouts = payload;
-    },
-    appendLoadouts(state, payload) {
-      state.loadouts = state.loadout.concat(payload);
-    },
     setArtifactVersions(state, payload) {
       state.artifactVersions = payload;
     },
     appendArtifactVersions(state, payload) {
       state.artifactVersions = state.artifactVersions.concat(payload);
     },
-
     setEquipments(state, payload) {
       state.equipments = payload;
     },
@@ -374,6 +362,7 @@ export const cardInfo = {
       }
     },
 
+    // Not used anymore
     async getCardList(_, cardIdList) {
       let filterId = [];
       let cardList = [];
@@ -397,24 +386,39 @@ export const cardInfo = {
 
       return cardList;
     },
+
     async getCardsData({ commit, state }) {
       // Only call the API if do not have state data yet
-      if (!state.cards) {
-        var cardsData = await API.graphql({
-          query: listCardsQuery,
-          authMode: "API_KEY",
-        });
-        commit("setCards", cardsData.data.listCards.items);
-        while (cardsData.data.listCards.nextToken) {
+      if (state.cards) {
+        return state.cards;
+      }
+
+      if (state.getPromise) {
+        return state.getPromise;
+      }
+
+      let promise = API.graphql({
+        query: listCardsQuery,
+        authMode: "API_KEY",
+      }).then(async (response) => {
+        let cardsData = response;
+        let cardItems = cardsData.data.listCards.items;
+        let nextToken = cardsData.data.listCards.nextToken;
+        while (nextToken) {
           cardsData = await API.graphql({
             query: listCardsQuery,
-            variables: { nextToken: cardsData.data.listCards.nextToken },
+            variables: { nextToken: nextToken },
             authMode: "API_KEY",
           });
-          commit("appendCards", cardsData.data.listCards.items);
+          cardItems = cardItems.concat(cardsData.data.listCards.items);
+          nextToken = cardsData.data.listCards.nextToken;
         }
-      }
+        commit("setCards", cardItems);
+      });
+      commit("SET_PROMISE", promise);
+      return promise;
     },
+
     async createCard(_, data) {
       const {
         aws_user_files_s3_bucket_region: region,
@@ -946,67 +950,6 @@ export const cardInfo = {
         return Promise.resolve("success");
       } catch (error) {
         console.log("createEquipment error", error);
-        return Promise.reject(error);
-      }
-    },
-
-    /**
-     * Loadouts
-     */
-    async getLoadout(_, loadoutId) {
-      return await API.graphql({
-        query: getLoadoutQuery,
-        variables: { id: loadoutId },
-        authMode: "API_KEY",
-      });
-    },
-
-    async updateLoadout(_, data) {
-      let { file, loadoutData } = data;
-
-      // remove old updatedAt to use the most recent date
-      delete loadoutData.updatedAt;
-      try {
-        await API.graphql(
-          graphqlOperation(updateLoadoutMutation, {
-            input: loadoutData,
-          })
-        );
-        return Promise.resolve("success");
-      } catch (error) {
-        console.log("updateLoadoutMutation error", error);
-        return Promise.reject(error);
-      }
-    },
-
-    async getLoadoutsData({ commit }) {
-      var loadoutsData = await API.graphql({
-        query: listLoadoutsQuery,
-        authMode: "API_KEY",
-      });
-      commit("setLoadouts", loadoutsData.data.listLoadouts.items);
-      while (loadoutsData.data.listLoadouts.nextToken) {
-        loadoutsData = await API.graphql({
-          query: listLoadoutsQuery,
-          variables: {
-            nextToken: loadoutsData.data.listLoadouts.nextToken,
-          },
-          authMode: "API_KEY",
-        });
-        commit("appendLoadouts", loadoutsData.data.listloadouts.items);
-      }
-    },
-
-    async createLoadout(_, data) {
-      const { file, loadoutData } = data;
-      const loadoutId = uuid();
-      try {
-        let result = await API.graphql(
-          graphqlOperation(createLoadoutMutation, { input: loadoutData })
-        );
-        return Promise.resolve(result);
-      } catch (error) {
-        console.log("createLoadout error", error);
         return Promise.reject(error);
       }
     },
