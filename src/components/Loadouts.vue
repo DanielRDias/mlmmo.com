@@ -183,7 +183,7 @@ export default {
     Loadout,
   },
   async mounted() {
-    this.$store.dispatch("cardInfo/getLoadoutsData");
+    this.$store.dispatch("loadout/getLoadoutsData");
   },
   data() {
     return {
@@ -203,7 +203,7 @@ export default {
   computed: {
     ...mapGetters({
       user: "auth/user",
-      items: "cardInfo/loadouts",
+      items: "loadout/loadouts",
     }),
     numberOfPages() {
       let numberOfItems = 0;

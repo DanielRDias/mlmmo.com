@@ -120,7 +120,6 @@
 <script>
 import { mapGetters } from "vuex";
 import Card from "@/components/Card.vue";
-import { ConsoleLogger } from "@aws-amplify/core";
 
 export default {
   props: {
@@ -184,8 +183,8 @@ export default {
       }
     },
   },
-  async mounted() {
-    this.$store.dispatch("cardInfo/getCardsData");
+  async beforeMount() {
+    await this.$store.dispatch("cardInfo/getCardsData");
     try {
       this.deckData = await this.$store.dispatch(
         "cardInfo/getDeck",
