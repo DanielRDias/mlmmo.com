@@ -899,29 +899,6 @@ export default {
     this.$store.dispatch("cardInfo/getEquipmentsData");
   },
   computed: {
-    // artifactLegendary: {
-    //   // getter
-    //   get: function () {
-    //     console.log("get");
-    //     console.log(this.selLgArtifact);
-    //     // Check if we need to initialize the value
-    //     if (this.selLgArtifact == null) {
-    //       this.loadout.artifacts.forEach((artifact) => {
-    //         if (artifact.tier) {
-    //           if (artifact.tier.toLowerCase() == "legendary") {
-    //             this.selLgArtifact = artifact;
-    //           }
-    //         }
-    //       });
-    //     }
-    //     return this.selLgArtifact;
-    //   },
-    //   // setter
-    //   set: function (newValue) {
-    //     this.selLgArtifact = newValue;
-    //     this.updateLoadout();
-    //   },
-    // },
     ...mapGetters({
       user: "auth/user",
       decks: "cardInfo/decks",
@@ -933,14 +910,27 @@ export default {
   methods: {
     async submit() {
       this.loading = true;
+      this.preview = false;
       this.sucessMsg = "";
       this.errorMsg = "";
 
       if (this.loadout.id) {
-        console.log("edit loadout");
+        try {
+          let result = await this.$store.dispatch("loadout/updateLoadout", {
+            file: "",
+            loadoutData: this.loadout,
+          });
+          this.sucessMsg = "Loadout Edited";
+          console.log(result);
+          this.$router.push(
+            "/loadout?loadoutId=" + result.data.updateLoadout.id
+          );
+        } catch (error) {
+          this.errorMsg =
+            "Error editing the loadout. Please contact us via Discord";
+        }
       } else {
         try {
-          console.log("add loadout");
           if (this.user) {
             this.loadout.owner = this.user.username;
             this.loadout.ownerId = this.user.id;
@@ -955,8 +945,8 @@ export default {
             "/loadout?loadoutId=" + result.data.createLoadout.id
           );
         } catch (error) {
-          this.errorMsg = error.errors[0].message;
-          console.log("error adding the loadout", error);
+          this.errorMsg =
+            "Error creating the loadout. Please contact us via Discord";
         }
       }
     },

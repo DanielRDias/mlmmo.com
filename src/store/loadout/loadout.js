@@ -36,24 +36,6 @@ export const loadout = {
       });
     },
 
-    async updateLoadout(_, data) {
-      let { file, loadoutData } = data;
-
-      // remove old updatedAt to use the most recent date
-      delete loadoutData.updatedAt;
-      try {
-        await API.graphql(
-          graphqlOperation(updateLoadoutMutation, {
-            input: loadoutData,
-          })
-        );
-        return Promise.resolve("success");
-      } catch (error) {
-        console.log("updateLoadoutMutation error", error);
-        return Promise.reject(error);
-      }
-    },
-
     async getLoadoutsData({ commit }) {
       var loadoutsData = await API.graphql({
         query: listLoadoutsQuery,
@@ -69,6 +51,24 @@ export const loadout = {
           authMode: "API_KEY",
         });
         commit("appendLoadouts", loadoutsData.data.listloadouts.items);
+      }
+    },
+
+    async updateLoadout(_, data) {
+      let { file, loadoutData } = data;
+
+      // remove old updatedAt to use the most recent date
+      delete loadoutData.updatedAt;
+      try {
+        let result = await API.graphql(
+          graphqlOperation(updateLoadoutMutation, {
+            input: loadoutData,
+          })
+        );
+        return Promise.resolve(result);
+      } catch (error) {
+        console.log("updateLoadoutMutation error", error);
+        return Promise.reject(error);
       }
     },
 
