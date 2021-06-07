@@ -423,6 +423,35 @@ const routes = [
     },
   },
   {
+    path: "/deckbuilder",
+    name: "DeckBuilder",
+    component: () => import("../views/DeckBuilder.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Create Deck - Deck building tool | Magic: Legends ARPG",
+      metaTags: [
+        {
+          name: "og:title",
+          content: "Create Deck - Deck building tool | Magic: Legends ARPG",
+        },
+        {
+          name: "og:image",
+          content: "/logo.png",
+        },
+        {
+          name: "description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Magic: Legends ARPG has the best deck, class, card spells and artifacts. Build and share your own decks with our deck building tool, card, artifacts and gear database.",
+        },
+      ],
+    },
+  },
+  {
     path: "/collectionchecklist",
     name: "CollectionChecklist",
     component: () => import("../views/CollectionChecklist.vue"),
