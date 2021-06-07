@@ -29,7 +29,60 @@
       <template v-slot:default="props">
         <v-row>
           <v-col v-for="item in props.items" :key="item.id" cols="12">
-            <Deck :deck-id="item.id" />
+            <v-row v-if="userDecks">
+              <v-col cols="10">
+                <Deck :deck-id="item.id" />
+              </v-col>
+              <v-col cols="1" v-show="!showDeleteCheck(item.id)">
+                <v-tooltip left>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn>
+                      <v-icon
+                        color="red"
+                        @click="confirmDeleteDeck(item.id)"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        mdi-delete
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Delete Deck</span>
+                </v-tooltip>
+                <br />
+                <br />
+                <v-tooltip left>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      :to="{
+                        name: 'DeckBuilder',
+                        query: { deckId: item.id },
+                      }"
+                    >
+                      <v-icon color="blue" v-bind="attrs" v-on="on">
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Edit Deck</span>
+                </v-tooltip>
+              </v-col>
+              <v-col cols="2" v-show="userDecks && showDeleteCheck(item.id)">
+                <v-row align-content="center">
+                  <v-col>
+                    <v-col>
+                      <v-btn small @click="confirmDeleteDeck(item.id)">
+                        Cancel
+                      </v-btn>
+                    </v-col>
+                    <v-btn color="red" small @click="deleteDeck(item.id)">
+                      Delete Deck
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+            <Deck :deck-id="item.id" v-else />
           </v-col>
         </v-row>
       </template>
@@ -108,6 +161,11 @@ import Deck from "@/components/Deck.vue";
 export default {
   props: {
     userDecks: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    edit: {
       type: Boolean,
       required: false,
       default: false,
