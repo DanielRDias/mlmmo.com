@@ -194,8 +194,15 @@ export const cardInfo = {
     },
 
     async getUserDecksData({ commit }) {
-      const decksData = await API.graphql(graphqlOperation(listDecksQuery));
+      var decksData = await API.graphql(graphqlOperation(listDecksQuery));
       commit("setDecks", decksData.data.listDecks.items);
+      while (decksData.data.listDecks.nextToken) {
+        decksData = await API.graphql({
+          query: listDecksQuery,
+          variables: { nextToken: decksData.data.listDecks.nextToken },
+        });
+        commit("appendDecks", decksData.data.listDecks.items);
+      }
     },
 
     /**

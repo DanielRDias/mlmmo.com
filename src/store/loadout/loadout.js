@@ -55,10 +55,17 @@ export const loadout = {
     },
 
     async getUserLoadoutsData({ commit }) {
-      const loadoutsData = await API.graphql(
-        graphqlOperation(listLoadoutsQuery)
-      );
+      var loadoutsData = await API.graphql(graphqlOperation(listLoadoutsQuery));
       commit("setLoadouts", loadoutsData.data.listLoadouts.items);
+      while (loadoutsData.data.listLoadouts.nextToken) {
+        loadoutsData = await API.graphql({
+          query: listLoadoutsQuery,
+          variables: {
+            nextToken: loadoutsData.data.listLoadouts.nextToken,
+          },
+        });
+        commit("appendLoadouts", loadoutsData.data.listloadouts.items);
+      }
     },
 
     async updateLoadout(_, data) {
