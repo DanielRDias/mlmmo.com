@@ -433,13 +433,14 @@ export default {
         return obj.id !== card.id;
       });
       this.deck.cards = this.deck.cards.filter(function (obj) {
-        return obj.id !== card.id;
+        return obj !== card.id;
       });
     },
     async addDeck() {
       try {
         this.loading = true;
         var result;
+        var deckId;
         if (!/\S/.test(this.deck.name)) {
           this.errorMsg = "Deck Name can't be empty";
           this.loading = false;
@@ -450,20 +451,34 @@ export default {
           this.loading = false;
           return -1;
         }
-        if (this.user) {
-          this.deck.owner = this.user.username;
-          this.deck.ownerId = this.user.id;
-          result = await this.$store.dispatch("cardInfo/createDeck", this.deck);
+        if (this.deckPoints > 12) {
+          this.errorMsg = "A Deck can't have more than 12 creature points";
+          this.loading = false;
+          return -1;
+        }
+
+        if (this.deck.id) {
+          result = await this.$store.dispatch("cardInfo/updateDeck", this.deck);
+          deckId = result.data.updateDeck.id;
         } else {
-          console.log("create anonymous user deck");
-          result = await this.$store.dispatch(
-            "cardInfo/createAnonymousDeck",
-            this.deck
-          );
+          if (this.user) {
+            this.deck.owner = this.user.username;
+            this.deck.ownerId = this.user.id;
+            result = await this.$store.dispatch(
+              "cardInfo/createDeck",
+              this.deck
+            );
+            deckId = result.data.createDeck.id;
+          } else {
+            console.log("create anonymous user deck");
+            result = await this.$store.dispatch(
+              "cardInfo/createAnonymousDeck",
+              this.deck
+            );
+          }
         }
         this.errorMsg = "";
-        console.log(result);
-        this.$router.push("/deck?deckId=" + result.data.createDeck.id);
+        this.$router.push("/deck?deckId=" + deckId);
         this.loading = false;
       } catch (error) {
         console.log("error adding the deck", error);

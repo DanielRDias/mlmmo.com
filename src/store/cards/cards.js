@@ -3,6 +3,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { listDecks as listDecksQuery } from "@/graphql/queries";
 import { createDeck as createDeckMutation } from "@/graphql/mutations";
+import { updateDeck as updateDeckMutation } from "@/graphql/mutations";
 import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 
 import { getCard as getCardQuery } from "@/graphql/queries";
@@ -132,6 +133,17 @@ export const cardInfo = {
         return Promise.resolve(result);
       } catch (error) {
         console.error("create deck", error);
+        return Promise.reject(error);
+      }
+    },
+    async updateDeck(_, data) {
+      try {
+        let result = await API.graphql(
+          graphqlOperation(updateDeckMutation, { input: data })
+        );
+        return Promise.resolve(result);
+      } catch (error) {
+        console.error("update deck", error);
         return Promise.reject(error);
       }
     },
