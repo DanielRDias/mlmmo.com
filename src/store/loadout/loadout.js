@@ -54,6 +54,13 @@ export const loadout = {
       }
     },
 
+    async getUserLoadoutsData({ commit }) {
+      const loadoutsData = await API.graphql(
+        graphqlOperation(listLoadoutsQuery)
+      );
+      commit("setLoadouts", loadoutsData.data.listLoadouts.items);
+    },
+
     async updateLoadout(_, data) {
       let { file, loadoutData } = data;
 

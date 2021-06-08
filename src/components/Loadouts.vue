@@ -86,6 +86,18 @@
                               Open
                             </v-btn>
                           </v-col>
+                          <v-col v-if="edit">
+                            <v-btn
+                              small
+                              :to="{
+                                name: 'LoadoutBuilder',
+                                query: { loadoutId: item.id },
+                              }"
+                              target="_blank"
+                            >
+                              Edit
+                            </v-btn>
+                          </v-col>
                         </v-row>
                       </v-overlay>
                     </v-fade-transition>
@@ -179,11 +191,27 @@ import { mapGetters } from "vuex";
 import Loadout from "@/components/Loadout.vue";
 
 export default {
+  props: {
+    edit: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    username: {
+      type: String,
+      required: false,
+      default: "",
+    },
+  },
   components: {
     Loadout,
   },
   async mounted() {
-    this.$store.dispatch("loadout/getLoadoutsData");
+    if (this.$props.username) {
+      this.$store.dispatch("loadout/getUserLoadoutsData");
+    } else {
+      this.$store.dispatch("loadout/getLoadoutsData");
+    }
   },
   data() {
     return {
@@ -191,7 +219,7 @@ export default {
       showDescription: false,
       filterItems: [],
       itemsPerPageArray: [1, 2, 4, 8, 12, 20, 30, 60, 100],
-      search: "",
+      search: this.$props.username,
       sortDesc: true,
       page: 1,
       itemsPerPage: 8,
