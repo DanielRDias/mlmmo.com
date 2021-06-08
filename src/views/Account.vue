@@ -50,22 +50,29 @@
       <br />
       <br />
     </div>
+    <br />
+    <br />
+    <h2>My loadouts</h2>
+    <Loadouts :edit="true" :username="user.username" />
+    <br />
+    <br />
     <h2>My decks</h2>
-    <Decks :user-decks="userDecks" />
+    <Decks :user-decks="true" />
   </div>
 </template>
 
 <script>
 import Decks from "@/components/Decks.vue";
+import Loadouts from "@/components/Loadouts.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
     Decks,
+    Loadouts,
   },
   data() {
     return {
-      userDecks: true,
       userGroups: [],
       mod: false,
       admin: false,

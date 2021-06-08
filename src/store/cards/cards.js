@@ -3,6 +3,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { getDeck as getDeckQuery } from "@/graphql/queries";
 import { listDecks as listDecksQuery } from "@/graphql/queries";
 import { createDeck as createDeckMutation } from "@/graphql/mutations";
+import { updateDeck as updateDeckMutation } from "@/graphql/mutations";
 import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
 
 import { getCard as getCardQuery } from "@/graphql/queries";
@@ -135,6 +136,17 @@ export const cardInfo = {
         return Promise.reject(error);
       }
     },
+    async updateDeck(_, data) {
+      try {
+        let result = await API.graphql(
+          graphqlOperation(updateDeckMutation, { input: data })
+        );
+        return Promise.resolve(result);
+      } catch (error) {
+        console.error("update deck", error);
+        return Promise.reject(error);
+      }
+    },
     async deleteDeck(_, deckId) {
       try {
         await API.graphql(
@@ -182,8 +194,15 @@ export const cardInfo = {
     },
 
     async getUserDecksData({ commit }) {
-      const decksData = await API.graphql(graphqlOperation(listDecksQuery));
+      var decksData = await API.graphql(graphqlOperation(listDecksQuery));
       commit("setDecks", decksData.data.listDecks.items);
+      while (decksData.data.listDecks.nextToken) {
+        decksData = await API.graphql({
+          query: listDecksQuery,
+          variables: { nextToken: decksData.data.listDecks.nextToken },
+        });
+        commit("appendDecks", decksData.data.listDecks.items);
+      }
     },
 
     /**

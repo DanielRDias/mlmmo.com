@@ -123,7 +123,7 @@ export default {
   data: () => ({
     drawer: null,
     tools: [
-      { title: "Deck Builder", icon: "mdi-playlist-edit", to: "/adddeck" },
+      { title: "Deck Builder", icon: "mdi-playlist-edit", to: "/deckbuilder" },
       {
         title: "Loadout Builder",
         icon: "mdi-newspaper-plus",

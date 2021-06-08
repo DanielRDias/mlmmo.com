@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Loadouts />
+    <Loadouts :username="username" />
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   name: "Home",
   components: {
     Loadouts,
+  },
+  data() {
+    return {
+      username: this.$route.query.username,
+    };
   },
 };
 </script>
