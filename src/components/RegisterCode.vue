@@ -94,7 +94,7 @@ export default {
           username,
           password,
         });
-        this.$router.push("/adddeck");
+        this.$router.push("/deckbuilder");
       } catch (error) {
         console.log(error);
         this.error = error;

@@ -271,7 +271,7 @@ You will see the mocks created from the [Create the mock data] step.
 
 ### Create a deck
 
-Head over to the [Create New Deck](http://localhost:8080/adddeck) page, and build a deck with that mock data.
+Head over to the [Create New Deck](http://localhost:8080/deckbuilder) page, and build a deck with that mock data.
 
 ---
 
