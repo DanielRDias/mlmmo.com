@@ -53,6 +53,17 @@
     <br />
     <br />
     <h2>My loadouts</h2>
+    <div>
+      You can share your loadout list using this link:
+      <router-link
+        :to="{
+          name: 'Loadouts',
+          query: { username: user.username },
+        }"
+      >
+        http://www.mlarpg.com/loadouts?username={{ user.username }}
+      </router-link>
+    </div>
     <Loadouts :edit="true" :username="user.username" />
     <br />
     <br />
