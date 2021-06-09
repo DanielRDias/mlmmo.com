@@ -207,7 +207,7 @@ export default {
     Loadout,
   },
   async mounted() {
-    if (this.$props.username) {
+    if (this.$props.edit) {
       this.$store.dispatch("loadout/getUserLoadoutsData");
     } else {
       this.$store.dispatch("loadout/getLoadoutsData");
