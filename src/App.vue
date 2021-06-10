@@ -166,7 +166,7 @@ export default {
       var exp = 0;
       while (date < bpEndTime) {
         exp += 375;
-        if (date.getDay() === 4) {
+        if (date.getDay() === 2) {
           // Sun=0, Mon=1, Tue=2, etc.
           exp += 1600;
         }
