@@ -98,14 +98,11 @@
       </template>
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
+      {{ bpMessage }}
       <v-spacer></v-spacer>
 
       <v-btn icon href="https://discord.gg/Ubaepf4pUJ" target="_blank">
         <v-icon>mdi-discord</v-icon>
-      </v-btn>
-      <v-btn icon href="https://www.facebook.com/MLaRPG" target="_blank">
-        <v-icon>mdi-facebook</v-icon>
       </v-btn>
       <v-btn icon href="https://twitter.com/mlarpg" target="_blank">
         <v-icon>mdi-twitter</v-icon>
@@ -163,6 +160,21 @@ export default {
     ...mapGetters({
       user: "auth/user",
     }),
+    bpMessage() {
+      var bpEndTime = new Date("2021-07-20T00:00:00.000+00:00");
+      var date = new Date();
+      var exp = 0;
+      while (date < bpEndTime) {
+        exp += 375;
+        if (date.getDay() === 4) {
+          // Sun=0, Mon=1, Tue=2, etc.
+          exp += 1600;
+        }
+        date.setDate(date.getDate() + 1);
+      }
+      let levels = Math.floor(exp / 1000);
+      return levels + " Levels of Battlepass remaining. (" + exp + " EXP)";
+    },
   },
 };
 </script>
