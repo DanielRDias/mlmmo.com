@@ -567,6 +567,7 @@ export const getLoadout = /* GraphQL */ `
         updatedAt
         version
       }
+      traits
       createdAt
       updatedAt
       version
@@ -590,6 +591,7 @@ export const listLoadouts = /* GraphQL */ `
         type
         shortDescription
         class
+        traits
         createdAt
         updatedAt
         version
