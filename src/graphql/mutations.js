@@ -895,6 +895,7 @@ export const createLoadout = /* GraphQL */ `
         updatedAt
         version
       }
+      traits
       createdAt
       updatedAt
       version
@@ -958,6 +959,7 @@ export const updateLoadout = /* GraphQL */ `
         updatedAt
         version
       }
+      traits
       createdAt
       updatedAt
       version
@@ -1021,6 +1023,7 @@ export const deleteLoadout = /* GraphQL */ `
         updatedAt
         version
       }
+      traits
       createdAt
       updatedAt
       version
