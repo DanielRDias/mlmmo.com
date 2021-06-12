@@ -34,6 +34,44 @@
     <v-row v-else>
       <v-col cols="12" xs="12" sm="12" md="4" lg="4" class="ml-1">
         <div class="loadoutequip">
+          <div class="traits">
+            <div class="trait-wrapper">
+              <a href="https://wiki.mlarpg.com/wiki/Trait" target="_blank">
+                <img
+                  :src="trait0"
+                  :alt="
+                    currentLoadout.traits
+                      ? currentLoadout.traits[0]
+                      : 'Magic: Legends trait'
+                  "
+                />
+              </a>
+            </div>
+            <div class="trait-wrapper">
+              <a href="https://wiki.mlarpg.com/wiki/Trait" target="_blank">
+                <img
+                  :src="trait1"
+                  :alt="
+                    currentLoadout.traits
+                      ? currentLoadout.traits[1]
+                      : 'Magic: Legends trait'
+                  "
+                />
+              </a>
+            </div>
+            <div class="trait-wrapper">
+              <a href="https://wiki.mlarpg.com/wiki/Trait" target="_blank">
+                <img
+                  :src="trait2"
+                  :alt="
+                    currentLoadout.traits
+                      ? currentLoadout.traits[2]
+                      : 'Magic: Legends trait'
+                  "
+                />
+              </a>
+            </div>
+          </div>
           <div class="equip-container-class" :class="classBg"></div>
           <div class="equip-container-head">
             <v-tooltip right open-delay="500" transition="none">
@@ -471,6 +509,7 @@ export default {
         deck: null,
         equipments: [],
         artifacts: [],
+        traits: ["", "", ""],
       },
       videoId: null,
       startTime: null,
@@ -500,7 +539,56 @@ export default {
       this.currentLoadout = this.getLoadoutData.data.getLoadout;
     }
   },
-  methods: {},
+  methods: {
+    traitImg(traitName) {
+      let traitImg = "/logo.png";
+
+      switch (traitName.toLowerCase()) {
+        case "aether aggression":
+          traitImg = "/img/loadout/traits/105px-Trait_aether_aggressionout.png";
+          break;
+        case "geomancer heartofiron":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_geomancer_heartofironout.png";
+          break;
+        case "mindmage psychicprowess":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_mindmage_psychicprowessout.png";
+          break;
+        case "pyromancer finale of flames":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_pyromancer_finale_of_flamesout.png";
+          break;
+        case "assassin disinformation":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_assassin_disinformationout.png";
+          break;
+        case "intimidating roar":
+          traitImg = "/img/loadout/traits/105px-Trait_intimidating_roarout.png";
+          break;
+        case "natures generousity":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_natures_generousityout.png";
+          break;
+        case "sanctifier wardof the sanctifier":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_sanctifier_wardofthesanctifierout.png";
+          break;
+        case "beastcaller primal rage":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_beastcaller_primalrageout.png";
+          break;
+        case "might from unity":
+          traitImg = "/img/loadout/traits/105px-Trait_might_from_unityout.png";
+          break;
+        case "necromancer necrotic burst":
+          traitImg =
+            "/img/loadout/traits/105px-Trait_necromancer_necroticburstout.png";
+          break;
+      }
+      return traitImg;
+    },
+  },
   watch: {
     artifacts() {
       this.artifactLegendaryList = [];
@@ -605,6 +693,27 @@ export default {
       }
       return false;
     },
+    trait0() {
+      if (this.currentLoadout.traits) {
+        return this.traitImg(this.currentLoadout.traits[0]);
+      } else {
+        return "/logo.png";
+      }
+    },
+    trait1() {
+      if (this.currentLoadout.traits) {
+        return this.traitImg(this.currentLoadout.traits[1]);
+      } else {
+        return "/logo.png";
+      }
+    },
+    trait2() {
+      if (this.currentLoadout.traits) {
+        return this.traitImg(this.currentLoadout.traits[2]);
+      } else {
+        return "/logo.png";
+      }
+    },
   },
 };
 </script>
@@ -654,12 +763,40 @@ export default {
   position: relative;
 }
 
+.traits {
+  width: 100%;
+  text-align: center;
+}
+
+.trait-wrapper {
+  display: inline-block;
+  background-image: url("https://i.imgur.com/IK0f6vr.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+
+  width: 20%;
+  height: 20%;
+  position: relative;
+}
+
+.trait-wrapper img {
+  display: inline-block;
+  width: 90%;
+  height: 90%;
+  margin-top: 5%;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
 .equip-container-head {
   width: 18%;
   height: 18%;
   position: absolute;
   margin-left: 40.3%;
-  margin-top: 26.5%;
+  margin-top: 15.5%;
 }
 
 .equip-container-body {
@@ -667,7 +804,7 @@ export default {
   height: 18%;
   position: absolute;
   margin-left: 13.1%;
-  margin-top: 42.5%;
+  margin-top: 31.5%;
 }
 
 .equip-container-arms {
@@ -675,7 +812,7 @@ export default {
   height: 18%;
   position: absolute;
   margin-left: 67.9%;
-  margin-top: 42.5%;
+  margin-top: 31.5%;
 }
 
 .equip-container-accessory1 {
@@ -683,7 +820,7 @@ export default {
   height: 18%;
   position: absolute;
   margin-left: 13.1%;
-  margin-top: 74.5%;
+  margin-top: 63.5%;
 }
 
 .equip-container-accessory2 {
@@ -691,7 +828,7 @@ export default {
   height: 18%;
   position: absolute;
   margin-left: 67.9%;
-  margin-top: 74.5%;
+  margin-top: 63.5%;
 }
 
 .equip-container-feet {
@@ -699,7 +836,7 @@ export default {
   height: 18%;
   position: absolute;
   margin-left: 40.3%;
-  margin-top: 90.1%;
+  margin-top: 79.1%;
 }
 
 .equip-container-class {
@@ -707,10 +844,10 @@ export default {
   height: 25%;
   position: absolute;
   margin-left: 35%;
-  margin-top: 50%;
+  margin-top: 35%;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: contain;
 }
 
 .equip-image {
