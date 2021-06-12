@@ -115,6 +115,49 @@
       </v-card-text>
 
       <v-card-text>
+        <v-row>
+          <v-col cols="4">
+            <v-autocomplete
+              v-model="loadout.traits[0]"
+              :items="traitList"
+              :search-input.sync="searchTrait0"
+              item-text="Description"
+              label="Trait *"
+              placeholder="Start typing to Search *"
+              prepend-icon="mdi-rhombus"
+              return-object
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col cols="4">
+            <v-autocomplete
+              v-model="loadout.traits[1]"
+              :items="traitList"
+              :search-input.sync="searchTrait1"
+              item-text="Description"
+              label="Trait *"
+              placeholder="Start typing to Search *"
+              prepend-icon="mdi-rhombus"
+              return-object
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col cols="4">
+            <v-autocomplete
+              v-model="loadout.traits[2]"
+              :items="traitList"
+              :search-input.sync="searchTrait2"
+              item-text="Description"
+              label="Trait *"
+              placeholder="Start typing to Search *"
+              prepend-icon="mdi-rhombus"
+              return-object
+            >
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-text>
         <v-progress-linear
           v-if="loadingDeck"
           indeterminate
@@ -814,6 +857,21 @@ export default {
   },
   data() {
     return {
+      loadout: {
+        name: null,
+        owner: "anonymous",
+        ownerId: "anonymous",
+        imgUrl: null,
+        youtubeUrl: null,
+        type: null,
+        shortDescription: "",
+        longDescription: "",
+        class: null,
+        deck: null,
+        equipments: [],
+        artifacts: [],
+        traits: ["", "", ""],
+      },
       preview: false,
       loading: false,
       sucessMsg: "",
@@ -840,24 +898,9 @@ export default {
       selFeet: null,
       selAccessory1: null,
       selAccessory2: null,
-
-      searchClass: null,
-      searchDeck: null,
       rulesShortDesc: [(v) => v.length <= 250 || "Max 250 characters"],
-      loadout: {
-        name: null,
-        owner: "anonymous",
-        ownerId: "anonymous",
-        imgUrl: null,
-        youtubeUrl: null,
-        type: null,
-        shortDescription: "",
-        longDescription: "",
-        class: null,
-        deck: null,
-        equipments: [],
-        artifacts: [],
-      },
+      searchDeck: null,
+      searchClass: null,
       classList: [
         "Sanctifier",
         "Mind Mage",
@@ -867,6 +910,24 @@ export default {
         "Dimir Assassin",
         "Pyromancer",
       ],
+
+      traitList: [
+        "Aether Aggression",
+        "Geomancer Heartofiron",
+        "Mindmage Psychicprowess",
+        "Pyromancer Finale of Flames",
+        "Assassin Disinformation",
+        "Intimidating Roar",
+        "Natures Generousity",
+        "Sanctifier Wardof the Sanctifier",
+        "Beastcaller Primal Rage",
+        "Might from Unity",
+        "Necromancer Necrotic Burst",
+      ],
+      searchTrait0: null,
+      searchTrait1: null,
+      searchTrait2: null,
+
       deckList: [],
       deckImgs: {},
 
@@ -983,6 +1044,9 @@ export default {
     },
     initLoadout() {
       let accessoryLst = [];
+      if (!this.loadout.traits) {
+        this.loadout.traits = [];
+      }
       this.loadout.equipments.forEach((equipment) => {
         if (equipment.slot) {
           let slot = equipment.slot.toLowerCase();
@@ -1044,7 +1108,11 @@ export default {
           val.class &&
           val.deck &&
           val.equipments.length == 6 &&
-          val.artifacts.length == 6
+          val.artifacts.length == 6 &&
+          val.traits &&
+          val.traits[0] &&
+          val.traits[1] &&
+          val.traits[2]
         ) {
           this.loadingSubmit = false;
         } else {

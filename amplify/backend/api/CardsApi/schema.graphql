@@ -239,6 +239,7 @@ type Loadout
   deck: String
   equipments: [EquipmentItem]
   artifacts: [ArtifactItem]
+  traits: [String]
   createdAt: String
   updatedAt: String
   version: String
