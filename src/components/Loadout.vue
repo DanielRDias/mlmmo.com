@@ -770,7 +770,7 @@ export default {
 
 .trait-wrapper {
   display: inline-block;
-  background-image: url("https://i.imgur.com/IK0f6vr.png");
+  background-image: url("/img/loadout/traits/trait-wrapper.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
