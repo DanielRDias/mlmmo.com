@@ -1,0 +1,105 @@
+{
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "type": "cicd",
+      "lastPushTimeStamp": "2021-01-18T02:01:17.805Z"
+    }
+  },
+  "function": {
+    "mlmmocomc77e13caDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocomc77e13caCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocomc77e13caVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mlmmocomc77e13caCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "auth": {
+    "mlmmocomc77e13ca": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "mlmmocomc77e13caDefineAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocomc77e13caCreateAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocomc77e13caVerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mlmmocomc77e13caCustomMessage",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": true
+    }
+  },
+  "api": {
+    "CardsApi": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmlmmocomc77e13ca"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 365,
+                "description": "GraphQL API Key"
+              }
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "storage": {}
+}

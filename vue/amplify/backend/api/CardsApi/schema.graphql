@@ -1,0 +1,252 @@
+type Deck
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: public, queries: [get, list], mutations: [create] }
+    ]
+  ) {
+  id: ID!
+  owner: String
+  ownerId: String
+  name: String!
+  colors: String
+  type: String
+  cards: [String]
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type Card
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Admins", "Moderators"]
+        queries: [get, list]
+        mutations: [create, update, delete]
+      }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  cost: String
+  cmc: Int
+  color: String
+  type: String
+  points: String
+  power: String
+  toughness: String
+  rarity: String
+  properties: [CardProperties]
+  cardValues: [KeyValue]
+  description: String
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type CardProperties {
+  rank: Int
+  damage: String
+  healing: String
+  health: String
+  dps: String
+  role: String
+  duration: String
+  range: String
+  area: String
+}
+
+type KeyValue {
+  key: String
+  value: String
+  type: String
+}
+
+type CardItem {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  cost: String
+  cmc: Int
+  color: String
+  type: String
+  points: String
+  power: String
+  toughness: String
+  rarity: String
+  properties: [CardProperties]
+  cardValues: [KeyValue]
+  description: String
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type CardVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [CardItem]
+  oldVersions: [CardItem]
+}
+
+type Artifact
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Admins", "Moderators"]
+        queries: [get, list]
+        mutations: [create, update, delete]
+      }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  rarity: String
+  tier: String
+  description: String
+  bonusR10: String
+  bonusR20: String
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type ArtifactVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [ArtifactItem]
+  oldVersions: [ArtifactItem]
+}
+
+type ArtifactItem {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  rarity: String
+  tier: String
+  description: String
+  bonusR10: String
+  bonusR20: String
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+# Gear
+
+type Equipment
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Admins", "Moderators"]
+        queries: [get, list]
+        mutations: [create, update, delete]
+      }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  imgTmogUrl: String
+  imgTmogFullSize: S3Object
+  imgTmogThumbnail: S3Object
+  rarity: String
+  slot: String
+  description: String
+  mods: [String]
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type EquipmentVersion @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  newVersions: [EquipmentItem]
+  oldVersions: [EquipmentItem]
+}
+
+type EquipmentItem {
+  id: ID!
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  imgTmogUrl: String
+  imgTmogFullSize: S3Object
+  imgTmogThumbnail: S3Object
+  rarity: String
+  slot: String
+  description: String
+  mods: [String]
+  updatedBy: String
+  updatedById: String
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type Loadout
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: public, queries: [get, list], mutations: [create] }
+    ]
+  ) {
+  id: ID!
+  owner: String
+  ownerId: String
+  name: String!
+  imgUrl: String
+  imgFullSize: S3Object
+  imgThumbnail: S3Object
+  youtubeUrl: String
+  type: String
+  shortDescription: String
+  longDescription: String
+  class: String
+  deck: String
+  equipments: [EquipmentItem]
+  artifacts: [ArtifactItem]
+  traits: [String]
+  createdAt: String
+  updatedAt: String
+  version: String
+}
+
+type S3Object @aws_iam @aws_cognito_user_pools {
+  region: String!
+  bucket: String!
+  key: String!
+}

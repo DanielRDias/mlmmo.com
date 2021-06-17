@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "CardsApi",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authmlmmocomc77e13ca",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "CreateAPIKey": 1
+}
