@@ -1,40 +1,40 @@
-import { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from 'aws-amplify'
 
-import { getDeck as getDeckQuery } from "@/graphql/queries";
-import { listDecks as listDecksQuery } from "@/graphql/queries";
-import { createDeck as createDeckMutation } from "@/graphql/mutations";
-import { updateDeck as updateDeckMutation } from "@/graphql/mutations";
-import { deleteDeck as deleteDeckMutation } from "@/graphql/mutations";
+import { getDeck as getDeckQuery } from '@/graphql/queries'
+import { listDecks as listDecksQuery } from '@/graphql/queries'
+import { createDeck as createDeckMutation } from '@/graphql/mutations'
+import { updateDeck as updateDeckMutation } from '@/graphql/mutations'
+import { deleteDeck as deleteDeckMutation } from '@/graphql/mutations'
 
-import { getCard as getCardQuery } from "@/graphql/queries";
-import { listCards as listCardsQuery } from "@/graphql/queries";
-import { createCard as createCardMutation } from "@/graphql/mutations";
-import { updateCard as updateCardMutation } from "@/graphql/mutations";
-import { createCardVersion as createVersionsCardMutation } from "@/graphql/mutations";
-import { updateCardVersion as updateVersionsCardMutation } from "@/graphql/mutations";
-import { getCardVersion as getCardVersionQuery } from "@/graphql/queries";
-import { listCardVersions as listCardVersionsQuery } from "@/graphql/queries";
+import { getCard as getCardQuery } from '@/graphql/queries'
+import { listCards as listCardsQuery } from '@/graphql/queries'
+import { createCard as createCardMutation } from '@/graphql/mutations'
+import { updateCard as updateCardMutation } from '@/graphql/mutations'
+import { createCardVersion as createVersionsCardMutation } from '@/graphql/mutations'
+import { updateCardVersion as updateVersionsCardMutation } from '@/graphql/mutations'
+import { getCardVersion as getCardVersionQuery } from '@/graphql/queries'
+import { listCardVersions as listCardVersionsQuery } from '@/graphql/queries'
 
-import { getArtifact as getArtifactQuery } from "@/graphql/queries";
-import { listArtifacts as listArtifactsQuery } from "@/graphql/queries";
-import { createArtifact as createArtifactMutation } from "@/graphql/mutations";
-import { updateArtifact as updateArtifactMutation } from "@/graphql/mutations";
-import { createArtifactVersion as createVersionsArtifactMutation } from "@/graphql/mutations";
-import { updateArtifactVersion as updateVersionsArtifactMutation } from "@/graphql/mutations";
-import { getArtifactVersion as getArtifactVersionQuery } from "@/graphql/queries";
-import { listArtifactVersions as listArtifactVersionsQuery } from "@/graphql/queries";
+import { getArtifact as getArtifactQuery } from '@/graphql/queries'
+import { listArtifacts as listArtifactsQuery } from '@/graphql/queries'
+import { createArtifact as createArtifactMutation } from '@/graphql/mutations'
+import { updateArtifact as updateArtifactMutation } from '@/graphql/mutations'
+import { createArtifactVersion as createVersionsArtifactMutation } from '@/graphql/mutations'
+import { updateArtifactVersion as updateVersionsArtifactMutation } from '@/graphql/mutations'
+import { getArtifactVersion as getArtifactVersionQuery } from '@/graphql/queries'
+import { listArtifactVersions as listArtifactVersionsQuery } from '@/graphql/queries'
 
-import { getEquipment as getEquipmentQuery } from "@/graphql/queries";
-import { listEquipments as listEquipmentsQuery } from "@/graphql/queries";
-import { createEquipment as createEquipmentMutation } from "@/graphql/mutations";
-import { updateEquipment as updateEquipmentMutation } from "@/graphql/mutations";
-import { createEquipmentVersion as createVersionsEquipmentMutation } from "@/graphql/mutations";
-import { updateEquipmentVersion as updateVersionsEquipmentMutation } from "@/graphql/mutations";
-import { getEquipmentVersion as getEquipmentVersionQuery } from "@/graphql/queries";
-import { listEquipmentVersions as listEquipmentVersionsQuery } from "@/graphql/queries";
+import { getEquipment as getEquipmentQuery } from '@/graphql/queries'
+import { listEquipments as listEquipmentsQuery } from '@/graphql/queries'
+import { createEquipment as createEquipmentMutation } from '@/graphql/mutations'
+import { updateEquipment as updateEquipmentMutation } from '@/graphql/mutations'
+import { createEquipmentVersion as createVersionsEquipmentMutation } from '@/graphql/mutations'
+import { updateEquipmentVersion as updateVersionsEquipmentMutation } from '@/graphql/mutations'
+import { getEquipmentVersion as getEquipmentVersionQuery } from '@/graphql/queries'
+import { listEquipmentVersions as listEquipmentVersionsQuery } from '@/graphql/queries'
 
-import { v4 as uuid } from "uuid";
-import awsconfig from "@/aws-exports";
+import { v4 as uuid } from 'uuid'
+import awsconfig from '~/aws-exports'
 
 export const cardInfo = {
   namespaced: true,
@@ -66,59 +66,59 @@ export const cardInfo = {
 
   mutations: {
     SET_PROMISE(state, payload) {
-      state.promise = payload;
+      state.promise = payload
     },
     setNewDeck(state, payload) {
-      state.newDeck = payload;
+      state.newDeck = payload
     },
     removeCardFromDeck(state, payload) {
-      var index = state.newDeckCards.indexOf(payload.cardId);
+      var index = state.newDeckCards.indexOf(payload.cardId)
       if (index !== -1) {
-        state.newDeckCards.splice(index, 1);
+        state.newDeckCards.splice(index, 1)
       }
     },
     addCardToDeck(state, payload) {
-      state.newDeckCards.push(payload.cardId);
-      state.newDeckCards = [...new Set(state.newDeckCards)];
+      state.newDeckCards.push(payload.cardId)
+      state.newDeckCards = [...new Set(state.newDeckCards)]
     },
     setDecks(state, payload) {
-      state.decks = payload;
+      state.decks = payload
     },
     appendDecks(state, payload) {
-      state.decks = state.decks.concat(payload);
+      state.decks = state.decks.concat(payload)
     },
     setCards(state, payload) {
-      state.cards = payload;
+      state.cards = payload
     },
     setCardVersions(state, payload) {
-      state.cardVersions = payload;
+      state.cardVersions = payload
     },
     appendCardVersions(state, payload) {
-      state.cardVersions = state.cardVersions.concat(payload);
+      state.cardVersions = state.cardVersions.concat(payload)
     },
     setArtifacts(state, payload) {
-      state.artifacts = payload;
+      state.artifacts = payload
     },
     appendArtifacts(state, payload) {
-      state.artifacts = state.artifacts.concat(payload);
+      state.artifacts = state.artifacts.concat(payload)
     },
     setArtifactVersions(state, payload) {
-      state.artifactVersions = payload;
+      state.artifactVersions = payload
     },
     appendArtifactVersions(state, payload) {
-      state.artifactVersions = state.artifactVersions.concat(payload);
+      state.artifactVersions = state.artifactVersions.concat(payload)
     },
     setEquipments(state, payload) {
-      state.equipments = payload;
+      state.equipments = payload
     },
     appendEquipments(state, payload) {
-      state.equipments = state.equipments.concat(payload);
+      state.equipments = state.equipments.concat(payload)
     },
     setEquipmentVersions(state, payload) {
-      state.equipmentVersions = payload;
+      state.equipmentVersions = payload
     },
     appendEquipmentVersions(state, payload) {
-      state.equipmentVersions = state.equipmentVersions.concat(payload);
+      state.equipmentVersions = state.equipmentVersions.concat(payload)
     },
   },
   actions: {
@@ -129,32 +129,32 @@ export const cardInfo = {
       try {
         let result = await API.graphql(
           graphqlOperation(createDeckMutation, { input: data })
-        );
-        return Promise.resolve(result);
+        )
+        return Promise.resolve(result)
       } catch (error) {
-        console.error("create deck", error);
-        return Promise.reject(error);
+        console.error('create deck', error)
+        return Promise.reject(error)
       }
     },
     async updateDeck(_, data) {
       try {
         let result = await API.graphql(
           graphqlOperation(updateDeckMutation, { input: data })
-        );
-        return Promise.resolve(result);
+        )
+        return Promise.resolve(result)
       } catch (error) {
-        console.error("update deck", error);
-        return Promise.reject(error);
+        console.error('update deck', error)
+        return Promise.reject(error)
       }
     },
     async deleteDeck(_, deckId) {
       try {
         await API.graphql(
           graphqlOperation(deleteDeckMutation, { input: { id: deckId } })
-        );
+        )
       } catch (error) {
-        console.error("delete deck", error);
-        return Promise.reject(error);
+        console.error('delete deck', error)
+        return Promise.reject(error)
       }
     },
     async createAnonymousDeck(_, data) {
@@ -162,46 +162,46 @@ export const cardInfo = {
         let result = await API.graphql({
           query: createDeckMutation,
           variables: { input: data },
-          authMode: "API_KEY",
-        });
-        return Promise.resolve(result);
+          authMode: 'API_KEY',
+        })
+        return Promise.resolve(result)
       } catch (error) {
-        console.error("createdeck", error);
-        return Promise.reject(error);
+        console.error('createdeck', error)
+        return Promise.reject(error)
       }
     },
     async getDeck(_, deckId) {
       return await API.graphql({
         query: getDeckQuery,
         variables: { id: deckId },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
     },
     async getDecksData({ commit }) {
       var decksData = await API.graphql({
         query: listDecksQuery,
-        authMode: "API_KEY",
-      });
-      commit("setDecks", decksData.data.listDecks.items);
+        authMode: 'API_KEY',
+      })
+      commit('setDecks', decksData.data.listDecks.items)
       while (decksData.data.listDecks.nextToken) {
         decksData = await API.graphql({
           query: listDecksQuery,
           variables: { nextToken: decksData.data.listDecks.nextToken },
-          authMode: "API_KEY",
-        });
-        commit("appendDecks", decksData.data.listDecks.items);
+          authMode: 'API_KEY',
+        })
+        commit('appendDecks', decksData.data.listDecks.items)
       }
     },
 
     async getUserDecksData({ commit }) {
-      var decksData = await API.graphql(graphqlOperation(listDecksQuery));
-      commit("setDecks", decksData.data.listDecks.items);
+      var decksData = await API.graphql(graphqlOperation(listDecksQuery))
+      commit('setDecks', decksData.data.listDecks.items)
       while (decksData.data.listDecks.nextToken) {
         decksData = await API.graphql({
           query: listDecksQuery,
           variables: { nextToken: decksData.data.listDecks.nextToken },
-        });
-        commit("appendDecks", decksData.data.listDecks.items);
+        })
+        commit('appendDecks', decksData.data.listDecks.items)
       }
     },
 
@@ -212,23 +212,23 @@ export const cardInfo = {
       return await API.graphql({
         query: getCardQuery,
         variables: { id: cardId },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
     },
 
     async updateCard(_, data) {
-      let { file, cardData } = data;
+      let { file, cardData } = data
 
       const currentCard = await API.graphql({
         query: getCardQuery,
         variables: { id: cardData.id },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
 
       let currentCardVersion = await API.graphql({
         query: getCardVersionQuery,
         variables: { id: cardData.id },
-      });
+      })
 
       if (currentCardVersion.data.getCardVersion == null) {
         //insert
@@ -241,21 +241,21 @@ export const cardInfo = {
                 oldVersions: [currentCard.data.getCard],
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("createVersionsCardMutation error", error);
-          return Promise.reject(error);
+          console.log('createVersionsCardMutation error', error)
+          return Promise.reject(error)
         }
       } else {
         //update
         if (Array.isArray(currentCardVersion.data.getCardVersion.oldVersions)) {
           currentCardVersion.data.getCardVersion.oldVersions.push(
             currentCard.data.getCard
-          );
+          )
         } else {
           currentCardVersion.data.getCardVersion.oldVersions = [
             currentCard.data.getCard,
-          ];
+          ]
         }
         try {
           await API.graphql(
@@ -265,39 +265,39 @@ export const cardInfo = {
                 oldVersions: currentCardVersion.data.getCardVersion.oldVersions,
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("updateVersionsCardMutation error", error);
-          return Promise.reject(error);
+          console.log('updateVersionsCardMutation error', error)
+          return Promise.reject(error)
         }
       }
 
       // remove old updatedAt to use the most recent date
-      delete cardData.updatedAt;
+      delete cardData.updatedAt
       try {
         await API.graphql(
           graphqlOperation(updateCardMutation, {
             input: cardData,
           })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("updateCardMutation error", error);
-        return Promise.reject(error);
+        console.log('updateCardMutation error', error)
+        return Promise.reject(error)
       }
     },
 
     async submitCard(_, data) {
-      let { file, cardData } = data;
+      let { file, cardData } = data
 
       // replace old updatedAt with the current date
-      const now = new Date();
-      cardData.updatedAt = now.toISOString();
+      const now = new Date()
+      cardData.updatedAt = now.toISOString()
 
       let currentCardVersion = await API.graphql({
         query: getCardVersionQuery,
         variables: { id: cardData.id },
-      });
+      })
 
       if (currentCardVersion.data.getCardVersion == null) {
         //insert
@@ -310,17 +310,17 @@ export const cardInfo = {
                 oldVersions: [],
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("createVersionsCardMutation error", error);
-          return Promise.reject(error);
+          console.log('createVersionsCardMutation error', error)
+          return Promise.reject(error)
         }
       } else {
         //update
         if (Array.isArray(currentCardVersion.data.getCardVersion.newVersions)) {
-          currentCardVersion.data.getCardVersion.newVersions.push(cardData);
+          currentCardVersion.data.getCardVersion.newVersions.push(cardData)
         } else {
-          currentCardVersion.data.getCardVersion.newVersions = [cardData];
+          currentCardVersion.data.getCardVersion.newVersions = [cardData]
         }
         try {
           await API.graphql(
@@ -330,26 +330,26 @@ export const cardInfo = {
                 newVersions: currentCardVersion.data.getCardVersion.newVersions,
               },
             })
-          );
-          return Promise.resolve("success");
+          )
+          return Promise.resolve('success')
         } catch (error) {
-          console.log("updateVersionsCardMutation error", error);
-          return Promise.reject(error);
+          console.log('updateVersionsCardMutation error', error)
+          return Promise.reject(error)
         }
       }
     },
 
     async deleteSubmitCard(_, data) {
-      let { file, cardData, position } = data;
+      let { file, cardData, position } = data
       let currentCardVersion = (
         await API.graphql({
           query: getCardVersionQuery,
           variables: { id: cardData.id },
         })
-      ).data.getCardVersion;
+      ).data.getCardVersion
 
       try {
-        currentCardVersion.newVersions.splice(position, 1);
+        currentCardVersion.newVersions.splice(position, 1)
         await API.graphql(
           graphqlOperation(updateVersionsCardMutation, {
             input: {
@@ -357,38 +357,38 @@ export const cardInfo = {
               newVersions: currentCardVersion.newVersions,
             },
           })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("updateVersionsCardMutation error", error);
-        return Promise.reject(error);
+        console.log('updateVersionsCardMutation error', error)
+        return Promise.reject(error)
       }
     },
 
     async getCardsVersionsData({ commit }) {
       var cardsData = await API.graphql({
         query: listCardVersionsQuery,
-      });
-      commit("setCardVersions", cardsData.data.listCardVersions.items);
+      })
+      commit('setCardVersions', cardsData.data.listCardVersions.items)
       while (cardsData.data.listCardVersions.nextToken) {
         cardsData = await API.graphql({
           query: listCardVersionsQuery,
           variables: {
             nextToken: cardsData.data.listCardVersions.nextToken,
           },
-        });
-        commit("appendCardVersions", cardsData.data.listCardVersions.items);
+        })
+        commit('appendCardVersions', cardsData.data.listCardVersions.items)
       }
     },
 
     // Not used anymore
     async getCardList(_, cardIdList) {
-      let filterId = [];
-      let cardList = [];
-      var cardListQuery;
-      var nextToken;
+      let filterId = []
+      let cardList = []
+      var cardListQuery
+      var nextToken
       for (var i = 0; i < cardIdList.length; i++) {
-        filterId.push({ id: { eq: cardIdList[i] } });
+        filterId.push({ id: { eq: cardIdList[i] } })
       }
       do {
         cardListQuery = await API.graphql({
@@ -397,55 +397,55 @@ export const cardInfo = {
             filter: { or: filterId },
             nextToken: nextToken,
           },
-          authMode: "API_KEY",
-        });
-        cardList = cardList.concat(cardListQuery.data.listCards.items);
-        nextToken = cardListQuery.data.listCards.nextToken;
-      } while (cardListQuery.data.listCards.nextToken);
+          authMode: 'API_KEY',
+        })
+        cardList = cardList.concat(cardListQuery.data.listCards.items)
+        nextToken = cardListQuery.data.listCards.nextToken
+      } while (cardListQuery.data.listCards.nextToken)
 
-      return cardList;
+      return cardList
     },
 
     async getCardsData({ commit, state }) {
       // Only call the API if do not have state data yet
       if (state.cards) {
-        return state.cards;
+        return state.cards
       }
 
       if (state.getPromise) {
-        return state.getPromise;
+        return state.getPromise
       }
 
       let promise = API.graphql({
         query: listCardsQuery,
-        authMode: "API_KEY",
+        authMode: 'API_KEY',
       }).then(async (response) => {
-        let cardsData = response;
-        let cardItems = cardsData.data.listCards.items;
-        let nextToken = cardsData.data.listCards.nextToken;
+        let cardsData = response
+        let cardItems = cardsData.data.listCards.items
+        let nextToken = cardsData.data.listCards.nextToken
         while (nextToken) {
           cardsData = await API.graphql({
             query: listCardsQuery,
             variables: { nextToken: nextToken },
-            authMode: "API_KEY",
-          });
-          cardItems = cardItems.concat(cardsData.data.listCards.items);
-          nextToken = cardsData.data.listCards.nextToken;
+            authMode: 'API_KEY',
+          })
+          cardItems = cardItems.concat(cardsData.data.listCards.items)
+          nextToken = cardsData.data.listCards.nextToken
         }
-        commit("setCards", cardItems);
-      });
-      commit("SET_PROMISE", promise);
-      return promise;
+        commit('setCards', cardItems)
+      })
+      commit('SET_PROMISE', promise)
+      return promise
     },
 
     async createCard(_, data) {
       const {
         aws_user_files_s3_bucket_region: region,
         aws_user_files_s3_bucket: bucket,
-      } = awsconfig;
-      const { file, cardData } = data;
+      } = awsconfig
+      const { file, cardData } = data
       // const extension = file.name.substr(file.name.lastIndexOf(".") + 1);
-      const cardId = uuid();
+      const cardId = uuid()
       // const key = `images/${cardId}.${extension}`;
       // const inputData = {
       //   id: cardId,
@@ -467,11 +467,11 @@ export const cardInfo = {
         // });
         await API.graphql(
           graphqlOperation(createCardMutation, { input: cardData })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("createCard error", error);
-        return Promise.reject(error);
+        console.log('createCard error', error)
+        return Promise.reject(error)
       }
     },
 
@@ -482,23 +482,23 @@ export const cardInfo = {
       return await API.graphql({
         query: getArtifactQuery,
         variables: { id: artifactId },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
     },
 
     async updateArtifact(_, data) {
-      let { file, artifactData } = data;
+      let { file, artifactData } = data
 
       const currentArtifact = await API.graphql({
         query: getArtifactQuery,
         variables: { id: artifactData.id },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
 
       let currentArtifactVersion = await API.graphql({
         query: getArtifactVersionQuery,
         variables: { id: artifactData.id },
-      });
+      })
 
       if (currentArtifactVersion.data.getArtifactVersion == null) {
         //insert
@@ -511,10 +511,10 @@ export const cardInfo = {
                 oldVersions: [currentArtifact.data.getArtifact],
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("createVersionsArtifactMutation error", error);
-          return Promise.reject(error);
+          console.log('createVersionsArtifactMutation error', error)
+          return Promise.reject(error)
         }
       } else {
         //update
@@ -525,11 +525,11 @@ export const cardInfo = {
         ) {
           currentArtifactVersion.data.getArtifactVersion.oldVersions.push(
             currentArtifact.data.getArtifact
-          );
+          )
         } else {
           currentArtifactVersion.data.getArtifactVersion.oldVersions = [
             currentArtifact.data.getArtifact,
-          ];
+          ]
         }
         try {
           await API.graphql(
@@ -540,39 +540,39 @@ export const cardInfo = {
                   currentArtifactVersion.data.getArtifactVersion.oldVersions,
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("updateVersionsArtifactMutation error", error);
-          return Promise.reject(error);
+          console.log('updateVersionsArtifactMutation error', error)
+          return Promise.reject(error)
         }
       }
 
       // remove old updatedAt to use the most recent date
-      delete artifactData.updatedAt;
+      delete artifactData.updatedAt
       try {
         await API.graphql(
           graphqlOperation(updateArtifactMutation, {
             input: artifactData,
           })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("updateArtifactMutation error", error);
-        return Promise.reject(error);
+        console.log('updateArtifactMutation error', error)
+        return Promise.reject(error)
       }
     },
 
     async submitArtifact(_, data) {
-      let { file, artifactData } = data;
+      let { file, artifactData } = data
 
       // replace old updatedAt with the current date
-      const now = new Date();
-      artifactData.updatedAt = now.toISOString();
+      const now = new Date()
+      artifactData.updatedAt = now.toISOString()
 
       let currentArtifactVersion = await API.graphql({
         query: getArtifactVersionQuery,
         variables: { id: artifactData.id },
-      });
+      })
 
       if (currentArtifactVersion.data.getArtifactVersion == null) {
         //insert
@@ -585,10 +585,10 @@ export const cardInfo = {
                 oldVersions: [],
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("createVersionsArtifactMutation error", error);
-          return Promise.reject(error);
+          console.log('createVersionsArtifactMutation error', error)
+          return Promise.reject(error)
         }
       } else {
         //update
@@ -599,11 +599,11 @@ export const cardInfo = {
         ) {
           currentArtifactVersion.data.getArtifactVersion.newVersions.push(
             artifactData
-          );
+          )
         } else {
           currentArtifactVersion.data.getArtifactVersion.newVersions = [
             artifactData,
-          ];
+          ]
         }
         try {
           await API.graphql(
@@ -614,26 +614,26 @@ export const cardInfo = {
                   currentArtifactVersion.data.getArtifactVersion.newVersions,
               },
             })
-          );
-          return Promise.resolve("success");
+          )
+          return Promise.resolve('success')
         } catch (error) {
-          console.log("updateVersionsArtifactMutation error", error);
-          return Promise.reject(error);
+          console.log('updateVersionsArtifactMutation error', error)
+          return Promise.reject(error)
         }
       }
     },
 
     async deleteSubmitArtifact(_, data) {
-      let { file, artifactData, position } = data;
+      let { file, artifactData, position } = data
       let currentArtifactVersion = (
         await API.graphql({
           query: getArtifactVersionQuery,
           variables: { id: artifactData.id },
         })
-      ).data.getArtifactVersion;
+      ).data.getArtifactVersion
 
       try {
-        currentArtifactVersion.newVersions.splice(position, 1);
+        currentArtifactVersion.newVersions.splice(position, 1)
         await API.graphql(
           graphqlOperation(updateVersionsArtifactMutation, {
             input: {
@@ -641,59 +641,59 @@ export const cardInfo = {
               newVersions: currentArtifactVersion.newVersions,
             },
           })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("updateVersionsArtifactMutation error", error);
-        return Promise.reject(error);
+        console.log('updateVersionsArtifactMutation error', error)
+        return Promise.reject(error)
       }
     },
 
     async getArtifactsVersionsData({ commit }) {
       var artifactsData = await API.graphql({
         query: listArtifactVersionsQuery,
-      });
+      })
       commit(
-        "setArtifactVersions",
+        'setArtifactVersions',
         artifactsData.data.listArtifactVersions.items
-      );
+      )
       while (artifactsData.data.listArtifactVersions.nextToken) {
         artifactsData = await API.graphql({
           query: listArtifactVersionsQuery,
           variables: {
             nextToken: artifactsData.data.listArtifactVersions.nextToken,
           },
-        });
+        })
         commit(
-          "appendArtifactVersions",
+          'appendArtifactVersions',
           artifactsData.data.listArtifactVersions.items
-        );
+        )
       }
     },
 
     async getArtifactsData({ commit }) {
       var artifactsData = await API.graphql({
         query: listArtifactsQuery,
-        authMode: "API_KEY",
-      });
-      commit("setArtifacts", artifactsData.data.listArtifacts.items);
+        authMode: 'API_KEY',
+      })
+      commit('setArtifacts', artifactsData.data.listArtifacts.items)
       while (artifactsData.data.listArtifacts.nextToken) {
         artifactsData = await API.graphql({
           query: listArtifactsQuery,
           variables: { nextToken: artifactsData.data.listArtifacts.nextToken },
-          authMode: "API_KEY",
-        });
-        commit("appendArtifacts", artifactsData.data.listartifacts.items);
+          authMode: 'API_KEY',
+        })
+        commit('appendArtifacts', artifactsData.data.listartifacts.items)
       }
     },
     async createArtifact(_, data) {
       const {
         aws_user_files_s3_bucket_region: region,
         aws_user_files_s3_bucket: bucket,
-      } = awsconfig;
-      const { file, artifactData } = data;
+      } = awsconfig
+      const { file, artifactData } = data
       // const extension = file.name.substr(file.name.lastIndexOf(".") + 1);
-      const artifactId = uuid();
+      const artifactId = uuid()
       // const key = `images/${cardId}.${extension}`;
       // const inputData = {
       //   id: cardId,
@@ -715,11 +715,11 @@ export const cardInfo = {
         // });
         await API.graphql(
           graphqlOperation(createArtifactMutation, { input: artifactData })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("createArtifact error", error);
-        return Promise.reject(error);
+        console.log('createArtifact error', error)
+        return Promise.reject(error)
       }
     },
 
@@ -730,23 +730,23 @@ export const cardInfo = {
       return await API.graphql({
         query: getEquipmentQuery,
         variables: { id: equipmentId },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
     },
 
     async updateEquipment(_, data) {
-      let { file, equipmentData } = data;
+      let { file, equipmentData } = data
 
       const currentEquipment = await API.graphql({
         query: getEquipmentQuery,
         variables: { id: equipmentData.id },
-        authMode: "API_KEY",
-      });
+        authMode: 'API_KEY',
+      })
 
       let currentEquipmentVersion = await API.graphql({
         query: getEquipmentVersionQuery,
         variables: { id: equipmentData.id },
-      });
+      })
 
       if (currentEquipmentVersion.data.getEquipmentVersion == null) {
         //insert
@@ -759,10 +759,10 @@ export const cardInfo = {
                 oldVersions: [currentEquipment.data.getEquipment],
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("createVersionsEquipmentMutation error", error);
-          return Promise.reject(error);
+          console.log('createVersionsEquipmentMutation error', error)
+          return Promise.reject(error)
         }
       } else {
         //update
@@ -773,11 +773,11 @@ export const cardInfo = {
         ) {
           currentEquipmentVersion.data.getEquipmentVersion.oldVersions.push(
             currentEquipment.data.getEquipment
-          );
+          )
         } else {
           currentEquipmentVersion.data.getEquipmentVersion.oldVersions = [
             currentEquipment.data.getEquipment,
-          ];
+          ]
         }
         try {
           await API.graphql(
@@ -788,39 +788,39 @@ export const cardInfo = {
                   currentEquipmentVersion.data.getEquipmentVersion.oldVersions,
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("updateVersionsEquipmentMutation error", error);
-          return Promise.reject(error);
+          console.log('updateVersionsEquipmentMutation error', error)
+          return Promise.reject(error)
         }
       }
 
       // remove old updatedAt to use the most recent date
-      delete equipmentData.updatedAt;
+      delete equipmentData.updatedAt
       try {
         await API.graphql(
           graphqlOperation(updateEquipmentMutation, {
             input: equipmentData,
           })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("updateEquipmentMutation error", error);
-        return Promise.reject(error);
+        console.log('updateEquipmentMutation error', error)
+        return Promise.reject(error)
       }
     },
 
     async submitEquipment(_, data) {
-      let { file, equipmentData } = data;
+      let { file, equipmentData } = data
 
       // replace old updatedAt with the current date
-      const now = new Date();
-      equipmentData.updatedAt = now.toISOString();
+      const now = new Date()
+      equipmentData.updatedAt = now.toISOString()
 
       let currentEquipmentVersion = await API.graphql({
         query: getEquipmentVersionQuery,
         variables: { id: equipmentData.id },
-      });
+      })
 
       if (currentEquipmentVersion.data.getEquipmentVersion == null) {
         //insert
@@ -833,10 +833,10 @@ export const cardInfo = {
                 oldVersions: [],
               },
             })
-          );
+          )
         } catch (error) {
-          console.log("createVersionsEquipmentMutation error", error);
-          return Promise.reject(error);
+          console.log('createVersionsEquipmentMutation error', error)
+          return Promise.reject(error)
         }
       } else {
         //update
@@ -847,11 +847,11 @@ export const cardInfo = {
         ) {
           currentEquipmentVersion.data.getEquipmentVersion.newVersions.push(
             equipmentData
-          );
+          )
         } else {
           currentEquipmentVersion.data.getEquipmentVersion.newVersions = [
             equipmentData,
-          ];
+          ]
         }
         try {
           await API.graphql(
@@ -862,26 +862,26 @@ export const cardInfo = {
                   currentEquipmentVersion.data.getEquipmentVersion.newVersions,
               },
             })
-          );
-          return Promise.resolve("success");
+          )
+          return Promise.resolve('success')
         } catch (error) {
-          console.log("updateVersionsEquipmentMutation error", error);
-          return Promise.reject(error);
+          console.log('updateVersionsEquipmentMutation error', error)
+          return Promise.reject(error)
         }
       }
     },
 
     async deleteSubmitEquipment(_, data) {
-      let { file, equipmentData, position } = data;
+      let { file, equipmentData, position } = data
       let currentEquipmentVersion = (
         await API.graphql({
           query: getEquipmentVersionQuery,
           variables: { id: equipmentData.id },
         })
-      ).data.getEquipmentVersion;
+      ).data.getEquipmentVersion
 
       try {
-        currentEquipmentVersion.newVersions.splice(position, 1);
+        currentEquipmentVersion.newVersions.splice(position, 1)
         await API.graphql(
           graphqlOperation(updateVersionsEquipmentMutation, {
             input: {
@@ -889,61 +889,61 @@ export const cardInfo = {
               newVersions: currentEquipmentVersion.newVersions,
             },
           })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("updateVersionsEquipmentMutation error", error);
-        return Promise.reject(error);
+        console.log('updateVersionsEquipmentMutation error', error)
+        return Promise.reject(error)
       }
     },
 
     async getEquipmentsVersionsData({ commit }) {
       var equipmentsData = await API.graphql({
         query: listEquipmentVersionsQuery,
-      });
+      })
       commit(
-        "setEquipmentVersions",
+        'setEquipmentVersions',
         equipmentsData.data.listEquipmentVersions.items
-      );
+      )
       while (equipmentsData.data.listEquipmentVersions.nextToken) {
         equipmentsData = await API.graphql({
           query: listEquipmentVersionsQuery,
           variables: {
             nextToken: equipmentsData.data.listEquipmentVersions.nextToken,
           },
-        });
+        })
         commit(
-          "appendEquipmentVersions",
+          'appendEquipmentVersions',
           equipmentsData.data.listEquipmentVersions.items
-        );
+        )
       }
     },
 
     async getEquipmentsData({ commit }) {
       var equipmentsData = await API.graphql({
         query: listEquipmentsQuery,
-        authMode: "API_KEY",
-      });
-      commit("setEquipments", equipmentsData.data.listEquipments.items);
+        authMode: 'API_KEY',
+      })
+      commit('setEquipments', equipmentsData.data.listEquipments.items)
       while (equipmentsData.data.listEquipments.nextToken) {
         equipmentsData = await API.graphql({
           query: listEquipmentsQuery,
           variables: {
             nextToken: equipmentsData.data.listEquipments.nextToken,
           },
-          authMode: "API_KEY",
-        });
-        commit("appendEquipments", equipmentsData.data.listEquipments.items);
+          authMode: 'API_KEY',
+        })
+        commit('appendEquipments', equipmentsData.data.listEquipments.items)
       }
     },
     async createEquipment(_, data) {
       const {
         aws_user_files_s3_bucket_region: region,
         aws_user_files_s3_bucket: bucket,
-      } = awsconfig;
-      const { file, equipmentData } = data;
+      } = awsconfig
+      const { file, equipmentData } = data
       // const extension = file.name.substr(file.name.lastIndexOf(".") + 1);
-      const equipmentId = uuid();
+      const equipmentId = uuid()
       // const key = `images/${cardId}.${extension}`;
       // const inputData = {
       //   id: cardId,
@@ -965,12 +965,12 @@ export const cardInfo = {
         // });
         await API.graphql(
           graphqlOperation(createEquipmentMutation, { input: equipmentData })
-        );
-        return Promise.resolve("success");
+        )
+        return Promise.resolve('success')
       } catch (error) {
-        console.log("createEquipment error", error);
-        return Promise.reject(error);
+        console.log('createEquipment error', error)
+        return Promise.reject(error)
       }
     },
   },
-};
+}
