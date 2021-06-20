@@ -112,21 +112,25 @@
         >&copy; {{ new Date().getFullYear() }}
         <NuxtLink to="/"> MLaRPG.com </NuxtLink></span
       >
+      <v-spacer />
+      <Cookie />
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import BattlePass from '~/components/BattlePass.vue'
+import Cookie from '~/components/Cookie.vue'
 export default {
   components: {
     BattlePass,
+    Cookie,
   },
   data() {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
+      fixed: true,
       items: [
         { title: 'Decks', icon: 'mdi-playlist-check', to: '/decks' },
         { title: 'Loadout List', icon: 'mdi-newspaper', to: '/loadouts' },

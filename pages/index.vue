@@ -1,89 +1,85 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
+  <v-row align-content="center" justify="center" class="pa-5">
+    <iframe
+      src="https://discord.com/widget?id=807590519626530827&theme=dark"
+      width="350"
+      height="500"
+      allowtransparency="true"
+      frameborder="0"
+      sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+      class="pa-5"
+    ></iframe>
+    <v-card
+      v-for="(post, index) in posts"
+      :key="index"
+      max-width="400"
+      class="pa-5 ma-2"
+    >
+      <v-card-title>{{ post.title.rendered }}</v-card-title>
+      <v-row align="center" justify="center">
+        <v-img
+          v-if="post.jetpack_featured_media_url"
+          :src="post.jetpack_featured_media_url"
+          max-height="300"
+          max-width="300"
+        />
+      </v-row>
+      <v-card-text v-html="post.excerpt.rendered" />
+      <p>
+        <strong>Published: {{ getPostDate(post.date) }}</strong>
+      </p>
+    </v-card>
   </v-row>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
+<script>
+import axios from 'axios'
+import moment from 'moment'
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
+  data() {
+    return {
+      // Wordpress Posts Endpoint
+      postsUrl: 'https://blog.mlarpg.com/wp-json/wp/v2/posts',
+      queryOptions: {
+        per_page: 10, // Only retrieve the 2 most recent blog posts.
+        page: 1, // Current page of the collection.
+        //_embed: ["wp:featuredmedia"], //Response should include embedded resources.
+        _fields: ['date', 'excerpt', 'title', 'jetpack_featured_media_url'],
+        categories: [19],
+      },
+      // Returned Posts in an Array
+      posts: [],
+    }
+  },
+  methods: {
+    // Get Recent Posts From WordPress Site
+    getRecentMessages() {
+      axios
+        .get(this.postsUrl, { params: this.queryOptions })
+        .then((response) => {
+          this.posts = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getPostDate(date) {
+      return moment(date).format('lll')
+    },
+  },
+  mounted() {
+    this.getRecentMessages()
+  },
 }
 </script>
+
+<style>
+#app {
+  padding: 100px;
+}
+.v-card__text,
+.v-card__title {
+  word-break: normal !important; /* maybe !important  */
+}
+</style>
