@@ -5,13 +5,11 @@
   "javascript": {
     "framework": "vue",
     "config": {
-      "SourceDir": "src",
+      "SourceDir": "./",
       "DistributionDir": "dist",
       "BuildCommand": "npm run-script build",
       "StartCommand": "npm run-script serve"
     }
   },
-  "providers": [
-    "awscloudformation"
-  ]
+  "providers": ["awscloudformation"]
 }
