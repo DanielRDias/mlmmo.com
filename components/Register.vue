@@ -20,27 +20,26 @@
                 label="Username"
                 type="text"
                 v-model="username"
-              ></v-text-field>
-              <v-text-field
-                outline
-                label="Email"
-                type="text"
-                v-model="email"
-              ></v-text-field>
+              >
+              </v-text-field>
+              <v-text-field outline label="Email" type="text" v-model="email">
+              </v-text-field>
               <v-text-field
                 outline
                 hide-details
                 label="Password"
                 type="password"
                 v-model="password"
-              ></v-text-field>
+              >
+              </v-text-field>
               <v-text-field
                 outline
                 hide-details
                 label="Confirm Password"
                 type="password"
                 v-model="confirmPassword"
-              ></v-text-field>
+              >
+              </v-text-field>
               <v-btn type="submit" style="display: none"></v-btn>
             </v-form>
           </v-card-text>
@@ -56,7 +55,8 @@
               color="info"
               :large="$vuetify.breakpoint.smAndUp"
               @click="signUp"
-              ><v-icon left>mdi-account-plus</v-icon>
+            >
+              <v-icon left>mdi-account-plus</v-icon>
               Sign Up
             </v-btn>
           </v-card-actions>
@@ -73,17 +73,14 @@
           </v-alert>
           <v-divider></v-divider>
           <v-card-text>
-            <v-text-field
-              outline
-              label="Code"
-              type="text"
-              v-model="code"
-            ></v-text-field>
+            <v-text-field outline label="Code" type="text" v-model="code">
+            </v-text-field>
             <v-btn
               color="info"
               :large="$vuetify.breakpoint.smAndUp"
               @click="confirmSignUp"
-              ><v-icon left>mdi-counter</v-icon>
+            >
+              <v-icon left>mdi-counter</v-icon>
               Confirm Code
             </v-btn>
           </v-card-text>
@@ -116,76 +113,76 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
-    username: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-    error: "",
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    error: '',
     confirmCode: false,
-    code: "",
+    code: '',
   }),
   methods: {
     async logout() {
-      await this.$store.dispatch("auth/logout");
+      await this.$store.dispatch('auth/logout')
     },
     async signUp() {
-      this.error = "";
+      this.error = ''
       if (!this.email || !this.password) {
-        this.error = { message: "Please provide the required information." };
-        return;
+        this.error = { message: 'Please provide the required information.' }
+        return
       }
       if (this.password != this.confirmPassword) {
         this.error = {
-          message: "Password and confirm password does not match.",
-        };
-        return;
+          message: 'Password and confirm password does not match.',
+        }
+        return
       }
       try {
-        await this.$store.dispatch("auth/signUp", {
+        await this.$store.dispatch('auth/signUp', {
           username: this.username,
           password: this.password,
           email: this.email,
-        });
+        })
 
-        this.confirmCode = true;
+        this.confirmCode = true
       } catch (error) {
-        console.log("error");
-        console.log(error);
-        console.log("error");
-        this.error = error;
+        console.log('error')
+        console.log(error)
+        console.log('error')
+        this.error = error
       }
     },
     async confirmSignUp() {
-      this.error = "";
+      this.error = ''
       if (!this.username || !this.code) {
-        this.error = { message: "Please provide the required information." };
-        return;
+        this.error = { message: 'Please provide the required information.' }
+        return
       }
 
       try {
-        const { username, password, code } = this;
-        await this.$store.dispatch("auth/confirmSignUp", {
+        const { username, password, code } = this
+        await this.$store.dispatch('auth/confirmSignUp', {
           username,
           code,
-        });
-        await this.$store.dispatch("auth/login", {
+        })
+        await this.$store.dispatch('auth/login', {
           username,
           password,
-        });
-        this.$router.push("/deckbuilder");
+        })
+        this.$router.push('/deckbuilder')
       } catch (error) {
-        console.log(error);
-        this.error = error;
+        console.log(error)
+        this.error = error
       }
     },
   },
   computed: {
     ...mapGetters({
-      user: "auth/user",
+      user: 'auth/user',
     }),
   },
-};
+}
 </script>

@@ -83,52 +83,57 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import VueRecaptcha from "vue-recaptcha";
+import { mapActions, mapGetters } from 'vuex'
+import VueRecaptcha from 'vue-recaptcha'
 export default {
   data: () => ({
-    username: "",
-    password: "",
-    email: "",
-    error: "",
+    username: '',
+    password: '',
+    email: '',
+    error: '',
   }),
   components: {
     VueRecaptcha,
   },
   methods: {
     async logout() {
-      await this.$store.dispatch("auth/logout");
+      await this.$store.dispatch('auth/logout')
     },
     onVerify: function (data) {
       this.$Amplify.Auth.sendCustomChallengeAnswer(this.user, data)
         .then((user) => {
-          AmplifyEventBus.$emit("authState", "signedIn");
-          return AmplifyEventBus.$emit("localUser", user);
+          AmplifyEventBus.$emit('authState', 'signedIn')
+          return AmplifyEventBus.$emit('localUser', user)
         })
         .catch(function (err) {
-          console.log("challenge error: ", err);
-        });
+          console.log('challenge error: ', err)
+        })
     },
     ...mapActions({
-      loginVue: "auth/login",
+      loginVue: 'auth/login',
     }),
     async login() {
       try {
         await this.loginVue({
           username: this.username,
           password: this.password,
-        });
-        this.$router.push("/account");
+        })
+        this.$router.push('/account')
       } catch (error) {
-        this.error = error;
+        this.error = error
       }
     },
   },
   computed: {
     ...mapGetters({
-      user: "auth/user",
+      user: 'auth/user',
     }),
   },
-};
+  mounted() {
+    if (this.user) {
+      this.$router.push('/account')
+    }
+  },
+}
 </script>
 

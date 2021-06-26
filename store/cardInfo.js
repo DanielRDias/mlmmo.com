@@ -34,7 +34,7 @@ import { getEquipmentVersion as getEquipmentVersionQuery } from '@/graphql/queri
 import { listEquipmentVersions as listEquipmentVersionsQuery } from '@/graphql/queries'
 
 import { v4 as uuid } from 'uuid'
-import awsconfig from '~/aws-exports'
+import awsconfig from '~/src/aws-exports'
 
 export const state = () => ({
   promise: null,

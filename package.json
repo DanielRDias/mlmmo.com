@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "nuxt",
+    "dist": "nuxt build",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.1",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
     "aws-amplify": "^4.1.1",
     "aws-amplify-vue": "^2.1.5",

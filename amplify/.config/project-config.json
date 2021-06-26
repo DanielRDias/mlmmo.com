@@ -1,15 +1,17 @@
 {
+  "providers": [
+    "awscloudformation"
+  ],
   "projectName": "mlmmocom",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {
     "framework": "vue",
     "config": {
-      "SourceDir": "./",
+      "SourceDir": "src",
       "DistributionDir": "dist",
       "BuildCommand": "npm run-script build",
       "StartCommand": "npm run-script serve"
     }
-  },
-  "providers": ["awscloudformation"]
+  }
 }
