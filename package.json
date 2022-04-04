@@ -15,7 +15,7 @@
     "aws-amplify": "^4.3.13",
     "aws-amplify-vue": "^2.1.5",
     "core-js": "^3.21.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "nuxt": "^2.15.8",
     "vue-recaptcha": "^2.0.1",
     "vue-youtube-embed": "^2.2.2"
