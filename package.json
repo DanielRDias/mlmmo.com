@@ -14,7 +14,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "aws-amplify": "^4.3.13",
     "aws-amplify-vue": "^2.1.5",
-    "core-js": "^3.21.1",
+    "core-js": "^3.22.6",
     "moment": "^2.29.1",
     "nuxt": "^2.15.8",
     "vue-recaptcha": "^2.0.1",
