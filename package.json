@@ -12,7 +12,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
-    "aws-amplify": "^4.3.35",
+    "aws-amplify": "^4.3.36",
     "aws-amplify-vue": "^2.1.5",
     "core-js": "^3.25.2",
     "moment": "^2.29.4",
