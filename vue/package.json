@@ -25,7 +25,7 @@
     "vue-router": "^3.5.1",
     "vue-social-sharing": "^3.0.5",
     "vue-youtube-embed": "^2.2.2",
-    "vuetify": "^2.4.4",
+    "vuetify": "^2.6.10",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
